@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="15" version="2.0">
+<workbench progressCount="17" version="2.0">
 <workbenchAdvisor/>
 <window height="768" width="1024" x="35" y="32">
 <fastViewData fastViewLocation="1024"/>
@@ -30,6 +30,7 @@
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
+<part id="3"/>
 </presentation>
 </folder>
 </info>
@@ -38,21 +39,22 @@
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Simulation/src/simulation/SimulationModel.java"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="View.java" partName="View.java" path="/Users/etiennegirot/Desktop/UTC/IA04/Simulation/Implémentation/Workspace/Simulation/src/preSimulationWindow/View.java" title="View.java" tooltip="Simulation/src/preSimulationWindow/View.java" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="View.java" partName="View.java" path="/Users/etiennegirot/Desktop/UTC/IA04/Simulation/Implémentation/Workspace/Simulation/src/preSimulationWindow/View.java" title="View.java" tooltip="Simulation/src/preSimulationWindow/View.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Simulation/src/preSimulationWindow/View.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="1689"/>
 </editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ViewModel.java" partName="ViewModel.java" path="/Users/etiennegirot/Desktop/UTC/IA04/Simulation/Implémentation/Workspace/Simulation/src/preSimulationWindow/ViewModel.java" title="ViewModel.java" tooltip="Simulation/src/preSimulationWindow/ViewModel.java" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ViewModel.java" partName="ViewModel.java" path="/Users/etiennegirot/Desktop/UTC/IA04/Simulation/Implémentation/Workspace/Simulation/src/preSimulationWindow/ViewModel.java" title="ViewModel.java" tooltip="Simulation/src/preSimulationWindow/ViewModel.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Simulation/src/preSimulationWindow/ViewModel.java"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" partName="Main.java" path="/Users/etiennegirot/Desktop/UTC/IA04/Simulation/Implémentation/Workspace/Simulation/src/main/Main.java" title="Main.java" tooltip="Simulation/src/main/Main.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Simulation/src/main/Main.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="12" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
-<expanded>
-<category IMemento.internal.id="Errors (2 items)"/>
-</expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
@@ -96,7 +98,7 @@
 <view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -211,6 +213,8 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Simulation/src/simulation/SimulationModel.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Simulation/src/preSimulationWindow/View.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Simulation/src/preSimulationWindow/ViewModel.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Simulation/src/main/Main.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Simulation/src/preSimulationWindow/View.java"/>
 </editors>
 <item historyLabel="SimulationModel.java" index="0">
 <position info="not_deleted" x="0" y="0"/>
@@ -218,7 +222,13 @@
 <item historyLabel="View.java" index="1">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item active="true" historyLabel="ViewModel.java" index="2">
+<item historyLabel="ViewModel.java" index="2">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Main.java" index="3">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item active="true" historyLabel="View.java" index="4">
 <position info="not_deleted" x="0" y="0"/>
 </item>
 </navigationHistory>
@@ -238,6 +248,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" tooltip="Simulation/src/main/Main.java">
+<persistable path="/Simulation/src/main/Main.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ViewModel.java" tooltip="Simulation/src/preSimulationWindow/ViewModel.java">
 <persistable path="/Simulation/src/preSimulationWindow/ViewModel.java"/>
 </file>

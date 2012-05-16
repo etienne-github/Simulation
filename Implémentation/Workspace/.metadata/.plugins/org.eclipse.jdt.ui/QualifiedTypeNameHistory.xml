@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="simulation.SimulationModel"/>
+<fullyQualifiedTypeName name="preSimulationWindow.ViewModel"/>
+<fullyQualifiedTypeName name="preSimulationWindow.View"/>
+</qualifiedTypeNameHistroy>
