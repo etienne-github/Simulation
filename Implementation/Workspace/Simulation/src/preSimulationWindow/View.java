@@ -54,7 +54,7 @@ public class View extends JFrame {
 
 		setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		setSize(300, 300);
-		setTitle("Paramétrage de la simulation");
+		setTitle("Parametrage de la simulation");
 		viewModel = model;
 
 		flag = false;
@@ -102,12 +102,12 @@ public class View extends JFrame {
 		});
 		wolfNumber = new JTextField();
 		hareNumber = new JTextField();
-		randomNumber = new JButton("Population aléatoire");
+		randomNumber = new JButton("Population aleatoire");
 		randomNumber.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/** C'est le mod�le (ViewModel) qui va effectuer le calcul **/
+				/** C'est le mod�le (ViewModel) qui va effectuer le calcul **/
 				Integer[] array = viewModel.randomAnimals();
 				setWolfNumber(array[0]);
 				setHareNumber(array[1]);
@@ -128,12 +128,12 @@ public class View extends JFrame {
 					JOptionPane.showMessageDialog(null, message, "Attention",
 							JOptionPane.WARNING_MESSAGE);
 				} else {
-					System.out.println("Paramétrage de la simulation terminé");
+					System.out.println("Parametrage de la simulation termine");
 					sendToModel();
 				}
 			}
 		});
-		advancedParamsButton = new JButton("Vue détaillée");
+		advancedParamsButton = new JButton("Vue detaillee");
 		advancedParamsButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -149,7 +149,7 @@ public class View extends JFrame {
 		hareNblabel = new JLabel("Nombre de moutons : ");
 		gridHLabel = new JLabel("Hauteur : ");
 		gridWLabel = new JLabel("Largeur : ");
-		gridComboLabel = new JLabel("Tailles prédéfinies : ");
+		gridComboLabel = new JLabel("Tailles predefinies : ");
 
 		sizePBorder = BorderFactory.createTitledBorder("Taille de la grille");
 		popPBorder = BorderFactory.createTitledBorder("Population");
@@ -260,7 +260,7 @@ public class View extends JFrame {
 		gridHeight.setVisible(false);
 		gridWLabel.setVisible(false);
 		gridWidth.setVisible(false);
-		advancedParamsButton.setText("Vue détaillée");
+		advancedParamsButton.setText("Vue detaillee");
 		flag = false;
 	}
 
