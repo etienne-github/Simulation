@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> cd23f81b12691a9fd420c79ae3ffe3a496ab1fcf
 .DS_Store
 
 *.pydevproject
@@ -25,4 +29,8 @@ local.properties
 .cproject
 
 # PDT-specific
+<<<<<<< HEAD
+.buildpath
+=======
 .buildpath 
+>>>>>>> cd23f81b12691a9fd420c79ae3ffe3a496ab1fcf
