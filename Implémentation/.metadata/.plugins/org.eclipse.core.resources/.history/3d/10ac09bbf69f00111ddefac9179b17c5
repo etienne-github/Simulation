@@ -1,7 +1,0 @@
-package server;
-
-import org.restlet.Restlet;
-
-public class ImageServerApplication extends Restlet {
-
-}
