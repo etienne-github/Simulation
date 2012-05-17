@@ -1,0 +1,19 @@
+-Service Rest (caractéristiques sur les espèces), Maxime s'en occupe.
+
+-Interface de sélection des caractéristiques de la simulation (taille, température, nb d'individus,...), le choix des individus est généré à partir du service Rest (la fenêtre "pioche" dans le service Rest pour lister les espèces).
+
+-Penser à utiliser des inspecteurs (sur la fin du projet), réfléchir aux caractéristiques de la simulation qu'il serait intéressant de mettre en avant.
+
+-Nous partons sur deux espèces : loups et lapins
+
+Caractéristiques retenues pour les espèces :
+    *odorat ->pour se déplacer vers la nourriture
+    *vue ->permet d'attaquer si un lapin est en vue
+    *attaquer->coefficient de réussite (quand le lapin survit, il se cache pendant une journée)
+    *age
+    *énergie->poids de viande mangé dans la journée (5kgs=100%)
+    *distance de déplacement
+    *se reproduire ->coefficient de réussite
+    *durée de gestation
+    *durée de vie moyenne
+    *poids

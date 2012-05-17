@@ -1,0 +1,27 @@
+package client;
+
+import java.net.URI;
+
+public class RestFacilities {
+
+	public String getSpeciesDescription(String url) {
+		URI uri; 
+		String s = null;
+		try {
+			uri = new URI(url);
+			HttpGet httpget = new HttpGet(uri);
+			httpget.addHeader("Accept", "text/json");
+			HttpResponse res = client.execute(httpget);
+			HttpEntity entity = res.getEntity();
+			if (res.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
+				s = EntityUtils.toString(entity);
+			}
+				
+		} 
+		catch (Exception e) {
+			System.err.println("Erreur lors de l'obtention de la description");
+		}
+		return s;
+		}
+
+}

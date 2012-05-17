@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Supprimer la ressource &apos;Copie de Service REST&apos;" deleteContents="true" description="Supprimer la ressource &apos;Copie de Service REST&apos;" element1="/Copie de Service REST" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1337242113685"/>
+</session>

@@ -1,0 +1,120 @@
+package server;
+
+import server.SpeciesDescription;
+
+import java.io.File;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.codehaus.jackson.map.ObjectMapper;
+import org.restlet.data.Form;
+import org.restlet.data.MediaType;
+import org.restlet.data.Status;
+import org.restlet.representation.FileRepresentation;
+import org.restlet.representation.Representation;
+import org.restlet.representation.StringRepresentation;
+import org.restlet.resource.Get;
+import org.restlet.resource.Post;
+import org.restlet.resource.ServerResource;
+
+public class SpeciesServiceResource extends ServerResource {
+	
+	private HashMap<String,SpeciesDescription> docs;
+
+	public void initialise()
+	{
+		docs = new HashMap<String,SpeciesDescription>();
+		SpeciesDescription loup =  new SpeciesDescription(
+				"Le loup est une espèce fort sympatique vivant dans les forêts", 
+				2.5f, //odorat
+				3.1f, //vue
+				10.5f, //attaquer
+				8,	//ageMin
+				12, //ageMax
+				5.0f, //energie
+				25.5f, //distanceDeplacement
+				3.25f, //seReproduire
+				0.34f, // gestation
+				8.0f, // poidsMin
+				12.0f); //poidsMax)
+		
+		docs.put("Loup", loup);
+		System.out.println("Constructeur appelé");
+	}
+	@Get
+	public void retrieve() {
+		// Récupérer l’attribut "id"
+		Map<String,Object> attributes = getRequest().getAttributes();
+		String speciesId = (String) attributes.get("id");
+		System.out.println("L'id récupéré est : "+ speciesId);
+		docs.isEmpty();
+		// Récupérer l’attribut header "Accept"
+		Form form = (Form) attributes.get("org.restlet.http.headers");
+		String s = form.getValues("Accept");
+		
+		// si l’attribut id n’existe pas erreur
+		if (!docs.containsKey(speciesId)) {
+			error(speciesId);
+		return;
+		}
+		
+		SpeciesDescription speciesDoc = docs.get(speciesId);
+		
+		// si Accept = species/text
+		if (s.equals("species/text")) {
+			
+		//retourner une FileRepresentation
+		FileRepresentation entity =	new FileRepresentation(
+				new File(speciesDoc.getDescriptif()),
+				MediaType.APPLICATION_ALL);
+				getResponse().setEntity(entity);
+				//mettre le Status à SUCCESS_OK
+				getResponse().setStatus(Status.SUCCESS_OK);
+		return;
+		}
+
+		// si Accept = text/json
+		if (s.equals("text/json")){
+		
+			ObjectMapper om = new ObjectMapper();
+			StringWriter sw = new StringWriter();
+			try {
+			om.writeValue(sw,speciesDoc);
+			} 
+			catch (Exception e) {
+				System.err.println("Erreur écriture Json");
+				}
+			getResponse().setEntity(
+					//retourner une StringRepresentation
+					new StringRepresentation(
+					sw.toString(),MediaType.TEXT_PLAIN));
+					//mettre le Status à SUCCESS_OK
+					getResponse().setStatus(Status.SUCCESS_OK);
+
+		}
+		
+
+
+
+	}
+	
+	@Post
+	public void update(Representation entity) {
+	
+	}
+	
+	
+	private void error(String speciesId) {
+		getResponse().setEntity(
+		new StringRepresentation(
+				"{\"status\" : \"Parameter Error\"}",
+				MediaType.TEXT_PLAIN));
+				getResponse().setStatus(
+				Status.CLIENT_ERROR_BAD_REQUEST);
+		}
+
+
+
+}
+

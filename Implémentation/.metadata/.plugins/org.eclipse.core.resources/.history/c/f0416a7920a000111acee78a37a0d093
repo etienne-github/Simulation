@@ -1,0 +1,11 @@
+package client;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		RestFacilities servMes = new RestFacilities();
+		servMes.getSpeciesDescription("Loup");
+
+	}
+
+}

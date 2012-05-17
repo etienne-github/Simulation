@@ -1,0 +1,1628 @@
+!SESSION 2012-05-15 15:49:46.685 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.6.0_31
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=fr_FR
+Framework arguments:  -keyring /Users/etiennegirot/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/etiennegirot/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2012-05-15 15:50:05.821
+!MESSAGE System property http.nonProxyHosts has been set to localhost|*.localhost|127.0.0.1|8|*.8 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2012-05-15 15:57:28.873 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.6.0_31
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=fr_FR
+Framework arguments:  -keyring /Users/etiennegirot/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/etiennegirot/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2012-05-15 15:57:41.057
+!MESSAGE System property http.nonProxyHosts has been set to localhost|*.localhost|127.0.0.1|8|*.8 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2012-05-17 09:37:39.155 -----------------------------------------------
+eclipse.buildId=I20110613-1736
+java.version=1.6.0_23
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=fr_FR
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.core.resources 4 567 2012-05-17 09:37:56.321
+!MESSAGE L'espace de travail a été restauré mais des erreurs se sont produites.
+!SUBENTRY 1 org.eclipse.core.resources 4 567 2012-05-17 09:37:56.321
+!MESSAGE Impossible de lire des métadonnées pour 'Simulation'.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Le fichier de description de projet (.project) pour 'Simulation' est manquant.  Ce fichier contient des informations importantes sur le projet.  Le projet ne fonctionnera pas correctement tant que ce fichier n'aura pas été restauré.
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:851)
+	at org.eclipse.core.internal.resources.SaveManager.restoreMetaInfo(SaveManager.java:873)
+	at org.eclipse.core.internal.resources.SaveManager.restoreMetaInfo(SaveManager.java:853)
+	at org.eclipse.core.internal.resources.SaveManager.restore(SaveManager.java:702)
+	at org.eclipse.core.internal.resources.SaveManager.startup(SaveManager.java:1527)
+	at org.eclipse.core.internal.resources.Workspace.startup(Workspace.java:2503)
+	at org.eclipse.core.internal.resources.Workspace.open(Workspace.java:2251)
+	at org.eclipse.core.resources.ResourcesPlugin.start(ResourcesPlugin.java:439)
+	at org.eclipse.osgi.framework.internal.core.BundleContextImpl$1.run(BundleContextImpl.java:711)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.eclipse.osgi.framework.internal.core.BundleContextImpl.startActivator(BundleContextImpl.java:702)
+	at org.eclipse.osgi.framework.internal.core.BundleContextImpl.start(BundleContextImpl.java:683)
+	at org.eclipse.osgi.framework.internal.core.BundleHost.startWorker(BundleHost.java:381)
+	at org.eclipse.osgi.framework.internal.core.AbstractBundle.start(AbstractBundle.java:299)
+	at org.eclipse.osgi.framework.util.SecureAction.start(SecureAction.java:440)
+	at org.eclipse.osgi.internal.loader.BundleLoader.setLazyTrigger(BundleLoader.java:268)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseLazyStarter.postFindLocalClass(EclipseLazyStarter.java:107)
+	at org.eclipse.osgi.baseadaptor.loader.ClasspathManager.findLocalClass(ClasspathManager.java:462)
+	at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.findLocalClass(DefaultClassLoader.java:216)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findLocalClass(BundleLoader.java:400)
+	at org.eclipse.osgi.internal.loader.SingleSourcePackage.loadClass(SingleSourcePackage.java:35)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:473)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:429)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:417)
+	at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.loadClass(DefaultClassLoader.java:107)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:266)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:344)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:622)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:577)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1410)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1386)
+!SUBENTRY 2 org.eclipse.core.resources 4 567 2012-05-17 09:37:56.322
+!MESSAGE Le fichier de description de projet (.project) pour 'Simulation' est manquant.  Ce fichier contient des informations importantes sur le projet.  Le projet ne fonctionnera pas correctement tant que ce fichier n'aura pas été restauré.
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.517
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.517
+!MESSAGE Conflict for 'org.eclipse.ui.newWizard':
+HandlerActivation(commandId=org.eclipse.ui.newWizard,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$New@2c8fcc7b,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.newWizard,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$New,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.526
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.526
+!MESSAGE Conflict for 'org.eclipse.ui.file.import':
+HandlerActivation(commandId=org.eclipse.ui.file.import,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$Import@7be536d6,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.import,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$Import,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.527
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.527
+!MESSAGE Conflict for 'org.eclipse.ui.file.export':
+HandlerActivation(commandId=org.eclipse.ui.file.export,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$Export,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.export,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$Export@56baf589,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.527
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.527
+!MESSAGE Conflict for 'org.eclipse.ui.file.properties':
+HandlerActivation(commandId=org.eclipse.ui.file.properties,
+	handler=org.eclipse.ui.internal.handlers.PropertyDialogHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.properties,
+	handler=org.eclipse.ui.internal.handlers.PropertyDialogHandler@47e9d9b1,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.528
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.528
+!MESSAGE Conflict for 'org.eclipse.ui.file.exit':
+HandlerActivation(commandId=org.eclipse.ui.file.exit,
+	handler=org.eclipse.ui.internal.handlers.QuitHandler@475a07bf,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.exit,
+	handler=org.eclipse.ui.internal.handlers.QuitHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.528
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.528
+!MESSAGE Conflict for 'org.eclipse.ui.window.switchToEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.switchToEditor,
+	handler=org.eclipse.ui.internal.WorkbenchEditorsHandler@57f7cdc7,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.switchToEditor,
+	handler=org.eclipse.ui.internal.WorkbenchEditorsHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.529
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.529
+!MESSAGE Conflict for 'org.eclipse.ui.window.minimizePart':
+HandlerActivation(commandId=org.eclipse.ui.window.minimizePart,
+	handler=org.eclipse.ui.internal.handlers.MinimizePartHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.minimizePart,
+	handler=org.eclipse.ui.internal.handlers.MinimizePartHandler@b083717,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.529
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.530
+!MESSAGE Conflict for 'org.eclipse.ui.file.closePart':
+HandlerActivation(commandId=org.eclipse.ui.file.closePart,
+	handler=org.eclipse.ui.internal.handlers.ClosePartHandler@68c12474,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.closePart,
+	handler=org.eclipse.ui.internal.handlers.ClosePartHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.530
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.530
+!MESSAGE Conflict for 'org.eclipse.ui.window.preferences':
+HandlerActivation(commandId=org.eclipse.ui.window.preferences,
+	handler=org.eclipse.ui.internal.handlers.ShowPreferencePageHandler@6e490342,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.preferences,
+	handler=org.eclipse.ui.internal.handlers.ShowPreferencePageHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.530
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.531
+!MESSAGE Conflict for 'org.eclipse.ui.views.showView':
+HandlerActivation(commandId=org.eclipse.ui.views.showView,
+	handler=org.eclipse.ui.handlers.ShowViewHandler@71971eb3,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.views.showView,
+	handler=org.eclipse.ui.handlers.ShowViewHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.531
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.531
+!MESSAGE Conflict for 'org.eclipse.ui.help.displayHelp':
+HandlerActivation(commandId=org.eclipse.ui.help.displayHelp,
+	handler=org.eclipse.ui.internal.handlers.DisplayHelpHandler@3982a033,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.help.displayHelp,
+	handler=org.eclipse.ui.internal.handlers.DisplayHelpHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.532
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.532
+!MESSAGE Conflict for 'org.eclipse.ui.perspectives.showPerspective':
+HandlerActivation(commandId=org.eclipse.ui.perspectives.showPerspective,
+	handler=org.eclipse.ui.handlers.ShowPerspectiveHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.perspectives.showPerspective,
+	handler=org.eclipse.ui.handlers.ShowPerspectiveHandler@53458dcb,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.532
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.532
+!MESSAGE Conflict for 'org.eclipse.ui.navigate.showIn':
+HandlerActivation(commandId=org.eclipse.ui.navigate.showIn,
+	handler=org.eclipse.ui.internal.ShowInHandler@c423d4f,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.navigate.showIn,
+	handler=org.eclipse.ui.internal.ShowInHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.653
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.653
+!MESSAGE Conflict for 'org.eclipse.ui.window.activateEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.activateEditor,
+	handler=org.eclipse.ui.internal.ActivateEditorHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.activateEditor,
+	handler=org.eclipse.ui.internal.ActivateEditorHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.653
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.654
+!MESSAGE Conflict for 'org.eclipse.ui.window.showSystemMenu':
+HandlerActivation(commandId=org.eclipse.ui.window.showSystemMenu,
+	handler=org.eclipse.ui.internal.ShowPartPaneMenuHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.showSystemMenu,
+	handler=org.eclipse.ui.internal.ShowPartPaneMenuHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.654
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.654
+!MESSAGE Conflict for 'org.eclipse.ui.window.showViewMenu':
+HandlerActivation(commandId=org.eclipse.ui.window.showViewMenu,
+	handler=org.eclipse.ui.internal.ShowViewMenuHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.showViewMenu,
+	handler=org.eclipse.ui.internal.ShowViewMenuHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.655
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.655
+!MESSAGE Conflict for 'org.eclipse.ui.file.close':
+HandlerActivation(commandId=org.eclipse.ui.file.close,
+	handler=org.eclipse.ui.internal.CloseEditorHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.close,
+	handler=org.eclipse.ui.internal.CloseEditorHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.655
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.655
+!MESSAGE Conflict for 'org.eclipse.ui.file.closeAll':
+HandlerActivation(commandId=org.eclipse.ui.file.closeAll,
+	handler=org.eclipse.ui.internal.CloseAllHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.closeAll,
+	handler=org.eclipse.ui.internal.CloseAllHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.656
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.656
+!MESSAGE Conflict for 'org.eclipse.ui.file.closeOthers':
+HandlerActivation(commandId=org.eclipse.ui.file.closeOthers,
+	handler=org.eclipse.ui.internal.CloseOthersHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.closeOthers,
+	handler=org.eclipse.ui.internal.CloseOthersHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.657
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.657
+!MESSAGE Conflict for 'org.eclipse.ui.ToggleCoolbarAction':
+HandlerActivation(commandId=org.eclipse.ui.ToggleCoolbarAction,
+	handler=org.eclipse.ui.internal.handlers.ToggleCoolbarHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.ToggleCoolbarAction,
+	handler=org.eclipse.ui.internal.handlers.ToggleCoolbarHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.657
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.657
+!MESSAGE Conflict for 'org.eclipse.ui.window.nextEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.nextEditor,
+	handler=org.eclipse.ui.internal.CycleEditorHandler:true,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.nextEditor,
+	handler=org.eclipse.ui.internal.CycleEditorHandler:true,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.658
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.658
+!MESSAGE Conflict for 'org.eclipse.ui.window.previousEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.previousEditor,
+	handler=org.eclipse.ui.internal.CycleEditorHandler:false,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.previousEditor,
+	handler=org.eclipse.ui.internal.CycleEditorHandler:false,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.659
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.659
+!MESSAGE Conflict for 'org.eclipse.ui.window.nextView':
+HandlerActivation(commandId=org.eclipse.ui.window.nextView,
+	handler=org.eclipse.ui.internal.CycleViewHandler:true,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.nextView,
+	handler=org.eclipse.ui.internal.CycleViewHandler:true,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.659
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.659
+!MESSAGE Conflict for 'org.eclipse.ui.window.previousView':
+HandlerActivation(commandId=org.eclipse.ui.window.previousView,
+	handler=org.eclipse.ui.internal.CycleViewHandler:false,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.previousView,
+	handler=org.eclipse.ui.internal.CycleViewHandler:false,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.660
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.660
+!MESSAGE Conflict for 'org.eclipse.ui.window.nextPerspective':
+HandlerActivation(commandId=org.eclipse.ui.window.nextPerspective,
+	handler=org.eclipse.ui.internal.CyclePerspectiveHandler:true,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.nextPerspective,
+	handler=org.eclipse.ui.internal.CyclePerspectiveHandler:true,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.661
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.661
+!MESSAGE Conflict for 'org.eclipse.ui.window.previousPerspective':
+HandlerActivation(commandId=org.eclipse.ui.window.previousPerspective,
+	handler=org.eclipse.ui.internal.CyclePerspectiveHandler:false,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.previousPerspective,
+	handler=org.eclipse.ui.internal.CyclePerspectiveHandler:false,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.662
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.662
+!MESSAGE Conflict for 'org.eclipse.ui.window.closeAllPerspectives':
+HandlerActivation(commandId=org.eclipse.ui.window.closeAllPerspectives,
+	handler=org.eclipse.ui.internal.handlers.CloseAllPerspectivesHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.closeAllPerspectives,
+	handler=org.eclipse.ui.internal.handlers.CloseAllPerspectivesHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.663
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.663
+!MESSAGE Conflict for 'org.eclipse.ui.window.customizePerspective':
+HandlerActivation(commandId=org.eclipse.ui.window.customizePerspective,
+	handler=org.eclipse.ui.internal.handlers.EditActionSetsHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.customizePerspective,
+	handler=org.eclipse.ui.internal.handlers.EditActionSetsHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.663
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.663
+!MESSAGE Conflict for 'org.eclipse.ui.window.closePerspective':
+HandlerActivation(commandId=org.eclipse.ui.window.closePerspective,
+	handler=org.eclipse.ui.internal.handlers.ClosePerspectiveHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.closePerspective,
+	handler=org.eclipse.ui.internal.handlers.ClosePerspectiveHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.664
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.664
+!MESSAGE Conflict for 'org.eclipse.ui.window.openEditorDropDown':
+HandlerActivation(commandId=org.eclipse.ui.window.openEditorDropDown,
+	handler=org.eclipse.ui.internal.WorkbookEditorsHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.openEditorDropDown,
+	handler=org.eclipse.ui.internal.WorkbookEditorsHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.665
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.665
+!MESSAGE Conflict for 'org.eclipse.ui.window.newEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.newEditor,
+	handler=org.eclipse.ui.internal.handlers.NewEditorHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.newEditor,
+	handler=org.eclipse.ui.internal.handlers.NewEditorHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.666
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:37:58.666
+!MESSAGE Conflict for 'org.eclipse.ui.window.maximizePart':
+HandlerActivation(commandId=org.eclipse.ui.window.maximizePart,
+	handler=org.eclipse.ui.internal.handlers.MaximizePartHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.maximizePart,
+	handler=org.eclipse.ui.internal.handlers.MaximizePartHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui 4 4 2012-05-17 09:37:59.607
+!MESSAGE Impossible de créer la fabrique de couleurs
+
+!ENTRY org.eclipse.ui.workbench 4 0 2012-05-17 09:37:59.615
+!MESSAGE org.eclipse.ui.internal.themes.RGBContrastFactory cannot be cast to org.eclipse.ui.themes.IColorFactory
+!STACK 0
+java.lang.ClassCastException: org.eclipse.ui.internal.themes.RGBContrastFactory cannot be cast to org.eclipse.ui.themes.IColorFactory
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.checkColorFactory(ThemeRegistryReader.java:405)
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.getColorValue(ThemeRegistryReader.java:183)
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.readColor(ThemeRegistryReader.java:139)
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.readElement(ThemeRegistryReader.java:239)
+	at org.eclipse.ui.internal.registry.RegistryReader.readElements(RegistryReader.java:144)
+	at org.eclipse.ui.internal.registry.RegistryReader.readExtension(RegistryReader.java:155)
+	at org.eclipse.ui.internal.registry.RegistryReader.readRegistry(RegistryReader.java:176)
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.readThemes(ThemeRegistryReader.java:452)
+	at org.eclipse.ui.internal.WorkbenchPlugin.getThemeRegistry(WorkbenchPlugin.java:698)
+	at org.eclipse.ui.internal.Workbench$38.runWithException(Workbench.java:1691)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:135)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3563)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3212)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2494)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:674)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:667)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:123)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:344)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:622)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:577)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1410)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1386)
+
+!ENTRY org.eclipse.ui 4 4 2012-05-17 09:37:59.618
+!MESSAGE Plugin org.eclipse.rap.ui, extension org.eclipse.ui.themes, id org.eclipse.ui.workbench.INACTIVE_TAB_BG_START: Une seule valeur ou defaultMapping doit être définie.
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:38:00.707
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.CurrentSelectionSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:38:00.710
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.ActiveShellSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:38:00.712
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.ActivePartSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:38:00.714
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.ActionSetSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:38:00.724
+!MESSAGE Source Provider 'org.eclipse.ui.internal.menus.FocusControlSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:38:00.726
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.MenuSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:38:00.732
+!MESSAGE Source Provider 'org.eclipse.ui.internal.contexts.ActiveContextSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 4 2012-05-17 09:38:04.730
+!MESSAGE La partie existe déjà dans la Page : org.eclipse.ui.internal.introview.
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.439
+!MESSAGE NLS unused message: CEditorPreferencePage_ContentAssistPage_showCamelCaseMatches in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.439
+!MESSAGE NLS unused message: CEditorColoringConfigurationBlock_coloring_category_doxygen in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.440
+!MESSAGE NLS unused message: BuildLogPreferencePage_Browse in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.442
+!MESSAGE NLS unused message: CPluginPreferencePage_refactoring_auto_save in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.442
+!MESSAGE NLS unused message: CPluginPreferencePage_refactoring_lightweight in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.442
+!MESSAGE NLS unused message: CodeTemplateBlock_class_body_label in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.443
+!MESSAGE NLS unused message: NameStyleBlock_code_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.443
+!MESSAGE NLS unused message: NameStyleBlock_files_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.443
+!MESSAGE NLS unused message: NameStyleBlock_constant_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.443
+!MESSAGE NLS unused message: NameStyleBlock_variable_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.443
+!MESSAGE NLS unused message: NameStyleBlock_cpp_source_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.443
+!MESSAGE NLS unused message: NameStyleBlock_cpp_header_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.444
+!MESSAGE NLS unused message: NameStyleBlock_capitalization_original in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.444
+!MESSAGE NLS unused message: NameStyleBlock_capitalization_upper_case in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.444
+!MESSAGE NLS unused message: NameStyleBlock_capitalization_lower_case in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.444
+!MESSAGE NLS unused message: NameStyleBlock_prefix_label in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:38:09.444
+!MESSAGE NLS unused message: NameStyleBlock_preview_label in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.core.net 1 0 2012-05-17 09:38:12.148
+!MESSAGE System property http.proxyHost is not set but should be proxyweb.utc.fr.
+
+!ENTRY org.eclipse.core.net 1 0 2012-05-17 09:38:12.148
+!MESSAGE System property http.proxyPort is not set but should be 3128.
+!SESSION 2012-05-17 09:38:41.216 -----------------------------------------------
+eclipse.buildId=I20110613-1736
+java.version=1.6.0_23
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=fr_FR
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:11.999
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:11.999
+!MESSAGE Conflict for 'org.eclipse.ui.newWizard':
+HandlerActivation(commandId=org.eclipse.ui.newWizard,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$New@658782a7,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.newWizard,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$New,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.003
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.004
+!MESSAGE Conflict for 'org.eclipse.ui.file.import':
+HandlerActivation(commandId=org.eclipse.ui.file.import,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$Import@7e543cb1,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.import,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$Import,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.004
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.004
+!MESSAGE Conflict for 'org.eclipse.ui.file.export':
+HandlerActivation(commandId=org.eclipse.ui.file.export,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$Export,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.export,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$Export@5029d294,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.004
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.004
+!MESSAGE Conflict for 'org.eclipse.ui.file.properties':
+HandlerActivation(commandId=org.eclipse.ui.file.properties,
+	handler=org.eclipse.ui.internal.handlers.PropertyDialogHandler@514d556e,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.properties,
+	handler=org.eclipse.ui.internal.handlers.PropertyDialogHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.005
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.005
+!MESSAGE Conflict for 'org.eclipse.ui.file.exit':
+HandlerActivation(commandId=org.eclipse.ui.file.exit,
+	handler=org.eclipse.ui.internal.handlers.QuitHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.exit,
+	handler=org.eclipse.ui.internal.handlers.QuitHandler@6f03fcaa,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.005
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.005
+!MESSAGE Conflict for 'org.eclipse.ui.window.switchToEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.switchToEditor,
+	handler=org.eclipse.ui.internal.WorkbenchEditorsHandler@798baf36,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.switchToEditor,
+	handler=org.eclipse.ui.internal.WorkbenchEditorsHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.005
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.005
+!MESSAGE Conflict for 'org.eclipse.ui.window.minimizePart':
+HandlerActivation(commandId=org.eclipse.ui.window.minimizePart,
+	handler=org.eclipse.ui.internal.handlers.MinimizePartHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.minimizePart,
+	handler=org.eclipse.ui.internal.handlers.MinimizePartHandler@3c90fa05,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.006
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.006
+!MESSAGE Conflict for 'org.eclipse.ui.file.closePart':
+HandlerActivation(commandId=org.eclipse.ui.file.closePart,
+	handler=org.eclipse.ui.internal.handlers.ClosePartHandler@635eed0,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.closePart,
+	handler=org.eclipse.ui.internal.handlers.ClosePartHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.006
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.006
+!MESSAGE Conflict for 'org.eclipse.ui.window.preferences':
+HandlerActivation(commandId=org.eclipse.ui.window.preferences,
+	handler=org.eclipse.ui.internal.handlers.ShowPreferencePageHandler@3b8c8aea,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.preferences,
+	handler=org.eclipse.ui.internal.handlers.ShowPreferencePageHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.006
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.006
+!MESSAGE Conflict for 'org.eclipse.ui.views.showView':
+HandlerActivation(commandId=org.eclipse.ui.views.showView,
+	handler=org.eclipse.ui.handlers.ShowViewHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.views.showView,
+	handler=org.eclipse.ui.handlers.ShowViewHandler@21bbd3e2,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.007
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.007
+!MESSAGE Conflict for 'org.eclipse.ui.help.displayHelp':
+HandlerActivation(commandId=org.eclipse.ui.help.displayHelp,
+	handler=org.eclipse.ui.internal.handlers.DisplayHelpHandler@1a9db992,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.help.displayHelp,
+	handler=org.eclipse.ui.internal.handlers.DisplayHelpHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.007
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.007
+!MESSAGE Conflict for 'org.eclipse.ui.perspectives.showPerspective':
+HandlerActivation(commandId=org.eclipse.ui.perspectives.showPerspective,
+	handler=org.eclipse.ui.handlers.ShowPerspectiveHandler@3dae160,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.perspectives.showPerspective,
+	handler=org.eclipse.ui.handlers.ShowPerspectiveHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.007
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.007
+!MESSAGE Conflict for 'org.eclipse.ui.navigate.showIn':
+HandlerActivation(commandId=org.eclipse.ui.navigate.showIn,
+	handler=org.eclipse.ui.internal.ShowInHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.navigate.showIn,
+	handler=org.eclipse.ui.internal.ShowInHandler@727f3b8a,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.033
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.033
+!MESSAGE Conflict for 'org.eclipse.ui.window.activateEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.activateEditor,
+	handler=org.eclipse.ui.internal.ActivateEditorHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.activateEditor,
+	handler=org.eclipse.ui.internal.ActivateEditorHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.034
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.034
+!MESSAGE Conflict for 'org.eclipse.ui.window.showSystemMenu':
+HandlerActivation(commandId=org.eclipse.ui.window.showSystemMenu,
+	handler=org.eclipse.ui.internal.ShowPartPaneMenuHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.showSystemMenu,
+	handler=org.eclipse.ui.internal.ShowPartPaneMenuHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.034
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.034
+!MESSAGE Conflict for 'org.eclipse.ui.window.showViewMenu':
+HandlerActivation(commandId=org.eclipse.ui.window.showViewMenu,
+	handler=org.eclipse.ui.internal.ShowViewMenuHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.showViewMenu,
+	handler=org.eclipse.ui.internal.ShowViewMenuHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.035
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.035
+!MESSAGE Conflict for 'org.eclipse.ui.file.close':
+HandlerActivation(commandId=org.eclipse.ui.file.close,
+	handler=org.eclipse.ui.internal.CloseEditorHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.close,
+	handler=org.eclipse.ui.internal.CloseEditorHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.035
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.035
+!MESSAGE Conflict for 'org.eclipse.ui.file.closeAll':
+HandlerActivation(commandId=org.eclipse.ui.file.closeAll,
+	handler=org.eclipse.ui.internal.CloseAllHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.closeAll,
+	handler=org.eclipse.ui.internal.CloseAllHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.035
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.035
+!MESSAGE Conflict for 'org.eclipse.ui.file.closeOthers':
+HandlerActivation(commandId=org.eclipse.ui.file.closeOthers,
+	handler=org.eclipse.ui.internal.CloseOthersHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.closeOthers,
+	handler=org.eclipse.ui.internal.CloseOthersHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.036
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.036
+!MESSAGE Conflict for 'org.eclipse.ui.ToggleCoolbarAction':
+HandlerActivation(commandId=org.eclipse.ui.ToggleCoolbarAction,
+	handler=org.eclipse.ui.internal.handlers.ToggleCoolbarHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.ToggleCoolbarAction,
+	handler=org.eclipse.ui.internal.handlers.ToggleCoolbarHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.036
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.036
+!MESSAGE Conflict for 'org.eclipse.ui.window.nextEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.nextEditor,
+	handler=org.eclipse.ui.internal.CycleEditorHandler:true,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.nextEditor,
+	handler=org.eclipse.ui.internal.CycleEditorHandler:true,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.037
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.037
+!MESSAGE Conflict for 'org.eclipse.ui.window.previousEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.previousEditor,
+	handler=org.eclipse.ui.internal.CycleEditorHandler:false,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.previousEditor,
+	handler=org.eclipse.ui.internal.CycleEditorHandler:false,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.037
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.037
+!MESSAGE Conflict for 'org.eclipse.ui.window.nextView':
+HandlerActivation(commandId=org.eclipse.ui.window.nextView,
+	handler=org.eclipse.ui.internal.CycleViewHandler:true,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.nextView,
+	handler=org.eclipse.ui.internal.CycleViewHandler:true,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.037
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.037
+!MESSAGE Conflict for 'org.eclipse.ui.window.previousView':
+HandlerActivation(commandId=org.eclipse.ui.window.previousView,
+	handler=org.eclipse.ui.internal.CycleViewHandler:false,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.previousView,
+	handler=org.eclipse.ui.internal.CycleViewHandler:false,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.038
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.038
+!MESSAGE Conflict for 'org.eclipse.ui.window.nextPerspective':
+HandlerActivation(commandId=org.eclipse.ui.window.nextPerspective,
+	handler=org.eclipse.ui.internal.CyclePerspectiveHandler:true,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.nextPerspective,
+	handler=org.eclipse.ui.internal.CyclePerspectiveHandler:true,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.038
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.038
+!MESSAGE Conflict for 'org.eclipse.ui.window.previousPerspective':
+HandlerActivation(commandId=org.eclipse.ui.window.previousPerspective,
+	handler=org.eclipse.ui.internal.CyclePerspectiveHandler:false,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.previousPerspective,
+	handler=org.eclipse.ui.internal.CyclePerspectiveHandler:false,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.039
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.039
+!MESSAGE Conflict for 'org.eclipse.ui.window.closeAllPerspectives':
+HandlerActivation(commandId=org.eclipse.ui.window.closeAllPerspectives,
+	handler=org.eclipse.ui.internal.handlers.CloseAllPerspectivesHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.closeAllPerspectives,
+	handler=org.eclipse.ui.internal.handlers.CloseAllPerspectivesHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.039
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.039
+!MESSAGE Conflict for 'org.eclipse.ui.window.customizePerspective':
+HandlerActivation(commandId=org.eclipse.ui.window.customizePerspective,
+	handler=org.eclipse.ui.internal.handlers.EditActionSetsHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.customizePerspective,
+	handler=org.eclipse.ui.internal.handlers.EditActionSetsHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.040
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.040
+!MESSAGE Conflict for 'org.eclipse.ui.window.closePerspective':
+HandlerActivation(commandId=org.eclipse.ui.window.closePerspective,
+	handler=org.eclipse.ui.internal.handlers.ClosePerspectiveHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.closePerspective,
+	handler=org.eclipse.ui.internal.handlers.ClosePerspectiveHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.040
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.040
+!MESSAGE Conflict for 'org.eclipse.ui.window.openEditorDropDown':
+HandlerActivation(commandId=org.eclipse.ui.window.openEditorDropDown,
+	handler=org.eclipse.ui.internal.WorkbookEditorsHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.openEditorDropDown,
+	handler=org.eclipse.ui.internal.WorkbookEditorsHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.041
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.041
+!MESSAGE Conflict for 'org.eclipse.ui.window.newEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.newEditor,
+	handler=org.eclipse.ui.internal.handlers.NewEditorHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.newEditor,
+	handler=org.eclipse.ui.internal.handlers.NewEditorHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.041
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:39:12.041
+!MESSAGE Conflict for 'org.eclipse.ui.window.maximizePart':
+HandlerActivation(commandId=org.eclipse.ui.window.maximizePart,
+	handler=org.eclipse.ui.internal.handlers.MaximizePartHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.maximizePart,
+	handler=org.eclipse.ui.internal.handlers.MaximizePartHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui 4 4 2012-05-17 09:39:12.134
+!MESSAGE Impossible de créer la fabrique de couleurs
+
+!ENTRY org.eclipse.ui.workbench 4 0 2012-05-17 09:39:12.134
+!MESSAGE org.eclipse.ui.internal.themes.RGBContrastFactory cannot be cast to org.eclipse.ui.themes.IColorFactory
+!STACK 0
+java.lang.ClassCastException: org.eclipse.ui.internal.themes.RGBContrastFactory cannot be cast to org.eclipse.ui.themes.IColorFactory
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.checkColorFactory(ThemeRegistryReader.java:405)
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.getColorValue(ThemeRegistryReader.java:183)
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.readColor(ThemeRegistryReader.java:139)
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.readElement(ThemeRegistryReader.java:239)
+	at org.eclipse.ui.internal.registry.RegistryReader.readElements(RegistryReader.java:144)
+	at org.eclipse.ui.internal.registry.RegistryReader.readExtension(RegistryReader.java:155)
+	at org.eclipse.ui.internal.registry.RegistryReader.readRegistry(RegistryReader.java:176)
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.readThemes(ThemeRegistryReader.java:452)
+	at org.eclipse.ui.internal.WorkbenchPlugin.getThemeRegistry(WorkbenchPlugin.java:698)
+	at org.eclipse.ui.internal.Workbench$38.runWithException(Workbench.java:1691)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:135)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3563)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3212)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2494)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:674)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:667)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:123)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:344)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:622)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:577)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1410)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1386)
+
+!ENTRY org.eclipse.ui 4 4 2012-05-17 09:39:12.135
+!MESSAGE Plugin org.eclipse.rap.ui, extension org.eclipse.ui.themes, id org.eclipse.ui.workbench.INACTIVE_TAB_BG_START: Une seule valeur ou defaultMapping doit être définie.
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:39:12.785
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.CurrentSelectionSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:39:12.790
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.ActiveShellSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:39:12.793
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.ActivePartSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:39:12.795
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.ActionSetSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:39:12.797
+!MESSAGE Source Provider 'org.eclipse.ui.internal.menus.FocusControlSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:39:12.798
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.MenuSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:39:12.799
+!MESSAGE Source Provider 'org.eclipse.ui.internal.contexts.ActiveContextSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.017
+!MESSAGE NLS unused message: CEditorPreferencePage_ContentAssistPage_showCamelCaseMatches in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.018
+!MESSAGE NLS unused message: CEditorColoringConfigurationBlock_coloring_category_doxygen in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.020
+!MESSAGE NLS unused message: BuildLogPreferencePage_Browse in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.023
+!MESSAGE NLS unused message: CPluginPreferencePage_refactoring_auto_save in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.024
+!MESSAGE NLS unused message: CPluginPreferencePage_refactoring_lightweight in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.024
+!MESSAGE NLS unused message: CodeTemplateBlock_class_body_label in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.025
+!MESSAGE NLS unused message: NameStyleBlock_code_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.026
+!MESSAGE NLS unused message: NameStyleBlock_files_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.026
+!MESSAGE NLS unused message: NameStyleBlock_constant_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.026
+!MESSAGE NLS unused message: NameStyleBlock_variable_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.026
+!MESSAGE NLS unused message: NameStyleBlock_cpp_source_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.027
+!MESSAGE NLS unused message: NameStyleBlock_cpp_header_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.027
+!MESSAGE NLS unused message: NameStyleBlock_capitalization_original in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.027
+!MESSAGE NLS unused message: NameStyleBlock_capitalization_upper_case in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.027
+!MESSAGE NLS unused message: NameStyleBlock_capitalization_lower_case in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.027
+!MESSAGE NLS unused message: NameStyleBlock_prefix_label in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:39:15.028
+!MESSAGE NLS unused message: NameStyleBlock_preview_label in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.core.net 1 0 2012-05-17 09:39:16.012
+!MESSAGE System property http.proxyHost is not set but should be proxyweb.utc.fr.
+
+!ENTRY org.eclipse.core.net 1 0 2012-05-17 09:39:16.012
+!MESSAGE System property http.proxyPort is not set but should be 3128.
+!SESSION 2012-05-17 09:41:28.394 -----------------------------------------------
+eclipse.buildId=I20110613-1736
+java.version=1.6.0_23
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=fr_FR
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.122
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.122
+!MESSAGE Conflict for 'org.eclipse.ui.newWizard':
+HandlerActivation(commandId=org.eclipse.ui.newWizard,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$New,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.newWizard,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$New@16528780,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.126
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.126
+!MESSAGE Conflict for 'org.eclipse.ui.file.import':
+HandlerActivation(commandId=org.eclipse.ui.file.import,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$Import@4eb5ad68,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.import,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$Import,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.126
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.126
+!MESSAGE Conflict for 'org.eclipse.ui.file.export':
+HandlerActivation(commandId=org.eclipse.ui.file.export,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$Export@7953113d,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.export,
+	handler=org.eclipse.ui.internal.handlers.WizardHandler$Export,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.126
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.127
+!MESSAGE Conflict for 'org.eclipse.ui.file.properties':
+HandlerActivation(commandId=org.eclipse.ui.file.properties,
+	handler=org.eclipse.ui.internal.handlers.PropertyDialogHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.properties,
+	handler=org.eclipse.ui.internal.handlers.PropertyDialogHandler@3545fe3b,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.127
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.127
+!MESSAGE Conflict for 'org.eclipse.ui.file.exit':
+HandlerActivation(commandId=org.eclipse.ui.file.exit,
+	handler=org.eclipse.ui.internal.handlers.QuitHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.exit,
+	handler=org.eclipse.ui.internal.handlers.QuitHandler@339214b1,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.127
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.127
+!MESSAGE Conflict for 'org.eclipse.ui.window.switchToEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.switchToEditor,
+	handler=org.eclipse.ui.internal.WorkbenchEditorsHandler@2e39060b,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.switchToEditor,
+	handler=org.eclipse.ui.internal.WorkbenchEditorsHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.128
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.128
+!MESSAGE Conflict for 'org.eclipse.ui.window.minimizePart':
+HandlerActivation(commandId=org.eclipse.ui.window.minimizePart,
+	handler=org.eclipse.ui.internal.handlers.MinimizePartHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.minimizePart,
+	handler=org.eclipse.ui.internal.handlers.MinimizePartHandler@132f9bcd,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.128
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.128
+!MESSAGE Conflict for 'org.eclipse.ui.file.closePart':
+HandlerActivation(commandId=org.eclipse.ui.file.closePart,
+	handler=org.eclipse.ui.internal.handlers.ClosePartHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.closePart,
+	handler=org.eclipse.ui.internal.handlers.ClosePartHandler@e130998,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.128
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.128
+!MESSAGE Conflict for 'org.eclipse.ui.window.preferences':
+HandlerActivation(commandId=org.eclipse.ui.window.preferences,
+	handler=org.eclipse.ui.internal.handlers.ShowPreferencePageHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.preferences,
+	handler=org.eclipse.ui.internal.handlers.ShowPreferencePageHandler@1edfbb43,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.129
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.129
+!MESSAGE Conflict for 'org.eclipse.ui.views.showView':
+HandlerActivation(commandId=org.eclipse.ui.views.showView,
+	handler=org.eclipse.ui.handlers.ShowViewHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.views.showView,
+	handler=org.eclipse.ui.handlers.ShowViewHandler@11afd9cc,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.129
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.129
+!MESSAGE Conflict for 'org.eclipse.ui.help.displayHelp':
+HandlerActivation(commandId=org.eclipse.ui.help.displayHelp,
+	handler=org.eclipse.ui.internal.handlers.DisplayHelpHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.help.displayHelp,
+	handler=org.eclipse.ui.internal.handlers.DisplayHelpHandler@6295f290,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.129
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.129
+!MESSAGE Conflict for 'org.eclipse.ui.perspectives.showPerspective':
+HandlerActivation(commandId=org.eclipse.ui.perspectives.showPerspective,
+	handler=org.eclipse.ui.handlers.ShowPerspectiveHandler@7f81497d,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.perspectives.showPerspective,
+	handler=org.eclipse.ui.handlers.ShowPerspectiveHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.130
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.130
+!MESSAGE Conflict for 'org.eclipse.ui.navigate.showIn':
+HandlerActivation(commandId=org.eclipse.ui.navigate.showIn,
+	handler=org.eclipse.ui.internal.ShowInHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.navigate.showIn,
+	handler=org.eclipse.ui.internal.ShowInHandler@3aaa3518,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.156
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.156
+!MESSAGE Conflict for 'org.eclipse.ui.window.activateEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.activateEditor,
+	handler=org.eclipse.ui.internal.ActivateEditorHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.activateEditor,
+	handler=org.eclipse.ui.internal.ActivateEditorHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.157
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.157
+!MESSAGE Conflict for 'org.eclipse.ui.window.showSystemMenu':
+HandlerActivation(commandId=org.eclipse.ui.window.showSystemMenu,
+	handler=org.eclipse.ui.internal.ShowPartPaneMenuHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.showSystemMenu,
+	handler=org.eclipse.ui.internal.ShowPartPaneMenuHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.157
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.157
+!MESSAGE Conflict for 'org.eclipse.ui.window.showViewMenu':
+HandlerActivation(commandId=org.eclipse.ui.window.showViewMenu,
+	handler=org.eclipse.ui.internal.ShowViewMenuHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.showViewMenu,
+	handler=org.eclipse.ui.internal.ShowViewMenuHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.158
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.158
+!MESSAGE Conflict for 'org.eclipse.ui.file.close':
+HandlerActivation(commandId=org.eclipse.ui.file.close,
+	handler=org.eclipse.ui.internal.CloseEditorHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.close,
+	handler=org.eclipse.ui.internal.CloseEditorHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.158
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.158
+!MESSAGE Conflict for 'org.eclipse.ui.file.closeAll':
+HandlerActivation(commandId=org.eclipse.ui.file.closeAll,
+	handler=org.eclipse.ui.internal.CloseAllHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.closeAll,
+	handler=org.eclipse.ui.internal.CloseAllHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.158
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.158
+!MESSAGE Conflict for 'org.eclipse.ui.file.closeOthers':
+HandlerActivation(commandId=org.eclipse.ui.file.closeOthers,
+	handler=org.eclipse.ui.internal.CloseOthersHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.file.closeOthers,
+	handler=org.eclipse.ui.internal.CloseOthersHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.159
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.159
+!MESSAGE Conflict for 'org.eclipse.ui.ToggleCoolbarAction':
+HandlerActivation(commandId=org.eclipse.ui.ToggleCoolbarAction,
+	handler=org.eclipse.ui.internal.handlers.ToggleCoolbarHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.ToggleCoolbarAction,
+	handler=org.eclipse.ui.internal.handlers.ToggleCoolbarHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.159
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.159
+!MESSAGE Conflict for 'org.eclipse.ui.window.nextEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.nextEditor,
+	handler=org.eclipse.ui.internal.CycleEditorHandler:true,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.nextEditor,
+	handler=org.eclipse.ui.internal.CycleEditorHandler:true,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.159
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.160
+!MESSAGE Conflict for 'org.eclipse.ui.window.previousEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.previousEditor,
+	handler=org.eclipse.ui.internal.CycleEditorHandler:false,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.previousEditor,
+	handler=org.eclipse.ui.internal.CycleEditorHandler:false,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.160
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.160
+!MESSAGE Conflict for 'org.eclipse.ui.window.nextView':
+HandlerActivation(commandId=org.eclipse.ui.window.nextView,
+	handler=org.eclipse.ui.internal.CycleViewHandler:true,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.nextView,
+	handler=org.eclipse.ui.internal.CycleViewHandler:true,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.160
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.160
+!MESSAGE Conflict for 'org.eclipse.ui.window.previousView':
+HandlerActivation(commandId=org.eclipse.ui.window.previousView,
+	handler=org.eclipse.ui.internal.CycleViewHandler:false,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.previousView,
+	handler=org.eclipse.ui.internal.CycleViewHandler:false,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.161
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.161
+!MESSAGE Conflict for 'org.eclipse.ui.window.nextPerspective':
+HandlerActivation(commandId=org.eclipse.ui.window.nextPerspective,
+	handler=org.eclipse.ui.internal.CyclePerspectiveHandler:true,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.nextPerspective,
+	handler=org.eclipse.ui.internal.CyclePerspectiveHandler:true,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.161
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.161
+!MESSAGE Conflict for 'org.eclipse.ui.window.previousPerspective':
+HandlerActivation(commandId=org.eclipse.ui.window.previousPerspective,
+	handler=org.eclipse.ui.internal.CyclePerspectiveHandler:false,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.previousPerspective,
+	handler=org.eclipse.ui.internal.CyclePerspectiveHandler:false,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.161
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.162
+!MESSAGE Conflict for 'org.eclipse.ui.window.closeAllPerspectives':
+HandlerActivation(commandId=org.eclipse.ui.window.closeAllPerspectives,
+	handler=org.eclipse.ui.internal.handlers.CloseAllPerspectivesHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.closeAllPerspectives,
+	handler=org.eclipse.ui.internal.handlers.CloseAllPerspectivesHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.162
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.162
+!MESSAGE Conflict for 'org.eclipse.ui.window.customizePerspective':
+HandlerActivation(commandId=org.eclipse.ui.window.customizePerspective,
+	handler=org.eclipse.ui.internal.handlers.EditActionSetsHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.customizePerspective,
+	handler=org.eclipse.ui.internal.handlers.EditActionSetsHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.162
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.162
+!MESSAGE Conflict for 'org.eclipse.ui.window.closePerspective':
+HandlerActivation(commandId=org.eclipse.ui.window.closePerspective,
+	handler=org.eclipse.ui.internal.handlers.ClosePerspectiveHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.closePerspective,
+	handler=org.eclipse.ui.internal.handlers.ClosePerspectiveHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.163
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.163
+!MESSAGE Conflict for 'org.eclipse.ui.window.openEditorDropDown':
+HandlerActivation(commandId=org.eclipse.ui.window.openEditorDropDown,
+	handler=org.eclipse.ui.internal.WorkbookEditorsHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.openEditorDropDown,
+	handler=org.eclipse.ui.internal.WorkbookEditorsHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.163
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.163
+!MESSAGE Conflict for 'org.eclipse.ui.window.newEditor':
+HandlerActivation(commandId=org.eclipse.ui.window.newEditor,
+	handler=org.eclipse.ui.internal.handlers.NewEditorHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.newEditor,
+	handler=org.eclipse.ui.internal.handlers.NewEditorHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.163
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2012-05-17 09:41:39.164
+!MESSAGE Conflict for 'org.eclipse.ui.window.maximizePart':
+HandlerActivation(commandId=org.eclipse.ui.window.maximizePart,
+	handler=org.eclipse.ui.internal.handlers.MaximizePartHandler,
+	expression=,sourcePriority=0)
+HandlerActivation(commandId=org.eclipse.ui.window.maximizePart,
+	handler=org.eclipse.ui.internal.handlers.MaximizePartHandler,
+	expression=,sourcePriority=0)
+
+!ENTRY org.eclipse.ui 4 4 2012-05-17 09:41:39.255
+!MESSAGE Impossible de créer la fabrique de couleurs
+
+!ENTRY org.eclipse.ui.workbench 4 0 2012-05-17 09:41:39.255
+!MESSAGE org.eclipse.ui.internal.themes.RGBContrastFactory cannot be cast to org.eclipse.ui.themes.IColorFactory
+!STACK 0
+java.lang.ClassCastException: org.eclipse.ui.internal.themes.RGBContrastFactory cannot be cast to org.eclipse.ui.themes.IColorFactory
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.checkColorFactory(ThemeRegistryReader.java:405)
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.getColorValue(ThemeRegistryReader.java:183)
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.readColor(ThemeRegistryReader.java:139)
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.readElement(ThemeRegistryReader.java:239)
+	at org.eclipse.ui.internal.registry.RegistryReader.readElements(RegistryReader.java:144)
+	at org.eclipse.ui.internal.registry.RegistryReader.readExtension(RegistryReader.java:155)
+	at org.eclipse.ui.internal.registry.RegistryReader.readRegistry(RegistryReader.java:176)
+	at org.eclipse.ui.internal.themes.ThemeRegistryReader.readThemes(ThemeRegistryReader.java:452)
+	at org.eclipse.ui.internal.WorkbenchPlugin.getThemeRegistry(WorkbenchPlugin.java:698)
+	at org.eclipse.ui.internal.Workbench$38.runWithException(Workbench.java:1691)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:135)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3563)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3212)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2494)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:674)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:667)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:123)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:344)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:622)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:577)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1410)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1386)
+
+!ENTRY org.eclipse.ui 4 4 2012-05-17 09:41:39.256
+!MESSAGE Plugin org.eclipse.rap.ui, extension org.eclipse.ui.themes, id org.eclipse.ui.workbench.INACTIVE_TAB_BG_START: Une seule valeur ou defaultMapping doit être définie.
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:41:39.650
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.CurrentSelectionSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:41:39.653
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.ActiveShellSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:41:39.655
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.ActivePartSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:41:39.656
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.ActionSetSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:41:39.657
+!MESSAGE Source Provider 'org.eclipse.ui.internal.menus.FocusControlSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:41:39.658
+!MESSAGE Source Provider 'org.eclipse.ui.internal.services.MenuSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.ui 4 0 2012-05-17 09:41:39.659
+!MESSAGE Source Provider 'org.eclipse.ui.internal.contexts.ActiveContextSourceProvider' should extend AbstractSourceProvider
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.371
+!MESSAGE NLS unused message: CEditorPreferencePage_ContentAssistPage_showCamelCaseMatches in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.371
+!MESSAGE NLS unused message: CEditorColoringConfigurationBlock_coloring_category_doxygen in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.372
+!MESSAGE NLS unused message: BuildLogPreferencePage_Browse in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.374
+!MESSAGE NLS unused message: CPluginPreferencePage_refactoring_auto_save in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.374
+!MESSAGE NLS unused message: CPluginPreferencePage_refactoring_lightweight in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.375
+!MESSAGE NLS unused message: CodeTemplateBlock_class_body_label in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.376
+!MESSAGE NLS unused message: NameStyleBlock_code_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.376
+!MESSAGE NLS unused message: NameStyleBlock_files_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.376
+!MESSAGE NLS unused message: NameStyleBlock_constant_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.376
+!MESSAGE NLS unused message: NameStyleBlock_variable_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.377
+!MESSAGE NLS unused message: NameStyleBlock_cpp_source_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.377
+!MESSAGE NLS unused message: NameStyleBlock_cpp_header_node in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.377
+!MESSAGE NLS unused message: NameStyleBlock_capitalization_original in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.377
+!MESSAGE NLS unused message: NameStyleBlock_capitalization_upper_case in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.378
+!MESSAGE NLS unused message: NameStyleBlock_capitalization_lower_case in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.378
+!MESSAGE NLS unused message: NameStyleBlock_prefix_label in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:41:41.378
+!MESSAGE NLS unused message: NameStyleBlock_preview_label in: org.eclipse.cdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.core.net 1 0 2012-05-17 09:41:42.172
+!MESSAGE System property http.proxyHost is not set but should be proxyweb.utc.fr.
+
+!ENTRY org.eclipse.core.net 1 0 2012-05-17 09:41:42.173
+!MESSAGE System property http.proxyPort is not set but should be 3128.
+
+!ENTRY org.eclipse.jdt.launching 1 0 2012-05-17 09:42:06.254
+!MESSAGE JRE installé 'Java SE 6 (MacOS X Default)' supprimé pour cause dextension du type de la VM manquante.
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:15.472
+!MESSAGE NLS unused message: BasicBrowserLibraryJsGlobalScopeContainerInitializer_HTML5Browser in: org.eclipse.wst.jsdt.libraries.messages
+
+!ENTRY org.eclipse.ui 4 4 2012-05-17 09:42:22.743
+!MESSAGE La partie existe déjà dans la Page : org.eclipse.ui.internal.introview.
+
+!ENTRY org.eclipse.ui 4 4 2012-05-17 09:42:22.751
+!MESSAGE La partie référencée n'existe pas encore : org.eclipse.ui.views.TaskList.
+
+!ENTRY org.eclipse.ui 4 4 2012-05-17 09:42:22.752
+!MESSAGE La partie référencée n'existe pas encore : org.eclipse.ui.views.TaskList.
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.086
+!MESSAGE NLS unused message: bp_entry_and_exit in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.087
+!MESSAGE NLS unused message: bp_entry_only in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.087
+!MESSAGE NLS unused message: bp_exit_only in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.087
+!MESSAGE NLS unused message: bp_hit_count in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.087
+!MESSAGE NLS unused message: bp_line_number in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.087
+!MESSAGE NLS unused message: breakpoint_configuration in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.087
+!MESSAGE NLS unused message: connect in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.087
+!MESSAGE NLS unused message: connector in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.088
+!MESSAGE NLS unused message: disconnected in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.088
+!MESSAGE NLS unused message: enable_hit_count in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.088
+!MESSAGE NLS unused message: enter_new_hit_count in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.088
+!MESSAGE NLS unused message: exception_occurred_setting_bp_properties in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.088
+!MESSAGE NLS unused message: hit_count_must_be_positive in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.088
+!MESSAGE NLS unused message: no_description_provided in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.088
+!MESSAGE NLS unused message: scripts in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.089
+!MESSAGE NLS unused message: set_bp_hit_count in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.089
+!MESSAGE NLS unused message: suspend_thread in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.089
+!MESSAGE NLS unused message: terminated in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.089
+!MESSAGE NLS unused message: unknown in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.089
+!MESSAGE NLS unused message: add_script_load_bp in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.089
+!MESSAGE NLS unused message: bp_conditional in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.090
+!MESSAGE NLS unused message: bp_conditonal in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.090
+!MESSAGE NLS unused message: bp_suspend_vm in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.090
+!MESSAGE NLS unused message: connector_properties in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.090
+!MESSAGE NLS unused message: creating_script_load_bp in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.090
+!MESSAGE NLS unused message: select_javascript_file in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.090
+!MESSAGE NLS unused message: suspend_target in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.090
+!MESSAGE NLS unused message: the_argument_0_is_not_valid in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.osgi 2 1 2012-05-17 09:42:23.091
+!MESSAGE NLS unused message: osgi.nls.warnings in: org.eclipse.wst.jsdt.debug.internal.ui.messages
+
+!ENTRY org.eclipse.ui.ide 4 4 2012-05-17 09:43:11.168
+!MESSAGE Erreur lors de la sauvegarde de l'espace de travail
+
+!ENTRY org.eclipse.ui.ide 2 1 2012-05-17 09:43:11.169
+!MESSAGE Erreur lors de la sauvegarde de l'état de l'espace de travail.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2012-05-17 09:43:11.169
+!MESSAGE Le fichier de description de projet (.project) pour 'Service REST' était manquant.  Ce fichier contient des informations importantes sur le projet.  Un nouveau fichier de description de projet a été créé, mais certaines informations sur le projet ont peut-être été perdues.

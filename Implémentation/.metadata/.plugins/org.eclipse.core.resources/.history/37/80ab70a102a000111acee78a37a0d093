@@ -1,0 +1,50 @@
+package server;
+
+public class SpeciesDescription {
+    private float odorat; //pour se déplacer vers la nourriture
+    private float vue; //permet d'attaquer si un lapin est en vue
+    private float attaquer; //coefficient de réussite (quand le lapin survit, il se cache pendant une journée)
+    private int ageMin; //age à partir duquel l'espèce commence à décliner
+    private int ageMax; //age à partir duquel l'espèce est très vieille (et doit mourir)
+    private float energie; //poids de viande à manger par jour pour être à 100%
+    private float distanceDeplacement;
+    private float seReproduire; //coefficient de réussite
+    private float gestation; //durée de gestation
+    private float poidsMin; //poids minimum pour les plus maigres
+    private float poidsMax; //poids maximum pour les plus gros
+    
+    public float getOdorat() {
+		return odorat;
+	}
+	public float getVue() {
+		return vue;
+	}
+	public float getAttaquer() {
+		return attaquer;
+	}
+	public int getAgeMin() {
+		return ageMin;
+	}
+	public int getAgeMax() {
+		return ageMax;
+	}
+	public float getEnergie() {
+		return energie;
+	}
+	public float getDistanceDeplacement() {
+		return distanceDeplacement;
+	}
+	public float getSeReproduire() {
+		return seReproduire;
+	}
+	public float getGestation() {
+		return gestation;
+	}
+	public float getPoidsMin() {
+		return poidsMin;
+	}
+	public float getPoidsMax() {
+		return poidsMax;
+	}
+	
+}

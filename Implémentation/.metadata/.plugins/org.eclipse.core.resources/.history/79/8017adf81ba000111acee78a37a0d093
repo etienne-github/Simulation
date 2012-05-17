@@ -1,0 +1,29 @@
+package server;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+import org.restlet.Application;
+import org.restlet.Restlet;
+import org.restlet.routing.Router;
+
+public class SpeciesServerApplication extends Application{
+	
+    private final ConcurrentMap<String, SpeciesDescription> items = new ConcurrentHashMap<String, SpeciesDescription>(); 
+    
+	@Override
+	public Restlet createInboundRoot() {
+		Router router = new Router(getContext());
+		router.attach(
+				"/species/{id}",
+				SpeciesServiceResource.class);
+		
+		router.attach(
+			"/species/index/",
+			SpeciesListServiceResource.class);
+		return router;
+	}
+	
+
+}
+

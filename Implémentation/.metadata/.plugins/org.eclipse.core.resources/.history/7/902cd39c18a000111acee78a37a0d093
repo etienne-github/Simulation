@@ -1,0 +1,21 @@
+package server;
+
+import org.restlet.Application;
+import org.restlet.Restlet;
+import org.restlet.routing.Router;
+
+public class SpeciesServerApplication extends Application{
+	@Override
+	public Restlet createInboundRoot() {
+		Router router = new Router(getContext());
+		router.attach(
+				"/species/{id}",
+				SpeciesServiceResource.class);
+		//TODO : Liste de toutes les espèces
+		/*router.attach(
+			"/species/index/",
+			SpeciesListServiceResource.class);*/
+		return router;
+	}
+}
+
