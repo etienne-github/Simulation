@@ -1,18 +1,13 @@
 package client;
 
-import java.io.InputStream;
 import java.net.URI;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.restlet.representation.InputRepresentation;
-
-import server.SpeciesStats;
 
 public class RestFacilities {
 
