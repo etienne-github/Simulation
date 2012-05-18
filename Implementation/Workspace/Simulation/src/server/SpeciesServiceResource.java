@@ -2,7 +2,6 @@ package server;
 
 import server.SpeciesStats;
 
-import java.io.File;
 import java.io.StringWriter;
 import java.util.Map;
 
@@ -10,7 +9,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.data.Status;
-import org.restlet.representation.FileRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
