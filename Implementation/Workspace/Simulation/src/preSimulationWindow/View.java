@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -107,7 +105,7 @@ public class View extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/** C'est le modèle (ViewModel) qui va effectuer le calcul **/
+				/** C'est le modï¿½le (ViewModel) qui va effectuer le calcul **/
 				Integer[] array = viewModel.randomAnimals();
 				setWolfNumber(array[0]);
 				setHareNumber(array[1]);
@@ -268,11 +266,11 @@ public class View extends JFrame {
 	/** Envoyer les donnees au modele et detruire la fenetre **/
 	private void sendToModel() {
 
-		Map<String, Object> properties = new HashMap<String, Object>();
-		properties.put("gridWidth", Integer.valueOf(gridWidth.getText()));
-		properties.put("gridHeight", Integer.valueOf(gridHeight.getText()));
-		properties.put("wolfNumber", Integer.valueOf(wolfNumber.getText()));
-		properties.put("hareNumber", Integer.valueOf(hareNumber.getText()));
+		SimProperties properties = new SimProperties();
+		properties.setGridWidth( Integer.valueOf(gridWidth.getText()));
+		properties.setGridHeight( Integer.valueOf(gridHeight.getText()));
+		properties.setWolfNumber(Integer.valueOf(wolfNumber.getText()));
+		properties.setHareNumber(Integer.valueOf(hareNumber.getText()));
 		viewModel.sendToModel(properties);
 
 		/** Detruire la fenetre **/

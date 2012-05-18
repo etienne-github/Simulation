@@ -28,6 +28,22 @@ public class SpeciesServerApplication extends Application{
 					12.0f); //poidsMax)
 			
 			getStats().put("Loup", loup);
+			
+		SpeciesStats lapin =  new SpeciesStats(
+					"Le lapin sauvage est une espèce qui prolifère dans nos contrées", 
+					2.5f, //odorat
+					3.1f, //vue
+					10.5f, //attaquer
+					8,	//ageMin
+					12, //ageMax
+					5.0f, //energie
+					25.5f, //distanceDeplacement
+					3.25f, //seReproduire
+					0.34f, // gestation
+					8.0f, // poidsMin
+					12.0f); //poidsMax)
+			
+			getStats().put("Lapin", lapin);
 			System.out.println("Constructeur appelé");
 	}
 	
@@ -44,9 +60,10 @@ public class SpeciesServerApplication extends Application{
 		return router;
 	}
 	
-	//retourne la liste des espèces
+	//retourne la table
     public ConcurrentMap<String, SpeciesStats> getStats() {  
-        return speciesMap;  
+        return speciesMap;
     }
+    
 }
 
