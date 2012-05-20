@@ -5,7 +5,6 @@ import java.net.URI;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -23,7 +22,7 @@ public class RestFacilities {
 		String s = null;
 		DefaultHttpClient client = new DefaultHttpClient();
 		try {
-			uri = new URI("http://localhost:8182/species/"+species);
+			uri = new URI("http://species-ia04.appspot.com/species/"+species);
 			HttpGet httpget = new HttpGet(uri);
 			httpget.addHeader("Accept", "species/text");
 			HttpResponse res = client.execute(httpget);
@@ -46,7 +45,7 @@ public class RestFacilities {
 		DefaultHttpClient client = new DefaultHttpClient();
 		SpeciesStats ret = null;
 		try {
-			uri = new URI("http://localhost:8182/species/"+species);
+			uri = new URI("http://species-ia04.appspot.com/species/"+species);
 			HttpGet httpget = new HttpGet(uri);
 			httpget.addHeader("Accept", "text/json");
 			HttpResponse res = client.execute(httpget);
@@ -72,7 +71,7 @@ public class RestFacilities {
 		String s = null;
 		DefaultHttpClient client = new DefaultHttpClient();
 		try {
-			uri = new URI("http://localhost:8182/species/index/");
+			uri = new URI("http://species-ia04.appspot.com/species/index/");
 			HttpGet httpget = new HttpGet(uri);
 			httpget.addHeader("Accept", "species/text");
 			HttpResponse res = client.execute(httpget);

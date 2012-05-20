@@ -1,7 +1,5 @@
 package server;
 
-import server.SpeciesStats;
-
 import java.io.StringWriter;
 import java.util.Map;
 
