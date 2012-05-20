@@ -1,19 +1,15 @@
 package preSimulationWindow;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import simulation.SimulationModel;
 import utils.Constants;
 
 public class ViewModel {
 
 	SimulationModel simModel;
-	Map<String, Object> simProperties;
+	SimProperties simProperties;
 	
 	public ViewModel(SimulationModel model) {
 		simModel = model;
-		simProperties = new HashMap<String, Object>();
 	}
 
 
@@ -25,20 +21,11 @@ public class ViewModel {
 
 		return array;
 	}
-
-	public void setProperties(Map<String, Object> map) {
-		for (String key : map.keySet()) {
-			simProperties.put(key, map.get(key));
-		}
-	}
 	
-	public void setProperty(String key, Object obj) {
-		simProperties.put(key, obj);
-	}
-	
-	public void sendToModel(Map<String, Object> properties) {
-		setProperties(properties);
+	public void sendToModel(SimProperties properties) {
+		simProperties = properties;
 		simModel.setProperties(simProperties);
+		simModel.launchView();
 	}
 }
 

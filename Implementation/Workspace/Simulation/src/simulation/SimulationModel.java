@@ -1,35 +1,63 @@
 package simulation;
-import java.util.HashMap;
-import java.util.Map;
-
+import preSimulationWindow.SimProperties;
+import sim.display.Console;
 import sim.engine.SimState;
+import sim.field.grid.SparseGrid2D;
+import simulation.entity.Entity;
+import simulation.entity.Grass;
+import simulation.entity.Hare;
+import simulationWindow.SimulationView;
 
 
 @SuppressWarnings("serial")
 public class SimulationModel extends SimState {
 
-	Map<String, Object> simProperties;
+	private SparseGrid2D yard;
+	private SimProperties simProperties;
 	
 	public SimulationModel(long seed) {
 		super(seed);
-		simProperties = new HashMap<String, Object>();
-	}
-	
-	public Object getProperty(String key) {
-		Object obj = simProperties.get(key);
-		
-		return obj;
-	}
-	
-	public Map<String, Object> getProperties() {
-		return simProperties;
 	}
 
-	public void setProperties(Map<String, Object> properties) {
-		System.out.println("Simulation properties : ");
-		for (String key : properties.keySet()) {
-			simProperties.put(key, properties.get(key));
-			System.out.println(key + " : " + simProperties.get(key));
+	public void setProperties(SimProperties properties) {
+		simProperties = new SimProperties(properties);
+	}
+	
+	public SparseGrid2D getYard() {
+		return yard;
+	}
+	
+	public void launchView() {
+		SimulationView gui = new SimulationView(this);
+		Console console = new Console(gui);
+		console.setVisible(true);
+	}
+	
+	public void start() {
+		super.start();
+		yard = new SparseGrid2D(simProperties.getGridWidth(), simProperties.getGridHeight());
+		Entity.setGRID_SIZE_X(simProperties.getGridWidth());
+		Entity.setGRID_SIZE_Y(simProperties.getGridHeight());
+		
+		//Add Grasses
+		for(int i = 0 ; i < simProperties.getGridWidth(); i++){
+			for(int j=0 ; j < simProperties.getGridHeight(); j++) {
+				Grass grass = new Grass();
+				grass.setX(i);
+				grass.setY(j);
+				yard.setObjectLocation(grass, grass.getX(), grass.getY());
+				schedule.scheduleRepeating(grass);
+			}
+		}
+		
+		//add Hare
+		for(int i = 0 ; i < simProperties.getHareNumber() ; i++) {
+			Hare hare = new Hare();
+			hare.setX(random.nextInt(simProperties.getGridWidth()));
+			hare.setY(random.nextInt(simProperties.getGridHeight()));
+			yard.setObjectLocation(hare, hare.getX(), hare.getY());
+			hare.setStoppable( schedule.scheduleRepeating(hare) );
 		}
 	}
+	
 }
