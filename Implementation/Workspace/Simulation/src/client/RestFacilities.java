@@ -16,11 +16,19 @@ import server.SpeciesStats;
 
 
 public class RestFacilities {
+	
+	DefaultHttpClient client;
+	URI uri;
+	
+	public RestFacilities()
+	{
+		client = new DefaultHttpClient();
+		//HttpHost proxy = new HttpHost("proxyweb.utc.fr", 3128);
+		//client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+	}
 
 	public String getSpeciesDescription(String species) {
-		URI uri; 
 		String s = null;
-		DefaultHttpClient client = new DefaultHttpClient();
 		try {
 			uri = new URI("http://species-ia04.appspot.com/species/"+species);
 			HttpGet httpget = new HttpGet(uri);
@@ -40,9 +48,7 @@ public class RestFacilities {
 	
 	
 	public SpeciesStats getSpecies(String species) {
-		URI uri; 
 		InputStream data;
-		DefaultHttpClient client = new DefaultHttpClient();
 		SpeciesStats ret = null;
 		try {
 			uri = new URI("http://species-ia04.appspot.com/species/"+species);
@@ -66,10 +72,8 @@ public class RestFacilities {
 		}
 	
 	
-	public String getSpeciesList() {
-		URI uri; 
+	public String getSpeciesList() { 
 		String s = null;
-		DefaultHttpClient client = new DefaultHttpClient();
 		try {
 			uri = new URI("http://species-ia04.appspot.com/species/index/");
 			HttpGet httpget = new HttpGet(uri);
