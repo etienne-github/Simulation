@@ -52,11 +52,7 @@ public class SimulationModel extends SimState {
 		
 		//add Hare
 		for(int i = 0 ; i < simProperties.getHareNumber() ; i++) {
-			Hare hare = new Hare();
-			hare.setX(random.nextInt(simProperties.getGridWidth()));
-			hare.setY(random.nextInt(simProperties.getGridHeight()));
-			yard.setObjectLocation(hare, hare.getX(), hare.getY());
-			hare.setStoppable( schedule.scheduleRepeating(hare) );
+			
 		}
 	}
 	
