@@ -8,7 +8,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.TableCellRenderer;
 
-/** Classe pour le rendu des boutons dans le tableau de choix des especes **/
+/** Classe definissant le rendu des boutons dans le tableau de choix des especes **/
 
 @SuppressWarnings("serial")
 class ButtonRenderer extends JButton implements TableCellRenderer {

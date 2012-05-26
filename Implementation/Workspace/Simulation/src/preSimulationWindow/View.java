@@ -12,6 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,35 +36,36 @@ public class View extends JFrame {
 	String[] speciesList; // liste de toutes les especes
 	String[] columnNames;
 	private JComboBox speciesChoice;
-	Object[][]dummyData; // donnees pour remplir le tableau en attendant qu'il fonctionne
-	
+	Object[][] dummyData; // donnees pour remplir le tableau en attendant qu'il
+							// fonctionne
+
 	ImageIcon addIcon; // icone pour ajouter des especes
 	ImageIcon removeIcon; // icone pour enlever des especes
 	ImageIcon infoIcon; // icone pour afficher les caracteristiques de l'espece
 
-
 	JButton randomNumber;
 	JButton okButton;
 	JButton advancedParamsButton;
-/*	JButton addButton; // ajouter des especes
-	JButton removeButton; // supprimer des especes
-	JButton infoButton; // afficher les caracteristiques de l'espece
-	*/
+	/*
+	 * JButton addButton; // ajouter des especes JButton removeButton; //
+	 * supprimer des especes JButton infoButton; // afficher les
+	 * caracteristiques de l'espece
+	 */
 	JComboBox gridSizeCombo;
-	
+
 	JLabel gridHLabel;
 	JLabel gridWLabel;
 	JLabel gridComboLabel;
-	
+
 	JPanel sizePanel;
 	JPanel popPanel;
 	JPanel buttonPanel;
-	
+
 	JTable speciesTable;
-	
+
 	JTextField gridHeight;
 	JTextField gridWidth;
-	
+
 	public View(ViewModel model) {
 
 		setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
@@ -73,24 +75,21 @@ public class View extends JFrame {
 		viewModel = model;
 		flag = false;
 		nbSpecies = 0;
-	
-		columnNames = new String[]{"Espece", "Population", "","", ""};
-		dummyData = new Object[][]{
-				{"", "123", "", "", ""},
-				{"", "234", "", "", ""},
-				{"", "345", "", "", ""},
-				{"", "456", "", "", ""},
-		};
-		
+
+		columnNames = new String[] { "Espece", "Population", "", "", "" };
+		dummyData = new Object[][] { { "", "123", "", "", "" },
+				{ "", "234", "", "", "" }, { "", "345", "", "", "" },
+				{ "", "456", "", "", "" }, };
+
 		addIcon = new ImageIcon("img/add.png");
 		removeIcon = new ImageIcon("img/remove.png");
 		infoIcon = new ImageIcon("img/info.png");
 		speciesList = getAllSpecies();
 		speciesChoice = new JComboBox(speciesList);
-		speciesTable = new JTable(dummyData, columnNames);		
+		speciesTable = new JTable(dummyData, columnNames);
 
-		/******** Taille de la grille ********/		
-		
+		/******** Taille de la grille ********/
+
 		gridSizeCombo = new JComboBox(Constants.PREDEFINED_SIZES);
 		gridSizeCombo.addActionListener(new ActionListener() {
 
@@ -121,13 +120,13 @@ public class View extends JFrame {
 
 			}
 		});
-		
+
 		gridHLabel = new JLabel("Hauteur : ");
 		gridWLabel = new JLabel("Largeur : ");
 		gridComboLabel = new JLabel("Tailles predefinies : ");
-		
+
 		/******** Population ********/
-		
+
 		// TODO recuperation de la population
 		randomNumber = new JButton("Population aleatoire");
 		randomNumber.addActionListener(new ActionListener() {
@@ -135,24 +134,56 @@ public class View extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				/** C'est le modele (ViewModel) qui va effectuer le calcul **/
 				Map<String, Integer> rdPop = viewModel.randomAnimals(nbSpecies);
-			
+
 			}
 		});
-		
+
 		speciesTable.setShowGrid(false);
 		speciesTable.setFillsViewportHeight(true);
-		speciesTable.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(speciesChoice));
-		speciesTable.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(new JTextField()));
-		speciesTable.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer(addIcon));
+		speciesTable.getColumnModel().getColumn(0)
+				.setCellEditor(new DefaultCellEditor(speciesChoice));
+		speciesTable.getColumnModel().getColumn(1)
+				.setCellEditor(new DefaultCellEditor(new JTextField()));
+		speciesTable.getColumnModel().getColumn(2).setCellRenderer(
+						new ButtonRenderer(addIcon));
+		speciesTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(addIcon, new ActionListener() {
+			// Ajout d'une ligne
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int idx = speciesTable.getSelectedRow();
+				addNewLine(idx);
+
+			}
+		}));
 		speciesTable.getColumnModel().getColumn(2).setMaxWidth(30);
-		speciesTable.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer(removeIcon));
+		speciesTable.getColumnModel().getColumn(3).setCellRenderer(
+						new ButtonRenderer(removeIcon));
+		speciesTable.getColumnModel().getColumn(3).setCellEditor(new ButtonEditor(removeIcon, new ActionListener() {
+			// Suppression d'une ligne
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int idx = speciesTable.getSelectedRow();
+				deleteLine(idx);
+
+			}
+		}));
 		speciesTable.getColumnModel().getColumn(3).setMaxWidth(30);
-		speciesTable.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer(infoIcon));
+		speciesTable.getColumnModel().getColumn(4).setCellRenderer(
+						new ButtonRenderer(infoIcon));
+		speciesTable.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(infoIcon, new ActionListener() {
+			// Ouverture de l'onglet d'informations
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String species = getSpecies(speciesTable.getSelectedRow());
+				showInfos(species);
+
+			}
+		}));
 		speciesTable.getColumnModel().getColumn(4).setMaxWidth(30);
 		speciesTable.setRowHeight(30);
-		
+
 		/******** Boutons en bas de la fenetre : OK et changement de vue ********/
-		
+
 		okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 
@@ -161,16 +192,16 @@ public class View extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String[] str = checkData();
 				if (str != null) {
-				/*	String message = "Attention, valeur(s) nulle(s) ou incorrecte(s) : \n";
-					for (int i = 0; i < str.length; i++) {
-						message += "- " + str[i] + " \n";
-					}
-					JOptionPane.showMessageDialog(null, message, "Attention",
-							JOptionPane.WARNING_MESSAGE);
-							*/
+					/*
+					 * String message =
+					 * "Attention, valeur(s) nulle(s) ou incorrecte(s) : \n";
+					 * for (int i = 0; i < str.length; i++) { message += "- " +
+					 * str[i] + " \n"; } JOptionPane.showMessageDialog(null,
+					 * message, "Attention", JOptionPane.WARNING_MESSAGE);
+					 */
 				} else {
 					System.out.println("Parametrage de la simulation termine");
-					//sendToModel();
+					// sendToModel();
 				}
 			}
 		});
@@ -188,7 +219,7 @@ public class View extends JFrame {
 		});
 
 		/******** Agencement dans la fenetre ********/
-		
+
 		sizePBorder = BorderFactory.createTitledBorder("Taille de la grille");
 		popPBorder = BorderFactory.createTitledBorder("Population");
 
@@ -255,7 +286,7 @@ public class View extends JFrame {
 		c.weightx = 0.7;
 		c.weighty = 0.7;
 		popPanel.add(new JScrollPane(speciesTable), c);
-		
+
 		this.add(popPanel);
 
 		buttonPanel.add(advancedParamsButton);
@@ -303,26 +334,20 @@ public class View extends JFrame {
 	}
 
 	private String[] checkData() {
-		/*ArrayList<String> array = new ArrayList<String>();
-
-		try {
-			Integer.parseInt(gridWidth.getText());
-		} catch (Exception e) {
-			array.add("largeur de la grille");
-		}
-
-		try {
-			Integer.parseInt(gridHeight.getText());
-		} catch (Exception e) {
-			array.add("hauteur de la grille");
-		}
-
-		String[] result = new String[array.size()];
-		for (int i = 0; i < array.size(); i++) {
-			result[i] = array.get(i);
-		}
-
-		return result;*/
+		/*
+		 * ArrayList<String> array = new ArrayList<String>();
+		 * 
+		 * try { Integer.parseInt(gridWidth.getText()); } catch (Exception e) {
+		 * array.add("largeur de la grille"); }
+		 * 
+		 * try { Integer.parseInt(gridHeight.getText()); } catch (Exception e) {
+		 * array.add("hauteur de la grille"); }
+		 * 
+		 * String[] result = new String[array.size()]; for (int i = 0; i <
+		 * array.size(); i++) { result[i] = array.get(i); }
+		 * 
+		 * return result;
+		 */
 		return null;
 	}
 
@@ -384,10 +409,39 @@ public class View extends JFrame {
 
 	public void setCustomCombo() {
 		gridSizeCombo.setSelectedIndex(gridSizeCombo.getItemCount() - 1);
-	}	
-	
+	}
+
 	private String[] getAllSpecies() {
 		String str = viewModel.getRestServer().getSpeciesList();
-		return str.substring(1, str.length()-1).split(", ");
+		return str.substring(1, str.length() - 1).split(", ");
+	}
+	
+	private void addNewLine(int idx) {
+		// TODO Auto-generated method stub
+		
+		System.out.println("Add new line at index" + idx);
+		
+	}
+	
+	private void deleteLine(int idx) {
+		// TODO Auto-generated method stub
+		System.out.println("Delete line at index" + idx);
+	}
+	
+	private void showInfos(String species) {
+	// TODO Ouverture de l'onglet d'informations
+		if (!species.isEmpty())
+			System.out.println("Show species info on species" + species);
+		else
+		{
+			JOptionPane.showMessageDialog(this, "No species selected !", "Warning", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	
+	private String getSpecies(int idx) {
+		// TODO recuperation du serveur rest
+		String species = "";
+		
+		return species;
 	}
 }
