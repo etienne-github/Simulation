@@ -4,9 +4,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -16,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -25,37 +26,53 @@ import utils.Constants;
 public class View extends JFrame {
 
 	ViewModel viewModel;
-	boolean flag;
-
-	JPanel sizePanel;
-	JPanel popPanel;
-	JPanel buttonPanel;
-	JTextField gridHeight;
-	JTextField gridWidth;
-	JTextField wolfNumber;
-	JTextField hareNumber;
-
-	JComboBox gridSizeCombo;
+	SpeciesTableModel speciesTableModel; // stockage des donnees lors du choix des especes
+	boolean flag; // flag pour savoir si on est en vue simple ou detaillee
+	int nbSpecies; // nombre d'especes dans la simulation
+	Border sizePBorder;
+	Border popPBorder;
+	String[] speciesList; // liste de toutes les especes
+/*
+	ImageIcon addIcon; // icone pour ajouter des especes
+	ImageIcon removeIcon; // icone pour enlever des especes
+	ImageIcon infoIcon; // icone pour afficher les caracteristiques de l'espece
+*/
 
 	JButton randomNumber;
 	JButton okButton;
 	JButton advancedParamsButton;
-	JLabel wolfNbLabel;
-	JLabel hareNblabel;
+	
+	JComboBox gridSizeCombo;
+	
 	JLabel gridHLabel;
 	JLabel gridWLabel;
 	JLabel gridComboLabel;
-	Border sizePBorder;
-	Border popPBorder;
-
+	
+	JPanel sizePanel;
+	JPanel popPanel;
+	JPanel buttonPanel;
+	
+	JTable speciesTable;
+	
+	JTextField gridHeight;
+	JTextField gridWidth;
+	
 	public View(ViewModel model) {
 
 		setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		setSize(300, 300);
 		setTitle("Parametrage de la simulation");
-		viewModel = model;
 
+		viewModel = model;
 		flag = false;
+		nbSpecies = 0;
+		speciesTableModel = new SpeciesTableModel(viewModel.getRestServer());
+		speciesTable = new JTable(speciesTableModel.getData(), speciesTableModel.getColumnNames());
+		speciesTable.setShowGrid(false);
+		
+
+		/******** Taille de la grille ********/		
+		
 		gridSizeCombo = new JComboBox(Constants.PREDEFINED_SIZES);
 		gridSizeCombo.addActionListener(new ActionListener() {
 
@@ -78,40 +95,34 @@ public class View extends JFrame {
 			}
 		});
 		gridWidth = new JTextField();
-		gridWidth.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {
-				setCustomCombo();
-				
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				setCustomCombo();
-				
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				setCustomCombo();
-				
-			}
-		});
-		wolfNumber = new JTextField();
-		hareNumber = new JTextField();
-		randomNumber = new JButton("Population aleatoire");
-		randomNumber.addActionListener(new ActionListener() {
+		gridWidth.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/** C'est le mod�le (ViewModel) qui va effectuer le calcul **/
-				Integer[] array = viewModel.randomAnimals();
-				setWolfNumber(array[0]);
-				setHareNumber(array[1]);
+				setCustomCombo();
+
 			}
 		});
-
+		
+		gridHLabel = new JLabel("Hauteur : ");
+		gridWLabel = new JLabel("Largeur : ");
+		gridComboLabel = new JLabel("Tailles predefinies : ");
+		
+		/******** Population ********/
+		
+		// TODO recuperation de la population
+		randomNumber = new JButton("Population aleatoire");
+		randomNumber.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/** C'est le modele (ViewModel) qui va effectuer le calcul **/
+				Map<String, Integer> rdPop = viewModel.randomAnimals(nbSpecies);
+			
+			}
+		});
+		
+		/******** Boutons en bas de la fenetre : OK et changement de vue ********/
+		
 		okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 
@@ -143,12 +154,9 @@ public class View extends JFrame {
 
 			}
 		});
-		wolfNbLabel = new JLabel("Nombre de loups : ");
-		hareNblabel = new JLabel("Nombre de moutons : ");
-		gridHLabel = new JLabel("Hauteur : ");
-		gridWLabel = new JLabel("Largeur : ");
-		gridComboLabel = new JLabel("Tailles predefinies : ");
 
+		/******** Agencement dans la fenetre ********/
+		
 		sizePBorder = BorderFactory.createTitledBorder("Taille de la grille");
 		popPBorder = BorderFactory.createTitledBorder("Population");
 
@@ -202,32 +210,19 @@ public class View extends JFrame {
 		c.gridy = 0;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.CENTER;
 		c.weightx = 0;
 		c.weighty = 0;
 		popPanel.add(randomNumber, c);
 
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 1;
 		c.gridwidth = 1;
 		c.gridheight = 1;
-		c.weighty = 0.2;
-		popPanel.add(wolfNbLabel, c);
-
-		c.gridx = 1;
-		c.weightx = 0.5;
-		popPanel.add(wolfNumber, c);
-
-		c.gridx = 0;
-		c.gridy = 4;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		c.weightx = 0;
-		popPanel.add(hareNblabel, c);
-
-		c.gridx = 1;
-		popPanel.add(hareNumber, c);
-
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0.7;
+		c.weighty = 0.7;
+		popPanel.add(new JScrollPane(speciesTable), c);
 		this.add(popPanel);
 
 		buttonPanel.add(advancedParamsButton);
@@ -262,15 +257,12 @@ public class View extends JFrame {
 		flag = false;
 	}
 
-	// TODO voir si on peut pas faire ca automatiquement : lister tous les JTextField, et boucler sur leur traitement
 	/** Envoyer les donnees au modele et detruire la fenetre **/
 	private void sendToModel() {
 
 		SimProperties properties = new SimProperties();
-		properties.setGridWidth( Integer.valueOf(gridWidth.getText()));
-		properties.setGridHeight( Integer.valueOf(gridHeight.getText()));
-		properties.setWolfNumber(Integer.valueOf(wolfNumber.getText()));
-		properties.setHareNumber(Integer.valueOf(hareNumber.getText()));
+		properties.setGridWidth(Integer.valueOf(gridWidth.getText()));
+		properties.setGridHeight(Integer.valueOf(gridHeight.getText()));
 		viewModel.sendToModel(properties);
 
 		/** Detruire la fenetre **/
@@ -279,7 +271,7 @@ public class View extends JFrame {
 
 	private String[] checkData() {
 		ArrayList<String> array = new ArrayList<String>();
-		
+
 		try {
 			Integer.parseInt(gridWidth.getText());
 		} catch (Exception e) {
@@ -292,24 +284,11 @@ public class View extends JFrame {
 			array.add("hauteur de la grille");
 		}
 
-		try {
-			Integer.parseInt(wolfNumber.getText());
-		} catch (Exception e) {
-			array.add("nombre de loups");
-		}
-
-		try {
-			Integer.parseInt(hareNumber.getText());
-		} catch (Exception e) {
-			array.add("nombre de lapins");
-		}
-		
 		String[] result = new String[array.size()];
 		for (int i = 0; i < array.size(); i++) {
 			result[i] = array.get(i);
 		}
-		
-		
+
 		return result;
 	}
 
@@ -332,28 +311,6 @@ public class View extends JFrame {
 			res = Integer.valueOf(gridHeight.getText());
 		} catch (Exception e) {
 			System.out.println("largeur de la grille incorrecte");
-			res = -1;
-		}
-		return res;
-	}
-
-	public int getWolfNumber() {
-		int res = -1;
-		try {
-			res = Integer.valueOf(wolfNumber.getText());
-		} catch (Exception e) {
-			System.out.println("population de loups incorrecte");
-			res = -1;
-		}
-		return res;
-	}
-
-	public int getHareNumber() {
-		int res = -1;
-		try {
-			res = Integer.valueOf(hareNumber.getText());
-		} catch (Exception e) {
-			System.out.println("populaiton de lapins incorrecte");
 			res = -1;
 		}
 		return res;
@@ -391,15 +348,8 @@ public class View extends JFrame {
 		gridWidth.setText(Integer.toString(h));
 	}
 
-	public void setWolfNumber(int nb) {
-		wolfNumber.setText(Integer.toString(nb));
-	}
-
-	public void setHareNumber(int nb) {
-		hareNumber.setText(Integer.toString(nb));
-	}
-
 	public void setCustomCombo() {
 		gridSizeCombo.setSelectedIndex(gridSizeCombo.getItemCount() - 1);
-	}
+	}	
+	
 }
