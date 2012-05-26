@@ -9,9 +9,9 @@ import client.RestFacilities;
 
 public class ViewModel {
 
-	SimulationModel simModel;
-	SimProperties simProperties;
-	RestFacilities servRes;
+	private SimulationModel simModel;
+	private SimProperties simProperties;
+	private RestFacilities servRes;
 
 	public ViewModel(SimulationModel model, RestFacilities serv) {
 		simModel = model;
