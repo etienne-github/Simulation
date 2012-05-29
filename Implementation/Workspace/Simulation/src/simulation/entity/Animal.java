@@ -70,6 +70,12 @@ public abstract class Animal extends Entity implements Steppable, Eatable {
 		die();
 	}
 	
+	public void hide(){
+		//TODO implémentation
+	}
 	
+	public void flee(){
+		//TODO implémentation
+	}
 	
 }
