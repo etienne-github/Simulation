@@ -4,7 +4,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -12,7 +11,6 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,15 +27,13 @@ import utils.Constants;
 public class View extends JFrame {
 
 	ViewModel viewModel;
+	SpeciesTableModel tableModel;
 	boolean flag; // flag pour savoir si on est en vue simple ou detaillee
 	int nbSpecies; // nombre d'especes dans la simulation
 	Border sizePBorder;
 	Border popPBorder;
 	String[] speciesList; // liste de toutes les especes
-	String[] columnNames;
 	private JComboBox speciesChoice;
-	Object[][] dummyData; // donnees pour remplir le tableau en attendant qu'il
-							// fonctionne
 
 	ImageIcon addIcon; // icone pour ajouter des especes
 	ImageIcon removeIcon; // icone pour enlever des especes
@@ -76,17 +72,13 @@ public class View extends JFrame {
 		flag = false;
 		nbSpecies = 0;
 
-		columnNames = new String[] { "Espece", "Population", "", "", "" };
-		dummyData = new Object[][] { { "", "123", "", "", "" },
-				{ "", "234", "", "", "" }, { "", "345", "", "", "" },
-				{ "", "456", "", "", "" }, };
-
 		addIcon = new ImageIcon("img/add.png");
 		removeIcon = new ImageIcon("img/remove.png");
 		infoIcon = new ImageIcon("img/info.png");
+		tableModel = new SpeciesTableModel();
 		speciesList = getAllSpecies();
 		speciesChoice = new JComboBox(speciesList);
-		speciesTable = new JTable(dummyData, columnNames);
+		speciesTable = new JTable(tableModel.getData(), tableModel.getColumnNames());
 
 		/******** Taille de la grille ********/
 
