@@ -3,6 +3,7 @@ package simulation.entity;
 import sim.engine.SimState;
 import sim.engine.Steppable;
 import sim.engine.Stoppable;
+import sim.field.grid.SparseGrid2D;
 import simulation.SimulationModel;
 
 
@@ -68,4 +69,7 @@ public abstract class Animal extends Entity implements Steppable, Eatable {
 	public void eaten() {
 		die();
 	}
+	
+	
+	
 }
