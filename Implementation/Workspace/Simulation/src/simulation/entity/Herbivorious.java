@@ -31,6 +31,7 @@ public class Herbivorious extends Animal {
 	@Override
 	public boolean canBeEaten() {
 		// TODO retourner si disponible au mangeage
+		//FIXME déplacer dans animal
 		return true;
 	}
 	
