@@ -27,7 +27,7 @@ public class Carnivorious extends Animal {
 		SparseGrid2D yard = simModel.getYard();
 		detectFood(yard);
 		Animal nearbyFood = (Animal) getNearbyFood();
-		if (weight < weightConsumeByStep * maxNbStepSafe) {
+		if (weight < weightConsumeByDay * maxNbDaySafe) {
 			// Hungry
 			if (nearbyFood != null && isSameLocation(nearbyFood)) {
 				// Eat nearby food
