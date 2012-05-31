@@ -1,5 +1,6 @@
 package client;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URI;
@@ -8,6 +9,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -27,8 +29,8 @@ public class RestFacilities {
 	public RestFacilities()
 	{
 		client = new DefaultHttpClient();
-		//HttpHost proxy = new HttpHost("proxyweb.utc.fr", 3128);
-		//client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+		HttpHost proxy = new HttpHost("proxyweb.utc.fr", 3128);
+		client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 	}
 
 	public String getSpeciesDescription(String species) {
@@ -41,6 +43,11 @@ public class RestFacilities {
 			HttpEntity entity = res.getEntity();
 			if (res.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
 				s = EntityUtils.toString(entity);
+			}
+			
+			else if (res.getStatusLine().getStatusCode() == HttpStatus.SC_BAD_REQUEST)
+			{
+				System.err.println("La ressource n'existe pas sur le serveur");
 			}
 				
 		} 
@@ -66,6 +73,11 @@ public class RestFacilities {
 				JacksonRepresentation<SpeciesStats> jrepr = 
 						new JacksonRepresentation<SpeciesStats>(repr,SpeciesStats.class);
 				ret = jrepr.getObject();
+			}
+			
+			else if (res.getStatusLine().getStatusCode() == HttpStatus.SC_BAD_REQUEST)
+			{
+				System.err.println("La ressource n'existe pas sur le serveur");
 			}
 				
 		} 
@@ -101,8 +113,8 @@ public class RestFacilities {
 		try {
 			uri = new URI("http://species-ia04.appspot.com/species/"+species.getNom());
 			HttpPut httpput = new HttpPut(uri);
-			 httpput.addHeader("Accept", "application/json");
-			 httpput.addHeader("Content-Type", "application/json");
+			httpput.addHeader("Accept", "application/json");
+			httpput.addHeader("Content-Type", "application/json");
 			 
 			 //sérialisation de l'objet
 			ObjectMapper om = new ObjectMapper();
@@ -110,7 +122,7 @@ public class RestFacilities {
 
 			om.writeValue(sw,species);
 
-			StringEntity entity = new StringEntity(sw.toString());
+			StringEntity entity = new StringEntity(sw.toString(),"UTF-8");
 			entity.setContentType("application/json");
 			httpput.setEntity(entity);
 
@@ -120,12 +132,102 @@ public class RestFacilities {
 		catch (Exception e) {
 			System.err.println(e.getMessage());
 			}
-		
 			if (res.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
-				
+				try {
+					EntityUtils.consume(res.getEntity());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				return true;
 			}
-			else return false;
+			
+			else if (res.getStatusLine().getStatusCode() == HttpStatus.SC_CONFLICT)
+			{
+				System.err.println("La ressource existe déjà sur le serveur\n");
+				try {
+					//On consomme la ressource pour libérer la connexion
+					EntityUtils.consume(res.getEntity());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return false;
+			}
+			else 
+				{
+				try {
+					//On consomme la ressource pour libérer la connexion
+					EntityUtils.consume(res.getEntity());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return false;
+				}
+		
+
+	}
+	
+	public boolean updateSpecies(SpeciesStats species)
+	{
+		HttpResponse res=null;
+		try {
+			uri = new URI("http://species-ia04.appspot.com/species/"+species.getNom());
+			HttpPost httppost = new HttpPost(uri);
+			httppost.addHeader("Accept", "application/json");
+			httppost.addHeader("Content-Type", "application/json");
+			 
+			 //sérialisation de l'objet
+			ObjectMapper om = new ObjectMapper();
+			StringWriter sw = new StringWriter();
+
+			om.writeValue(sw,species);
+
+			StringEntity entity = new StringEntity(sw.toString(),"UTF-8");
+			entity.setContentType("application/json");
+			httppost.setEntity(entity);
+
+			//envoi de la requête
+			res = client.execute(httppost);
+		}
+		catch (Exception e) {
+			System.err.println(e.getMessage());
+			}
+			if (res.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
+				//On consomme la ressource pour libérer la connexion
+				try {
+					EntityUtils.consume(res.getEntity());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return true;
+			}
+			
+			else if (res.getStatusLine().getStatusCode() == HttpStatus.SC_CONFLICT)
+			{
+				System.err.println("La ressource n'existe pas sur le serveur\n");
+				try {
+					//On consomme la ressource pour libérer la connexion
+					EntityUtils.consume(res.getEntity());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return false;
+			}
+			else 
+				{
+				try {
+					//On consomme la ressource pour libérer la connexion
+					EntityUtils.consume(res.getEntity());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return false;
+				}
 		
 
 	}
