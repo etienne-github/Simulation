@@ -59,16 +59,18 @@ public class View extends JFrame {
 	JPanel sizePanel;
 	JPanel popPanel;
 	JPanel buttonPanel;
+	JPanel simTab;
+	RestManagementPane restTab;
 
 	JTabbedPane tabbedPane;
-	
+
 	JTable speciesTable;
 
 	JTextField gridHeight;
 	JTextField gridWidth;
 
 	ArrayList<SpeciesPop> speciesPop;
-	
+
 	public View(ViewModel model) {
 
 		setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
@@ -89,9 +91,10 @@ public class View extends JFrame {
 			speciesList.add(species);
 		}
 		speciesChoice = new JComboBox(speciesList.toArray());
-		speciesTable = new JTable(tableModel.getData(), tableModel.getColumnNames());
-		// FIXME
-		speciesTable.setModel(tableModel);
+		speciesTable = new JTable(tableModel);
+		simTab = new JPanel();
+		simTab.setLayout(new BoxLayout(simTab, BoxLayout.PAGE_AXIS));
+		restTab = new RestManagementPane();
 		tabbedPane = new JTabbedPane();
 
 		/******** Taille de la grille ********/
@@ -150,41 +153,52 @@ public class View extends JFrame {
 				.setCellEditor(new DefaultCellEditor(speciesChoice));
 		speciesTable.getColumnModel().getColumn(1)
 				.setCellEditor(new DefaultCellEditor(new JTextField()));
-		speciesTable.getColumnModel().getColumn(2).setCellRenderer(
-						new ButtonRenderer(addIcon));
-		speciesTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(addIcon, new ActionListener() {
-			// Ajout d'une ligne
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int idx = speciesTable.getSelectedRow();
-				addNewLine(idx);
+		speciesTable.getColumnModel().getColumn(2)
+				.setCellRenderer(new ButtonRenderer(addIcon));
+		speciesTable.getColumnModel().getColumn(2)
+				.setCellEditor(new ButtonEditor(addIcon, new ActionListener() {
+					// Ajout d'une ligne
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						int idx = speciesTable.getEditingRow();
+						addRow(idx);
 
-			}
-		}));
+					}
+				}));
 		speciesTable.getColumnModel().getColumn(2).setMaxWidth(30);
-		speciesTable.getColumnModel().getColumn(3).setCellRenderer(
-						new ButtonRenderer(removeIcon));
-		speciesTable.getColumnModel().getColumn(3).setCellEditor(new ButtonEditor(removeIcon, new ActionListener() {
-			// Suppression d'une ligne
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int idx = speciesTable.getSelectedRow();
-				deleteLine(idx);
-
-			}
-		}));
+		speciesTable.getColumnModel().getColumn(3)
+				.setCellRenderer(new ButtonRenderer(removeIcon));
+		speciesTable
+				.getColumnModel()
+				.getColumn(3)
+				.setCellEditor(
+						new ButtonEditor(removeIcon, new ActionListener() {
+							// Suppression d'une lignes
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								int idx = speciesTable.getEditingRow();
+								/** Il faut arreter d'editer la ligne pour pouvoir supprimer le bouton **/
+								/** Car en fait je demande au botuon de supprimer la ligne sur laquelle il se trouve **/
+								/** Donc si je supprime la derniere ligne, ca va buguer car Swing va vouloir repeindre la derniere ligne **/
+								/** A cause de l'editeur, mais y'a plus rien sauf le bouton (etat instable....) **/
+								speciesTable.editingCanceled(null);
+								removeRow(idx);
+							}
+						}));
 		speciesTable.getColumnModel().getColumn(3).setMaxWidth(30);
-		speciesTable.getColumnModel().getColumn(4).setCellRenderer(
-						new ButtonRenderer(infoIcon));
-		speciesTable.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(infoIcon, new ActionListener() {
-			// Ouverture de l'onglet d'informations
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String species = getSpecies(speciesTable.getSelectedRow());
-				showInfos(species);
+		speciesTable.getColumnModel().getColumn(4)
+				.setCellRenderer(new ButtonRenderer(infoIcon));
+		speciesTable.getColumnModel().getColumn(4)
+				.setCellEditor(new ButtonEditor(infoIcon, new ActionListener() {
+					// Ouverture de l'onglet d'informations
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						String species = getSpecies(speciesTable
+								.getSelectedRow());
+						showInfos(species);
 
-			}
-		}));
+					}
+				}));
 		speciesTable.getColumnModel().getColumn(4).setMaxWidth(30);
 		speciesTable.setRowHeight(30);
 
@@ -271,7 +285,7 @@ public class View extends JFrame {
 		sizePanel.add(gridWidth, c);
 		gridWidth.setVisible(false);
 
-		this.add(sizePanel);
+		simTab.add(sizePanel);
 
 		popPanel.setBorder(popPBorder);
 
@@ -293,12 +307,16 @@ public class View extends JFrame {
 		c.weighty = 0.7;
 		popPanel.add(new JScrollPane(speciesTable), c);
 
-		this.add(popPanel);
+		
+		simTab.add(popPanel);
 
 		buttonPanel.add(advancedParamsButton);
 		buttonPanel.add(okButton);
-		this.add(buttonPanel);
+		simTab.add(buttonPanel);
 
+		tabbedPane.add("Simulation", simTab);
+		tabbedPane.add("Service REST", restTab);
+		this.add(tabbedPane);
 		setGridSizeFromCombo(gridSizeCombo.getSelectedIndex());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -421,33 +439,33 @@ public class View extends JFrame {
 		String str = viewModel.getRestServer().getSpeciesList();
 		return str.substring(1, str.length() - 1).split(", ");
 	}
-	
-	private void addNewLine(int idx) {
-		// TODO Auto-generated method stub
-		speciesTable.getModel();
-		System.out.println("Add new line at index" + idx);
-		
+
+	private void addRow(int idx) {
+		tableModel.addRow(idx);
+		/** le fireTableRowsInserted continue a selectionner les lignes ajoutees, d'ou le clearSelection() **/
+		speciesTable.clearSelection();
+
 	}
-	
-	private void deleteLine(int idx) {
-		// TODO Auto-generated method stub
-		System.out.println("Delete line at index" + idx);
+
+	private void removeRow(int idx) {
+		tableModel.removeRow(idx);
+
 	}
-	
+
 	private void showInfos(String species) {
-	// TODO Ouverture de l'onglet d'informations
+		// TODO Ouverture de l'onglet d'informations
 		if (!species.isEmpty())
 			System.out.println("Show species info on species" + species);
-		else
-		{
-			JOptionPane.showMessageDialog(this, "No species selected !", "Warning", JOptionPane.WARNING_MESSAGE);
+		else {
+			JOptionPane.showMessageDialog(this, "No species selected !",
+					"Warning", JOptionPane.WARNING_MESSAGE);
 		}
 	}
-	
+
 	private String getSpecies(int idx) {
 		// TODO recuperation du serveur rest
 		String species = "";
-		
+
 		return species;
 	}
 }
