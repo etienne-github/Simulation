@@ -7,7 +7,6 @@ import sim.engine.SimState;
 import sim.field.grid.SparseGrid2D;
 import simulation.entity.Entity;
 import simulation.entity.Grass;
-import simulation.entity.Hare;
 import simulation.entity.VegetationManager;
 import simulationWindow.SimulationView;
 

@@ -3,7 +3,6 @@ package simulation.entity;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import sim.engine.SimState;
 import sim.field.grid.SparseGrid2D;
 import sim.util.Bag;
 import simulation.SimulationModel;
@@ -24,10 +23,6 @@ public class Carnivorious extends Animal {
 
 	// Main action
 
-	public void step(SimState simState) {
-
-	}
-
 	public void action() {
 		SparseGrid2D yard = simModel.getYard();
 		detectFood(yard);
@@ -36,7 +31,7 @@ public class Carnivorious extends Animal {
 			// Hungry
 			if (nearbyFood != null && isSameLocation(nearbyFood)) {
 				// Eat nearby food
-				eat(nearbyFood);
+				attack(nearbyFood);
 			} else if (nearbyFood != null) {
 				// Move to food
 				moveTo(yard, nearbyFood);
@@ -46,11 +41,6 @@ public class Carnivorious extends Animal {
 		} else {
 			// Not Hungry
 			moveRandom(yard);
-		}
-
-		weight -= -weightConsumeByStep;
-		if (weight < minimumWeightToDeath) {
-			die();
 		}
 	}
 
@@ -155,17 +145,6 @@ public class Carnivorious extends Animal {
 
 	protected boolean canEat(Animal animal) {
 		return (eatableFoodList.contains(animal.type) && animal.canBeEaten());
-	}
-
-	@Override
-	public boolean canBeEaten() {
-		return false;
-	}
-	
-	// Other
-
-	public String toString() {
-		return "(x: " + getX() + ", y: " + getY() + ", age: " + age + ")";
 	}
 
 }
