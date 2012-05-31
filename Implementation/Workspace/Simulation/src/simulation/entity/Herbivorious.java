@@ -27,13 +27,6 @@ public class Herbivorious extends Animal {
 		SparseGrid2D yard = simModel.getYard();
 
 	}
-
-	@Override
-	public boolean canBeEaten() {
-		// TODO retourner si disponible au mangeage
-		//FIXME déplacer dans animal
-		return true;
-	}
 	
 	private void detectFood(SparseGrid2D yard,Integer[][] Vegetation, SimulationModel simModel) {
 		
