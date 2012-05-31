@@ -1,10 +1,5 @@
 package simulation.entity;
 
-import sim.engine.SimState;
-import sim.engine.Steppable;
-import sim.engine.Stoppable;
-import sim.field.grid.SparseGrid2D;
-import simulation.SimulationModel;
 
 @SuppressWarnings("serial")
 public class Hare {
