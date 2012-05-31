@@ -64,7 +64,7 @@ public class Carnivorious extends Animal {
 		Iterator<Animal> detectedFoodIterator = detectedFoodList.iterator();
 		while (detectedFoodIterator.hasNext()) {
 			Entity food = detectedFoodIterator.next();
-			if (this.getShortestDistance(food) < perceptionPoint) {
+			if (this.getShortestDistanceToEntity(food) < perceptionPoint) {
 				detectedFoodIterator.remove();
 			}
 		}
@@ -91,9 +91,9 @@ public class Carnivorious extends Animal {
 			Entity foodResult = detectedFoodIterator.next();
 			if (nearbyFood == null
 					|| distanceNearbyFood > this
-							.getShortestDistance(foodResult)) {
+							.getShortestDistanceToEntity(foodResult)) {
 				nearbyFood = foodResult;
-				distanceNearbyFood = this.getShortestDistance(nearbyFood);
+				distanceNearbyFood = this.getShortestDistanceToEntity(nearbyFood);
 			}
 		}
 

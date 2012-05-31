@@ -44,6 +44,13 @@ public class Entity {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	protected boolean isSameLocation(int x,int y) {
+		if (x ==this.x && y == this.y)
+			return true;
+		else
+			return false;
+	}
 
 	protected boolean isSameLocation(Entity entity) {
 		if (entity.x == x && entity.y == y)
@@ -51,6 +58,20 @@ public class Entity {
 		else
 			return false;
 	}
+	
+	protected int getXShortestDirection(int x) {
+		int xa = this.x;
+		int xb = x;
+
+		int minAbsDx = Math.min(Math.abs(xb - xa),
+				GRID_SIZE_X - Math.abs(xb - xa));
+		if (minAbsDx == Math.abs(xb - xa)) {
+			return xb - xa;
+		} else {
+			return GRID_SIZE_X - (xb - xa);
+		}
+	}
+	
 
 	protected int getXShortestDirection(Entity entity) {
 		int xa = this.x;
@@ -62,6 +83,19 @@ public class Entity {
 			return xb - xa;
 		} else {
 			return GRID_SIZE_X - (xb - xa);
+		}
+	}
+	
+	protected int getYShortestDirection(int y) {
+		int ya = this.y;
+		int yb = y;
+
+		int minAbsDy = Math.min(Math.abs(yb - ya),
+				GRID_SIZE_Y - Math.abs(yb - ya));
+		if (minAbsDy == Math.abs(yb - ya)) {
+			return yb - ya;
+		} else {
+			return GRID_SIZE_Y - (yb - ya);
 		}
 	}
 
@@ -77,8 +111,24 @@ public class Entity {
 			return GRID_SIZE_Y - (yb - ya);
 		}
 	}
+	
+	
+	protected double getShortestDistanceToPoint(int x, int y){
+		int xa = this.x;
+		int xb = x;
+		int ya = this.y;
+		int yb = y;
 
-	protected double getShortestDistance(Entity entity) {
+		int dX = Math.min(Math.abs(xb - xa),
+				GRID_SIZE_X - Math.abs(xb - xa));
+		int dY = Math.min(Math.abs(yb - ya),
+				GRID_SIZE_Y - Math.abs(yb - ya));
+		double distance = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
+
+		return distance;
+	}
+
+	protected double getShortestDistanceToEntity(Entity entity) {
 		/** Dx = min(abs(xb-xa) , X - abs(xb-xa)) avec X largeur de la grille **/
 		/** Dy = min(abs(yb-ya) , X - abs(yb-ya)) avec Y hauteur de la grille **/
 		/** Distance finale : entier le plus proche de sqrt(Dx^2 + Dy^2) **/
