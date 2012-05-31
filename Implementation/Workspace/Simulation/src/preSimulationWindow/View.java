@@ -23,6 +23,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import simulation.SpeciesPop;
 import utils.Constants;
 
 @SuppressWarnings("serial")
