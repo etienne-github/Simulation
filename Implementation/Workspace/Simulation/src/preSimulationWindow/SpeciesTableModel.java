@@ -40,6 +40,11 @@ public class SpeciesTableModel extends DefaultTableModel {
 	public Object getValueAt(int row, int col) {
 		return data.get(row)[col];
 	}
+
+	public void setValueAt(Object value, int row, int col) {
+		data.get(row)[col] = value;
+        fireTableCellUpdated(row, col);
+    }	
 	
 	public void addLine(int idx) {
 		data.add(idx, new Object[]{"", "", "", "", ""});
