@@ -13,7 +13,6 @@ public class Main {
 		ViewModel viewModel = new ViewModel(simModel, servRes);
 		View v = new View(viewModel);
 		
-		
 		v.setVisible(true);
 
 	}

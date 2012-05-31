@@ -23,7 +23,7 @@ public class ViewModel {
 		HashMap<String, Integer> array = new HashMap<String, Integer>();
 
 		for (String key : array.keySet()) {
-			int pop = (int) Math.round(Math.random() * Constants.MAX_POP);
+			int pop = (int) Math.round(Math.random() * Constants.MAX_LAPINS);
 			array.put(key, pop);
 		}
 

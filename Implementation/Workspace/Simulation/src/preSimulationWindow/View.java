@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -17,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -32,7 +34,7 @@ public class View extends JFrame {
 	int nbSpecies; // nombre d'especes dans la simulation
 	Border sizePBorder;
 	Border popPBorder;
-	String[] speciesList; // liste de toutes les especes
+	ArrayList<String> speciesList; // liste de toutes les especes
 	private JComboBox speciesChoice;
 
 	ImageIcon addIcon; // icone pour ajouter des especes
@@ -57,11 +59,15 @@ public class View extends JFrame {
 	JPanel popPanel;
 	JPanel buttonPanel;
 
+	JTabbedPane tabbedPane;
+	
 	JTable speciesTable;
 
 	JTextField gridHeight;
 	JTextField gridWidth;
 
+	ArrayList<SpeciesPop> speciesPop;
+	
 	public View(ViewModel model) {
 
 		setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
@@ -76,9 +82,16 @@ public class View extends JFrame {
 		removeIcon = new ImageIcon("img/remove.png");
 		infoIcon = new ImageIcon("img/info.png");
 		tableModel = new SpeciesTableModel();
-		speciesList = getAllSpecies();
-		speciesChoice = new JComboBox(speciesList);
+		speciesList = new ArrayList<String>();
+		speciesList.add("");
+		for (String species : getAllSpecies()) {
+			speciesList.add(species);
+		}
+		speciesChoice = new JComboBox(speciesList.toArray());
 		speciesTable = new JTable(tableModel.getData(), tableModel.getColumnNames());
+		// FIXME
+		speciesTable.setModel(tableModel);
+		tabbedPane = new JTabbedPane();
 
 		/******** Taille de la grille ********/
 
@@ -410,7 +423,7 @@ public class View extends JFrame {
 	
 	private void addNewLine(int idx) {
 		// TODO Auto-generated method stub
-		
+		speciesTable.getModel();
 		System.out.println("Add new line at index" + idx);
 		
 	}

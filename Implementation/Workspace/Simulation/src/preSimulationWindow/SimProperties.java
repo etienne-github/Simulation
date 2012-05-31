@@ -1,14 +1,18 @@
 package preSimulationWindow;
 
+import java.util.HashMap;
+
 public class SimProperties {
 
 	private Integer gridWidth;
 	private Integer gridHeight;
 	private Integer wolfNumber;
 	private Integer hareNumber;
-
+	 
+	
+	private HashMap<String, Integer> speciesList;
 	public SimProperties() {
-
+		speciesList = new HashMap<String, Integer>();
 	}
 
 	public SimProperties(SimProperties properties) {
