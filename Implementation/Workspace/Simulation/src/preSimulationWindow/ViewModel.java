@@ -19,15 +19,8 @@ public class ViewModel {
 	}
 
 	// TODO randomAnimals
-	public Map<String, Integer> randomAnimals(int nbSpecies) {
-		HashMap<String, Integer> array = new HashMap<String, Integer>();
-
-		for (String key : array.keySet()) {
-			int pop = (int) Math.round(Math.random() * Constants.MAX_LAPINS);
-			array.put(key, pop);
-		}
-
-		return array;
+	public int randomAnimals() {
+		return (int) Math.round(Math.random() * Constants.MAX_POP);
 	}
 
 	public void sendToModel(SimProperties properties) {

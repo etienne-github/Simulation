@@ -142,7 +142,7 @@ public class View extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				/** C'est le modele (ViewModel) qui va effectuer le calcul **/
-				Map<String, Integer> rdPop = viewModel.randomAnimals(nbSpecies);
+				randomAnimals();
 
 			}
 		});
@@ -190,7 +190,7 @@ public class View extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						int row = speciesTable.getEditingRow();
-						String species = (String) speciesTable.getCellEditor(row, 0).getCellEditorValue();
+						String species = getSpecies(row); 
 						showInfos(species);
 
 					}
@@ -370,7 +370,44 @@ public class View extends JFrame {
 		 */
 		return null;
 	}
+	private void addRow(int idx) {
+		tableModel.addRow(idx);
+		/** le fireTableRowsInserted continue a selectionner les lignes ajoutees, d'ou le clearSelection() **/
+		speciesTable.clearSelection();
 
+	}
+
+	private void removeRow(int idx) {
+		tableModel.removeRow(idx);
+
+	}
+
+	private void showInfos(String species) {
+		if (!species.isEmpty())
+		{
+			System.out.println("Show species info on species " + species);
+			String description = viewModel.getRestServer().getSpeciesDescription(species);
+			JOptionPane.showMessageDialog(this, description,
+				"Informations sur l'espece " + species, JOptionPane.INFORMATION_MESSAGE);
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "No species selected !",
+					"Warning", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
+	private void randomAnimals() {
+		
+		int tableSize = tableModel.getRowCount();
+		for (int i = 0; i < tableSize; i++) {
+			if (!(getSpecies(i).isEmpty())) {
+				int value = viewModel.randomAnimals();
+				tableModel.setValueAt(value, i, 1);
+			}
+		}
+		
+	}
+	
 	/*********************************** Getters ***********************************/
 
 	public int getGridWidth() {
@@ -395,6 +432,16 @@ public class View extends JFrame {
 		return res;
 	}
 
+	/** Recupere le nom de l'espece comme marque dans la table **/
+	protected String getSpecies(int row) {
+		return speciesTable.getValueAt(row, 0).toString();
+	}
+		
+	private String[] getAllSpecies() {
+		String str = viewModel.getRestServer().getSpeciesList();
+		return str.substring(1, str.length() - 1).split(", ");
+	}	
+	
 	/*********************************** Setters ***********************************/
 
 	public void setGridSizeFromCombo(int idx) {
@@ -430,37 +477,5 @@ public class View extends JFrame {
 	public void setCustomCombo() {
 		gridSizeCombo.setSelectedIndex(gridSizeCombo.getItemCount() - 1);
 	}
-
-	private String[] getAllSpecies() {
-		String str = viewModel.getRestServer().getSpeciesList();
-		return str.substring(1, str.length() - 1).split(", ");
-	}
-
-	private void addRow(int idx) {
-		tableModel.addRow(idx);
-		/** le fireTableRowsInserted continue a selectionner les lignes ajoutees, d'ou le clearSelection() **/
-		speciesTable.clearSelection();
-
-	}
-
-	private void removeRow(int idx) {
-		tableModel.removeRow(idx);
-
-	}
-
-	private void showInfos(String species) {
-		if (!species.isEmpty())
-		{
-			System.out.println("Show species info on species " + species);
-			String description = viewModel.getRestServer().getSpeciesDescription(species);
-			JOptionPane.showMessageDialog(this, description,
-				"Informations sur l'espece " + species, JOptionPane.INFORMATION_MESSAGE);
-		}
-		else {
-			JOptionPane.showMessageDialog(this, "No species selected !",
-					"Warning", JOptionPane.WARNING_MESSAGE);
-		}
-	}
-
 
 }
