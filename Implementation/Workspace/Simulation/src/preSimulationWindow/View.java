@@ -166,12 +166,8 @@ public class View extends JFrame {
 					}
 				}));
 		speciesTable.getColumnModel().getColumn(2).setMaxWidth(30);
-		speciesTable.getColumnModel().getColumn(3)
-				.setCellRenderer(new ButtonRenderer(removeIcon));
-		speciesTable
-				.getColumnModel()
-				.getColumn(3)
-				.setCellEditor(
+		speciesTable.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer(removeIcon));
+		speciesTable.getColumnModel().getColumn(3).setCellEditor(
 						new ButtonEditor(removeIcon, new ActionListener() {
 							// Suppression d'une lignes
 							@Override
@@ -193,8 +189,8 @@ public class View extends JFrame {
 					// Ouverture de l'onglet d'informations
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						String species = getSpecies(speciesTable
-								.getSelectedRow());
+						int row = speciesTable.getEditingRow();
+						String species = (String) speciesTable.getCellEditor(row, 0).getCellEditorValue();
 						showInfos(species);
 
 					}
@@ -453,19 +449,18 @@ public class View extends JFrame {
 	}
 
 	private void showInfos(String species) {
-		// TODO Ouverture de l'onglet d'informations
 		if (!species.isEmpty())
-			System.out.println("Show species info on species" + species);
+		{
+			System.out.println("Show species info on species " + species);
+			String description = viewModel.getRestServer().getSpeciesDescription(species);
+			JOptionPane.showMessageDialog(this, description,
+				"Informations sur l'espece " + species, JOptionPane.INFORMATION_MESSAGE);
+		}
 		else {
 			JOptionPane.showMessageDialog(this, "No species selected !",
 					"Warning", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
-	private String getSpecies(int idx) {
-		// TODO recuperation du serveur rest
-		String species = "";
 
-		return species;
-	}
 }
