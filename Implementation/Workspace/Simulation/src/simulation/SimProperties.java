@@ -1,4 +1,4 @@
-package preSimulationWindow;
+package simulation;
 
 
 public class SimProperties {

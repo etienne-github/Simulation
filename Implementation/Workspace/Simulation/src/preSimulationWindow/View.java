@@ -23,6 +23,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import simulation.SimProperties;
 import simulation.SpeciesPop;
 import utils.Constants;
 
@@ -32,7 +33,6 @@ public class View extends JFrame {
 	ViewModel viewModel;
 	SpeciesTableModel tableModel;
 	boolean flag; // flag pour savoir si on est en vue simple ou detaillee
-	int nbSpecies; // nombre d'especes dans la simulation
 	Border sizePBorder;
 	Border popPBorder;
 	ArrayList<String> speciesList; // liste de toutes les especes
@@ -79,7 +79,6 @@ public class View extends JFrame {
 
 		viewModel = model;
 		flag = false;
-		nbSpecies = 0;
 
 		addIcon = new ImageIcon("img/add.png");
 		removeIcon = new ImageIcon("img/remove.png");
@@ -136,7 +135,6 @@ public class View extends JFrame {
 
 		/******** Population ********/
 
-		// TODO recuperation de la population
 		randomNumber = new JButton("Population aleatoire");
 		randomNumber.addActionListener(new ActionListener() {
 			@Override
@@ -166,17 +164,34 @@ public class View extends JFrame {
 					}
 				}));
 		speciesTable.getColumnModel().getColumn(2).setMaxWidth(30);
-		speciesTable.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer(removeIcon));
-		speciesTable.getColumnModel().getColumn(3).setCellEditor(
+		speciesTable.getColumnModel().getColumn(3)
+				.setCellRenderer(new ButtonRenderer(removeIcon));
+		speciesTable
+				.getColumnModel()
+				.getColumn(3)
+				.setCellEditor(
 						new ButtonEditor(removeIcon, new ActionListener() {
 							// Suppression d'une lignes
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								int idx = speciesTable.getEditingRow();
-								/** Il faut arreter d'editer la ligne pour pouvoir supprimer le bouton **/
-								/** Car en fait je demande au botuon de supprimer la ligne sur laquelle il se trouve **/
-								/** Donc si je supprime la derniere ligne, ca va buguer car Swing va vouloir repeindre la derniere ligne **/
-								/** A cause de l'editeur, mais y'a plus rien sauf le bouton (etat instable....) **/
+								/**
+								 * Il faut arreter d'editer la ligne pour
+								 * pouvoir supprimer le bouton
+								 **/
+								/**
+								 * Car en fait je demande au botuon de supprimer
+								 * la ligne sur laquelle il se trouve
+								 **/
+								/**
+								 * Donc si je supprime la derniere ligne, ca va
+								 * buguer car Swing va vouloir repeindre la
+								 * derniere ligne
+								 **/
+								/**
+								 * A cause de l'editeur, mais y'a plus rien sauf
+								 * le bouton (etat instable....)
+								 **/
 								speciesTable.editingCanceled(null);
 								removeRow(idx);
 							}
@@ -190,7 +205,7 @@ public class View extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						int row = speciesTable.getEditingRow();
-						String species = getSpecies(row); 
+						String species = getSpecies(row);
 						showInfos(species);
 
 					}
@@ -202,23 +217,16 @@ public class View extends JFrame {
 
 		okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
-
-			// TODO changer checkData()
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String[] str = checkData();
-				if (str != null) {
-					/*
-					 * String message =
-					 * "Attention, valeur(s) nulle(s) ou incorrecte(s) : \n";
-					 * for (int i = 0; i < str.length; i++) { message += "- " +
-					 * str[i] + " \n"; } JOptionPane.showMessageDialog(null,
-					 * message, "Attention", JOptionPane.WARNING_MESSAGE);
-					 */
-				} else {
+				if (str != null && str.length > 0) {
 					System.out.println("Parametrage de la simulation termine");
-					// sendToModel();
-				}
+					sendToModel(str);
+				} else
+					JOptionPane.showMessageDialog(null,
+							"No species selected !", "Warning",
+							JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		advancedParamsButton = new JButton("Vue detaillee");
@@ -303,7 +311,6 @@ public class View extends JFrame {
 		c.weighty = 0.7;
 		popPanel.add(new JScrollPane(speciesTable), c);
 
-		
 		simTab.add(popPanel);
 
 		buttonPanel.add(advancedParamsButton);
@@ -342,8 +349,8 @@ public class View extends JFrame {
 	}
 
 	/** Envoyer les donnees au modele et detruire la fenetre **/
-	private void sendToModel() {
-
+	private void sendToModel(String[] speciesList) {
+		// TODO
 		SimProperties properties = new SimProperties();
 		properties.setGridWidth(Integer.valueOf(gridWidth.getText()));
 		properties.setGridHeight(Integer.valueOf(gridHeight.getText()));
@@ -354,25 +361,39 @@ public class View extends JFrame {
 	}
 
 	private String[] checkData() {
-		/*
-		 * ArrayList<String> array = new ArrayList<String>();
-		 * 
-		 * try { Integer.parseInt(gridWidth.getText()); } catch (Exception e) {
-		 * array.add("largeur de la grille"); }
-		 * 
-		 * try { Integer.parseInt(gridHeight.getText()); } catch (Exception e) {
-		 * array.add("hauteur de la grille"); }
-		 * 
-		 * String[] result = new String[array.size()]; for (int i = 0; i <
-		 * array.size(); i++) { result[i] = array.get(i); }
-		 * 
-		 * return result;
-		 */
+		ArrayList<String> speciesSim = new ArrayList<String>();
+		/** especes en doublons dans la simulation : affichage d'un message **/
+		ArrayList<String> speciesDuplicate = new ArrayList<String>(); 
+		for (int i = 0; i < tableModel.getRowCount(); i++) {
+			String species = getSpecies(i);
+			if (!species.isEmpty()) {
+				if (speciesSim.contains(species)) {
+					speciesDuplicate.add(species);
+				} else {
+					speciesSim.add(species);
+				}
+			}
+		}
+		if (speciesDuplicate.isEmpty())
+			return speciesSim.toArray(new String[speciesSim.size()]);
+		else {
+			String msg = "Attention, les especes suivantes sont definies plusieurs fois : \n";
+			for (String str : speciesDuplicate) {
+				msg += "- " + str + " ;\n";
+			}
+			msg += "Veuillez corriger les donnees de la simulation";
+			JOptionPane.showMessageDialog(null, msg, "Warning",
+					JOptionPane.WARNING_MESSAGE);
+		}
 		return null;
 	}
+
 	private void addRow(int idx) {
 		tableModel.addRow(idx);
-		/** le fireTableRowsInserted continue a selectionner les lignes ajoutees, d'ou le clearSelection() **/
+		/**
+		 * le fireTableRowsInserted continue a selectionner les lignes ajoutees,
+		 * d'ou le clearSelection() necessaire
+		 **/
 		speciesTable.clearSelection();
 
 	}
@@ -383,21 +404,20 @@ public class View extends JFrame {
 	}
 
 	private void showInfos(String species) {
-		if (!species.isEmpty())
-		{
-			System.out.println("Show species info on species " + species);
-			String description = viewModel.getRestServer().getSpeciesDescription(species);
-			JOptionPane.showMessageDialog(this, description,
-				"Informations sur l'espece " + species, JOptionPane.INFORMATION_MESSAGE);
-		}
-		else {
-			JOptionPane.showMessageDialog(this, "No species selected !",
+		if (!species.isEmpty()) {
+			String description = viewModel.getRestServer()
+					.getSpeciesDescription(species);
+			JOptionPane.showMessageDialog(null, description,
+					"Informations sur l'espece " + species,
+					JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(null, "No species selected !",
 					"Warning", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
 	private void randomAnimals() {
-		
+
 		int tableSize = tableModel.getRowCount();
 		for (int i = 0; i < tableSize; i++) {
 			if (!(getSpecies(i).isEmpty())) {
@@ -405,9 +425,9 @@ public class View extends JFrame {
 				tableModel.setValueAt(value, i, 1);
 			}
 		}
-		
+
 	}
-	
+
 	/*********************************** Getters ***********************************/
 
 	public int getGridWidth() {
@@ -426,22 +446,22 @@ public class View extends JFrame {
 		try {
 			res = Integer.valueOf(gridHeight.getText());
 		} catch (Exception e) {
-			System.out.println("largeur de la grille incorrecte");
+			System.out.println("hauteur de la grille incorrecte");
 			res = -1;
 		}
 		return res;
 	}
 
-	/** Recupere le nom de l'espece comme marque dans la table **/
+	/** Recupere le nom de l'espece comme ecrit dans la table **/
 	protected String getSpecies(int row) {
 		return speciesTable.getValueAt(row, 0).toString();
 	}
-		
+
 	private String[] getAllSpecies() {
 		String str = viewModel.getRestServer().getSpeciesList();
 		return str.substring(1, str.length() - 1).split(", ");
-	}	
-	
+	}
+
 	/*********************************** Setters ***********************************/
 
 	public void setGridSizeFromCombo(int idx) {

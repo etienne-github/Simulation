@@ -2,7 +2,6 @@ package simulation;
 
 import java.beans.PropertyChangeSupport;
 
-import preSimulationWindow.SimProperties;
 import sim.display.Console;
 import sim.engine.SimState;
 import sim.field.grid.SparseGrid2D;

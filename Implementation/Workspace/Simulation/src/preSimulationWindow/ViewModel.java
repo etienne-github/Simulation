@@ -3,6 +3,7 @@ package preSimulationWindow;
 import java.util.HashMap;
 import java.util.Map;
 
+import simulation.SimProperties;
 import simulation.SimulationModel;
 import utils.Constants;
 import client.RestFacilities;
