@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -24,52 +25,47 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import simulation.SimProperties;
-import simulation.SpeciesPop;
 import utils.Constants;
 
 @SuppressWarnings("serial")
 public class View extends JFrame {
 
-	ViewModel viewModel;
-	SpeciesTableModel tableModel;
-	boolean flag; // flag pour savoir si on est en vue simple ou detaillee
-	Border sizePBorder;
-	Border popPBorder;
-	ArrayList<String> speciesList; // liste de toutes les especes
+	private ViewModel viewModel;
+	private SpeciesTableModel tableModel;
+	private boolean flag; // flag pour savoir si on est en vue simple ou
+							// detaillee
+	private Border sizePBorder;
+	private Border popPBorder;
+	private ArrayList<String> speciesList; // liste de toutes les especes
 	private JComboBox speciesChoice;
 
-	ImageIcon addIcon; // icone pour ajouter des especes
-	ImageIcon removeIcon; // icone pour enlever des especes
-	ImageIcon infoIcon; // icone pour afficher les caracteristiques de l'espece
+	private ImageIcon addIcon; // icone pour ajouter des especes
+	private ImageIcon removeIcon; // icone pour enlever des especes
+	private ImageIcon infoIcon; // icone pour afficher les caracteristiques de
+								// l'espece
 
-	JButton randomNumber;
-	JButton okButton;
-	JButton advancedParamsButton;
-	/*
-	 * JButton addButton; // ajouter des especes JButton removeButton; //
-	 * supprimer des especes JButton infoButton; // afficher les
-	 * caracteristiques de l'espece
-	 */
-	JComboBox gridSizeCombo;
+	private JButton randomNumber;
+	private JButton okButton;
+	private JButton advancedParamsButton;
 
-	JLabel gridHLabel;
-	JLabel gridWLabel;
-	JLabel gridComboLabel;
+	private JComboBox gridSizeCombo;
 
-	JPanel sizePanel;
-	JPanel popPanel;
-	JPanel buttonPanel;
-	JPanel simTab;
-	RestManagementPane restTab;
+	private JLabel gridHLabel;
+	private JLabel gridWLabel;
+	private JLabel gridComboLabel;
 
-	JTabbedPane tabbedPane;
+	private JPanel sizePanel;
+	private JPanel popPanel;
+	private JPanel buttonPanel;
+	private JPanel simTab;
+	private RestManagementPane restTab;
 
-	JTable speciesTable;
+	private JTabbedPane tabbedPane;
 
-	JTextField gridHeight;
-	JTextField gridWidth;
+	private JTable speciesTable;
 
-	ArrayList<SpeciesPop> speciesPop;
+	private JTextField gridHeight;
+	private JTextField gridWidth;
 
 	public View(ViewModel model) {
 
@@ -219,10 +215,10 @@ public class View extends JFrame {
 		okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String[] str = checkData();
-				if (str != null && str.length > 0) {
+				Map<String, Integer> species = checkData();
+				if (species != null && species.size() > 0) {
 					System.out.println("Parametrage de la simulation termine");
-					sendToModel(str);
+					sendToModel(species);
 				} else
 					JOptionPane.showMessageDialog(null,
 							"No species selected !", "Warning",
@@ -349,37 +345,52 @@ public class View extends JFrame {
 	}
 
 	/** Envoyer les donnees au modele et detruire la fenetre **/
-	private void sendToModel(String[] speciesList) {
-		// TODO
+	private void sendToModel(Map<String, Integer> speciesList) {
 		SimProperties properties = new SimProperties();
 		properties.setGridWidth(Integer.valueOf(gridWidth.getText()));
 		properties.setGridHeight(Integer.valueOf(gridHeight.getText()));
-		viewModel.sendToModel(properties);
+		viewModel.sendToModel(speciesList, properties);
 
 		/** Detruire la fenetre **/
 		dispose();
 	}
 
-	private String[] checkData() {
-		ArrayList<String> speciesSim = new ArrayList<String>();
+	private Map<String, Integer> checkData() {
+		HashMap<String, Integer> speciesSim = new HashMap<String, Integer>();
+		String msg = "";
 		/** especes en doublons dans la simulation : affichage d'un message **/
-		ArrayList<String> speciesDuplicate = new ArrayList<String>(); 
-		for (int i = 0; i < tableModel.getRowCount(); i++) {
-			String species = getSpecies(i);
+		ArrayList<String> speciesDuplicate = new ArrayList<String>();
+		/** especes avec une population erronee : affichage d'un message **/
+		ArrayList<String> speciesBadPop = new ArrayList<String>();
+
+		for (int row = 0; row < tableModel.getRowCount(); row++) {
+			String species = getSpecies(row);
 			if (!species.isEmpty()) {
-				if (speciesSim.contains(species)) {
+				if (speciesSim.containsKey(species)) {
 					speciesDuplicate.add(species);
 				} else {
-					speciesSim.add(species);
+					int pop = getPop(row);
+					if (pop == -1)
+						speciesBadPop.add(species);
+					else
+						speciesSim.put(species, pop);
 				}
 			}
 		}
-		if (speciesDuplicate.isEmpty())
-			return speciesSim.toArray(new String[speciesSim.size()]);
+		if (speciesDuplicate.isEmpty() && speciesBadPop.isEmpty())
+			return speciesSim;
 		else {
-			String msg = "Attention, les especes suivantes sont definies plusieurs fois : \n";
-			for (String str : speciesDuplicate) {
-				msg += "- " + str + " ;\n";
+			if (!speciesDuplicate.isEmpty()) {
+				msg += "Attention, les especes suivantes sont definies plusieurs fois : \n";
+				for (String str : speciesDuplicate) {
+					msg += "- " + str + " ;\n";
+				}
+			}
+			if (!speciesBadPop.isEmpty()) {
+				msg += "Attention, les populations des especes suivantes sont mal definies : \n";
+				for (String str : speciesBadPop) {
+					msg += "- " + str + " ;\n";
+				}
 			}
 			msg += "Veuillez corriger les donnees de la simulation";
 			JOptionPane.showMessageDialog(null, msg, "Warning",
@@ -460,6 +471,14 @@ public class View extends JFrame {
 	private String[] getAllSpecies() {
 		String str = viewModel.getRestServer().getSpeciesList();
 		return str.substring(1, str.length() - 1).split(", ");
+	}
+
+	private int getPop(int row) {
+		try {
+			return Integer.parseInt((String) speciesTable.getValueAt(row, 1));
+		} catch (NumberFormatException e) {
+			return -1;
+		}
 	}
 
 	/*********************************** Setters ***********************************/

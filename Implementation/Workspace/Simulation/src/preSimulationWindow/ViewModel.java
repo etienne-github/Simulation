@@ -1,6 +1,5 @@
 package preSimulationWindow;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import simulation.SimProperties;
@@ -19,13 +18,23 @@ public class ViewModel {
 		servRes = serv;
 	}
 
-	// TODO randomAnimals
 	public int randomAnimals() {
 		return (int) Math.round(Math.random() * Constants.MAX_POP);
 	}
 
-	public void sendToModel(SimProperties properties) {
+	// TODO
+	public void sendToModel(Map<String, Integer> speciesList,
+			SimProperties properties) {
 		simProperties = properties;
+
+		// TODO : remplir le ArrayList<SpeciesPop> de simProperties
+
+		// Premiere etape : boucler pour recuperer les stats
+		
+		// Deuxieme etape : ajouter la liste a simProperties
+		
+		// Troisieme etape : verification avec des affichages console
+
 		simModel.setProperties(simProperties);
 		simModel.launchView();
 	}
