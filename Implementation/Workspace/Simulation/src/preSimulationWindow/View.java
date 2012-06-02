@@ -219,10 +219,7 @@ public class View extends JFrame {
 				if (species != null && species.size() > 0) {
 					System.out.println("Parametrage de la simulation termine");
 					sendToModel(species);
-				} else
-					JOptionPane.showMessageDialog(null,
-							"No species selected !", "Warning",
-							JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		advancedParamsButton = new JButton("Vue detaillee");
@@ -475,8 +472,12 @@ public class View extends JFrame {
 
 	private int getPop(int row) {
 		try {
-			return Integer.parseInt((String) speciesTable.getValueAt(row, 1));
-		} catch (NumberFormatException e) {
+			int pop = (Integer)speciesTable.getValueAt(row, 1);
+			if (pop <= 0) 
+				throw new Exception();
+			else
+				return pop;
+		} catch (Exception e) {
 			return -1;
 		}
 	}

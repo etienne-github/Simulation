@@ -84,4 +84,8 @@ public class SimProperties {
 	public void addSpecies(ArrayList<SpeciesPop> species) {
 		speciesList.addAll(species);
 	}
+	
+	public void addSpecies(SpeciesStats stats, int pop) {
+		speciesList.add(new SpeciesPop(stats, pop));
+	}
 }

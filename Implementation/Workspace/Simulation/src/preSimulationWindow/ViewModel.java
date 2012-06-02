@@ -1,9 +1,12 @@
 package preSimulationWindow;
 
+import java.util.ArrayList;
 import java.util.Map;
 
+import server.SpeciesStats;
 import simulation.SimProperties;
 import simulation.SimulationModel;
+import simulation.SpeciesPop;
 import utils.Constants;
 import client.RestFacilities;
 
@@ -27,13 +30,11 @@ public class ViewModel {
 			SimProperties properties) {
 		simProperties = properties;
 
-		// TODO : remplir le ArrayList<SpeciesPop> de simProperties
-
-		// Premiere etape : boucler pour recuperer les stats
-		
-		// Deuxieme etape : ajouter la liste a simProperties
-		
-		// Troisieme etape : verification avec des affichages console
+		for (String key : speciesList.keySet()) {
+			SpeciesStats stats = servRes.getSpecies(key);
+			properties.addSpecies(stats, speciesList.get(key));
+			System.out.println("Ajout de l'espece : " + stats.getNom() + " avec une population de " + speciesList.get(key));
+		}
 
 		simModel.setProperties(simProperties);
 		simModel.launchView();
