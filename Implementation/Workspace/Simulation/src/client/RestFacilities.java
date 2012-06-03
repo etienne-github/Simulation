@@ -3,14 +3,18 @@ package client;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLDecoder;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -29,8 +33,8 @@ public class RestFacilities {
 	public RestFacilities()
 	{
 		client = new DefaultHttpClient();
-		HttpHost proxy = new HttpHost("proxyweb.utc.fr", 3128);
-		client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+		//HttpHost proxy = new HttpHost("proxyweb.utc.fr", 3128);
+		//client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 	}
 
 	public String getSpeciesDescription(String species) {
@@ -104,7 +108,14 @@ public class RestFacilities {
 		catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		return s;
+		try { //Décodage des accents
+			s = URLDecoder.decode(s, "UTF-8");
+			return s;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 		}
 	
 	public boolean createSpecies(SpeciesStats species)
