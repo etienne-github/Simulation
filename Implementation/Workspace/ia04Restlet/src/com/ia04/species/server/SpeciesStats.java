@@ -1,121 +1,40 @@
 package com.ia04.species.server;
 
+
 import java.util.ArrayList;
 
 public class SpeciesStats {
-	
+
 	private String nom;
 	private String descriptif;
-    private float odorat; //pour se déplacer vers la nourriture
-    private float vue; //permet d'attaquer si un lapin est en vue
-    private float attaquer; //coefficient de réussite (quand le lapin survit, il se cache pendant une journée)
-    private int ageMax; //age à partir duquel l'espèce est très vieille (et doit mourir)
-    private float energie; //poids de viande à manger par jour pour être à 100%
-    private float distanceDeplacement;
-    private float seReproduire; //coefficient de réussite
-    private float gestation; //durée de gestation
-    private float poidsMin; //poids minimum pour les plus maigres
-    private float poidsMax; //poids maximum pour les plus gros
-    private ArrayList<String> mange; //Liste de toutes les espèces mangées
+	private Boolean isHerbivorious;
 	
-	public SpeciesStats(String nom, String descriptif, float odorat, float vue,
-			float attaquer,  int ageMax, float energie,
-			float distanceDeplacement, float seReproduire, float gestation,
-			float poidsMin, float poidsMax) {
+	// Animal
+	private String type;
+	private Double smellPoint; // by meter
+	private Double visionPoint; // by meter
+	private Double movePoint; // by meter per day
+	private Double maxLifetime;
+	private Double minimumWeightToDeath;
+	private Double weightConsumeByDay;
+	private Double maxNbDaySafe;
+	private Double attackPoint;
+	private Double defendPoint;
+	private Boolean isUseHiddenDefense;
 
-		this.nom = nom;
-		this.descriptif = descriptif;
-		this.odorat = odorat;
-		this.vue = vue;
-		this.attaquer = attaquer;
-		this.ageMax = ageMax;
-		this.energie = energie;
-		this.distanceDeplacement = distanceDeplacement;
-		this.seReproduire = seReproduire;
-		this.gestation = gestation;
-		this.poidsMin = poidsMin;
-		this.poidsMax = poidsMax;
-		mange = new ArrayList<String>();
-	}
+	// Init animal
+	private Double initWeight;
+	private Double initAge;
+
+	// Carnivorious
+	private ArrayList<String> eatableFoodList;
 	
-	public SpeciesStats()
-	{
-		
-	}
+	// Reproduction
+	private Double birthRateByDay;
+
 	
-    public String getDescriptif() {
-		return descriptif;
-	}
-	public void setDescriptif(String descriptif) {
-		this.descriptif = descriptif;
-	}
-	public float getOdorat() {
-		return odorat;
-	}
-	public void setOdorat(float odorat) {
-		this.odorat = odorat;
-	}
-	public float getVue() {
-		return vue;
-	}
-	public void setVue(float vue) {
-		this.vue = vue;
-	}
-	public float getAttaquer() {
-		return attaquer;
-	}
-	public void setAttaquer(float attaquer) {
-		this.attaquer = attaquer;
-	}
-	public int getAgeMax() {
-		return ageMax;
-	}
-	public void setAgeMax(int ageMax) {
-		this.ageMax = ageMax;
-	}
-	public float getEnergie() {
-		return energie;
-	}
-	public void setEnergie(float energie) {
-		this.energie = energie;
-	}
-	public float getDistanceDeplacement() {
-		return distanceDeplacement;
-	}
-	public void setDistanceDeplacement(float distanceDeplacement) {
-		this.distanceDeplacement = distanceDeplacement;
-	}
-	public float getSeReproduire() {
-		return seReproduire;
-	}
-	public void setSeReproduire(float seReproduire) {
-		this.seReproduire = seReproduire;
-	}
-	public float getGestation() {
-		return gestation;
-	}
-	public void setGestation(float gestation) {
-		this.gestation = gestation;
-	}
-	public float getPoidsMin() {
-		return poidsMin;
-	}
-	public void setPoidsMin(float poidsMin) {
-		this.poidsMin = poidsMin;
-	}
-	public float getPoidsMax() {
-		return poidsMax;
-	}
-	public void setPoidsMax(float poidsMax) {
-		this.poidsMax = poidsMax;
-	}
-
-	public ArrayList<String> getMange() {
-		return mange;
-	}
-
-	public void setMange(ArrayList<String> mange) {
-		this.mange = mange;
+	public SpeciesStats() {
+		eatableFoodList = new ArrayList<String>();
 	}
 
 	public String getNom() {
@@ -125,7 +44,141 @@ public class SpeciesStats {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-    
 
+	public String getDescriptif() {
+		return descriptif;
+	}
+
+	public void setDescriptif(String descriptif) {
+		this.descriptif = descriptif;
+	}
+
+	public Boolean getIsHerbivorious() {
+		return isHerbivorious;
+	}
+
+	public void setIsHerbivorious(Boolean isHerbivorious) {
+		this.isHerbivorious = isHerbivorious;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Double getSmellPoint() {
+		return smellPoint;
+	}
+
+	public void setSmellPoint(Double smellPoint) {
+		this.smellPoint = smellPoint;
+	}
+
+	public Double getVisionPoint() {
+		return visionPoint;
+	}
+
+	public void setVisionPoint(Double visionPoint) {
+		this.visionPoint = visionPoint;
+	}
+
+	public Double getMovePoint() {
+		return movePoint;
+	}
+
+	public void setMovePoint(Double movePoint) {
+		this.movePoint = movePoint;
+	}
+
+	public Double getMaxLifetime() {
+		return maxLifetime;
+	}
+
+	public void setMaxLifetime(Double maxLifetime) {
+		this.maxLifetime = maxLifetime;
+	}
+
+	public Double getMinimumWeightToDeath() {
+		return minimumWeightToDeath;
+	}
+
+	public void setMinimumWeightToDeath(Double minimumWeightToDeath) {
+		this.minimumWeightToDeath = minimumWeightToDeath;
+	}
+
+	public Double getWeightConsumeByDay() {
+		return weightConsumeByDay;
+	}
+
+	public void setWeightConsumeByDay(Double weightConsumeByDay) {
+		this.weightConsumeByDay = weightConsumeByDay;
+	}
+
+	public Double getMaxNbDaySafe() {
+		return maxNbDaySafe;
+	}
+
+	public void setMaxNbDaySafe(Double maxNbDaySafe) {
+		this.maxNbDaySafe = maxNbDaySafe;
+	}
+
+	public Double getAttackPoint() {
+		return attackPoint;
+	}
+
+	public void setAttackPoint(Double attackPoint) {
+		this.attackPoint = attackPoint;
+	}
+
+	public Double getDefendPoint() {
+		return defendPoint;
+	}
+
+	public void setDefendPoint(Double defendPoint) {
+		this.defendPoint = defendPoint;
+	}
+
+	public Boolean getIsUseHiddenDefense() {
+		return isUseHiddenDefense;
+	}
+
+	public void setIsUseHiddenDefense(Boolean isUseHiddenDefense) {
+		this.isUseHiddenDefense = isUseHiddenDefense;
+	}
+
+	public Double getInitWeight() {
+		return initWeight;
+	}
+
+	public void setInitWeight(Double initWeight) {
+		this.initWeight = initWeight;
+	}
+
+	public Double getInitAge() {
+		return initAge;
+	}
+
+	public void setInitAge(Double initAge) {
+		this.initAge = initAge;
+	}
+
+	public ArrayList<String> getEatableFoodList() {
+		return eatableFoodList;
+	}
+
+	public void setEatableFoodList(ArrayList<String> eatableFoodList) {
+		this.eatableFoodList = eatableFoodList;
+	}
+
+	public Double getBirthRateByDay() {
+		return birthRateByDay;
+	}
+
+	public void setBirthRateByDay(Double birthRateByDay) {
+		this.birthRateByDay = birthRateByDay;
+	}
 	
 }
