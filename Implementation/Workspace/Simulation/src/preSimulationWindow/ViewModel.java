@@ -1,9 +1,12 @@
 package preSimulationWindow;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Map;
 
+import server.SpeciesStats;
+import simulation.SimProperties;
 import simulation.SimulationModel;
+import simulation.SpeciesPop;
 import utils.Constants;
 import client.RestFacilities;
 
@@ -18,20 +21,21 @@ public class ViewModel {
 		servRes = serv;
 	}
 
-	// TODO randomAnimals
-	public Map<String, Integer> randomAnimals(int nbSpecies) {
-		HashMap<String, Integer> array = new HashMap<String, Integer>();
-
-		for (String key : array.keySet()) {
-			int pop = (int) Math.round(Math.random() * Constants.MAX_LAPINS);
-			array.put(key, pop);
-		}
-
-		return array;
+	public int randomAnimals() {
+		return (int) Math.round(Math.random() * Constants.MAX_POP);
 	}
 
-	public void sendToModel(SimProperties properties) {
+	// TODO
+	public void sendToModel(Map<String, Integer> speciesList,
+			SimProperties properties) {
 		simProperties = properties;
+
+		for (String key : speciesList.keySet()) {
+			SpeciesStats stats = servRes.getSpecies(key);
+			properties.addSpecies(stats, speciesList.get(key));
+			System.out.println("Ajout de l'espece : " + stats.getNom() + " avec une population de " + speciesList.get(key));
+		}
+
 		simModel.setProperties(simProperties);
 		simModel.launchView();
 	}

@@ -7,8 +7,9 @@ public class SpeciesPop {
 	SpeciesStats stats;
 	int population;
 	
-	public SpeciesPop() {
-		
+	public SpeciesPop(SpeciesStats s, int p) {
+		stats = s;
+		population = p;
 	}
 
 	public SpeciesStats getStats() {
