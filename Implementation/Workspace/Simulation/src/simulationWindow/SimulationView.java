@@ -1,7 +1,6 @@
 package simulationWindow;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -10,14 +9,11 @@ import javax.swing.JFrame;
 import sim.display.Controller;
 import sim.display.Display2D;
 import sim.display.GUIState;
-import sim.portrayal.DrawInfo2D;
 import sim.portrayal.grid.SparseGridPortrayal2D;
-import sim.portrayal.simple.OvalPortrayal2D;
 import sim.portrayal.simple.RectanglePortrayal2D;
 import sim.util.gui.SimpleColorMap;
 import simulation.SimulationModel;
 import simulation.entity.Grass;
-import simulation.entity.Hare;
 import utils.Constants;
 
 public class SimulationView extends GUIState implements PropertyChangeListener{
