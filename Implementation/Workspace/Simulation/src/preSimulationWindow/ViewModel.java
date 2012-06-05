@@ -34,8 +34,9 @@ public class ViewModel {
 			SpeciesStats stats = servRes.getSpecies(key);
 			properties.addSpecies(stats, speciesList.get(key));
 			System.out.println("Ajout de l'espece : " + stats.getNom() + " avec une population de " + speciesList.get(key));
+		//	System.out.println("a "+stats.getSmellPoint()+" smellpoints et "+stats.getVisionPoint()+" vision points");
 		}
-
+		System.out.println("Envoie de la liste "+simProperties.getSpeciesList()+" au model");
 		simModel.setProperties(simProperties);
 		simModel.launchView();
 	}

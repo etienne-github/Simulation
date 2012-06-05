@@ -28,4 +28,8 @@ public class SpeciesPop {
 		this.population = population;
 	}
 	
+	public String toString(){
+		return "["+this.getStats().getType()+","+this.getPopulation()+"]";
+	}
+	
 }

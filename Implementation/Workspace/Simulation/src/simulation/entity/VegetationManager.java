@@ -21,6 +21,7 @@ public class VegetationManager extends Entity implements Steppable {
 	}
 
 	public VegetationManager(SimulationModel simModel) {
+		super(simModel);
 		myModel = simModel;
 		Grasses= new Grass[myModel.getYard().getWidth()][myModel.getYard().getHeight()];
 				
@@ -30,9 +31,9 @@ public class VegetationManager extends Entity implements Steppable {
 		
 		for(int i=0;i<myModel.getYard().getWidth();i++){
 			for(int j=0;j<myModel.getYard().getHeight();j++){
-				Vegetation[i][j]=(float) (Math.random()*Constants.VEGETATION_MAX_WEIGHT_PER_CELL);
+				Vegetation[i][j]=(float) (/*Math.random()**/Constants.VEGETATION_MAX_WEIGHT_PER_CELL);
 				//	System.out.print(Vegetation[i][j]+"|");
-				Grass g = new Grass();
+				Grass g = new Grass(simModel);
 				Grasses[i][j]=g;
 				myModel.schedule.scheduleRepeating(g);
 				myModel.getYard().setObjectLocation(g, new Int2D(i,j));
@@ -48,7 +49,7 @@ public class VegetationManager extends Entity implements Steppable {
 	public void growVegetation(){
 
 		
-		System.out.println("Grow Vegetation\n\n");
+		System.out.println("Grow Vegetation !\n\n");
 		Float[][] Vegetation = myModel.getVegetation();
 		
 		for(int i=0;i<myModel.getYard().getWidth();i++){

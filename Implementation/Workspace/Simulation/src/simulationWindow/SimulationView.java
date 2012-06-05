@@ -63,7 +63,7 @@ public class SimulationView extends GUIState implements PropertyChangeListener{
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		if(arg0.getPropertyName().compareTo("grown")==0){
-			System.err.println("grown received !");
+			//System.err.println("grown received !");
 			Grass[][] grasses = (Grass[][]) arg0.getNewValue();
 			for(int i=0;i<model.getYard().getWidth();i++){
 				for(int j=0;j<model.getYard().getHeight();j++){

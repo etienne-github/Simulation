@@ -6,14 +6,13 @@ import sim.engine.Stoppable;
 import simulation.SimulationModel;
 
 
-public abstract class Animal extends Entity implements Steppable, Eatable {
+public abstract class Animal extends Entity implements Eatable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private static final double FLEE_MOVE_COEF = 1.5;
 	private static final Double MAX_ATTACK_AND_DEFEND = 100.0;
 	
-	protected SimulationModel simModel;
 	protected String type;
 	protected Double stepByDay;
 	protected Double caseByMeter;	
@@ -35,6 +34,7 @@ public abstract class Animal extends Entity implements Steppable, Eatable {
 	protected Stoppable stoppable;
 	
 	public Animal(String type, SimulationModel simModel) {
+		super(simModel);
 		this.type = type;
 	}
 	
@@ -103,8 +103,18 @@ public abstract class Animal extends Entity implements Steppable, Eatable {
 		this.stoppable = stoppable;
 	}
 	
+	
+	
 	//Conversion methods
 	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public Double toStep(Double value) {
 		return value / stepByDay;
 	}
@@ -114,10 +124,14 @@ public abstract class Animal extends Entity implements Steppable, Eatable {
 	}
 	
 	// Main action
-	
-	@Override
+
 	public void step(SimState arg0) {
+		x = simModel.getYard().getObjectLocation(this).x;
+		y = simModel.getYard().getObjectLocation(this).y;
+		
 		isHidden = false;
+		
+		//System.out.println("myY  :" +getY());
 		
 		action();
 		
@@ -138,6 +152,7 @@ public abstract class Animal extends Entity implements Steppable, Eatable {
 	}
 	
 	protected void die() {
+		System.out.println(this.getType()+" #"+this.hashCode()+" dies !");
 		simModel.getYard().remove(this);
 		stoppable.stop();
 	}
@@ -146,6 +161,7 @@ public abstract class Animal extends Entity implements Steppable, Eatable {
 	// Eat and Attacked
 	
 	public void attacked() {
+		System.out.println(this.getType()+" #"+this.hashCode()+" is attacked !");
 		if(isUseHiddenDefense) {
 			isHidden = true;
 		} else {
@@ -154,13 +170,14 @@ public abstract class Animal extends Entity implements Steppable, Eatable {
 	}
 	
 	private void flee() {
+		System.out.println(this.getType()+" #"+this.hashCode()+" flees aways !");
 		double random = Math.random() * 1000;
-		double destinationX = getX() * (Math.cos(random) * toCase(movePoint) * FLEE_MOVE_COEF);
-		double destinationY = getY() * (Math.sin(random) * toCase(movePoint) * FLEE_MOVE_COEF);
+		double destinationX = this.x * (Math.cos(random) * toCase(movePoint) * FLEE_MOVE_COEF);
+		double destinationY = this.x * (Math.sin(random) * toCase(movePoint) * FLEE_MOVE_COEF);
 		
 		setX((int) Math.round(destinationX));
 		setY((int) Math.round(destinationY));
-		simModel.getYard().setObjectLocation(this, getX(), getY());
+		simModel.getYard().setObjectLocation(this, (int)this.x, (int)this.y);
 		
 		weight -= toStep(weightConsumeByDay);
 	}
@@ -175,6 +192,7 @@ public abstract class Animal extends Entity implements Steppable, Eatable {
 	
 	@Override
 	public void eaten() {
+		System.out.println(this.getType()+" #"+this.hashCode()+" is eaten !");
 		die();
 	}
 	

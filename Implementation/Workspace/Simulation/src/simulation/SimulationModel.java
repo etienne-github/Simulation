@@ -24,11 +24,13 @@ public class SimulationModel extends SimState {
 	private Float[][] Vegetation;
 	private Grass[][] Grasses;
 	private VegetationManager myVegetationManager;
+	private AnimalFactory myFactory;
 
 	public SimulationModel(long seed) {
 		super(seed);
 		stepByDay = DEFAULT_STEP_BY_DAY;
 		caseByMeter = DEFAULT_METER_BY_CASE;
+		myFactory = new AnimalFactory(this);
 	}
 
 	public PropertyChangeSupport getPropertyChangeSupport() {
@@ -52,17 +54,20 @@ public class SimulationModel extends SimState {
 	}
 
 	public float getVegetationAt(int x, int y) {
+		//System.out.println("Get vegetation at ("+x+","+y+") when Vegetation is "+Vegetation.length);
 		return Vegetation[x][y];
 	}
 
-	public float consumeVegetationAt(int x, int y, float weightToBeConsumed) {
-		float canConsume = Math.min(Vegetation[x][y], weightToBeConsumed);
+	public float consumeVegetationAt(int x, int y, Double weightToBeConsumed) {
+		System.out.println("Vegetation is "+(Vegetation[x][y]*1000)+ "g and an anima wants to eat "+(weightToBeConsumed*1000)+"g.");
+		float canConsume = (float) Math.min(Vegetation[x][y], weightToBeConsumed);
 		Vegetation[x][y] -= canConsume;
+		System.out.println("Vegetation is eaten off of "+(canConsume*1000)+"g and is now of "+(Vegetation[x][y]*1000)+ "g");
 		return canConsume;
 	}
 
 	public void setProperties(SimProperties properties) {
-		simProperties = new SimProperties(properties);
+		simProperties = properties;
 	}
 
 	public SparseGrid2D getYard() {
@@ -86,8 +91,11 @@ public class SimulationModel extends SimState {
 		Entity.setGRID_SIZE_X(simProperties.getGridWidth());
 		Entity.setGRID_SIZE_Y(simProperties.getGridHeight());
 		schedule.scheduleRepeating(myVegetationManager);
-
 		support.firePropertyChange("model_initialized", null, null);
+		myFactory.createAnimalsFromBatch(simProperties.getSpeciesList());
+		
+		
+		
 	}
-
+	
 }
