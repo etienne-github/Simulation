@@ -14,23 +14,23 @@ public class MainClass {
 	public static void main(String[] args) throws URISyntaxException {
 		RestFacilities servMes = new RestFacilities();
 		
-		
+		/*
 		//Récupération d'une description d'espèce
 		String s =servMes.getSpeciesDescription("Loup");
 		System.out.println(s);
 		
 		//Récupération d'un objet espèce
-		SpeciesStats loup = servMes.getSpecies("kéké");
+		SpeciesStats loup = servMes.getSpecies("Poule");
 		System.out.println("Age max du loup :"+loup.getMaxLifetime());
 		System.out.println("Le loup mange:"+loup.getEatableFoodList());
 		SpeciesStats lapin = servMes.getSpecies("Lievre");
-		System.out.println("Attaque du lièvre :"+lapin.getAttackPoint());
+		System.out.println("Attaque du lièvre :"+lapin.getAttackPoint());*/
 	
 		//Récupération de la liste des toutes les espèces
 		System.out.println("Liste de toutes les espèces :"+servMes.getSpeciesList());
-		
+		/*
 		SpeciesStats poule = new SpeciesStats();
-		poule.setNom("kéké");
+		poule.setNom("Poule");
 		poule.setDescriptif("Carnivore méchant");
 		poule.setIsHerbivorious(false);
 		poule.setType("Canis Rufus");
@@ -51,18 +51,20 @@ public class MainClass {
 		
 		if (servMes.createSpecies(poule)) System.out.println("Espèce créée");
 		else System.out.println("Erreur lors de la création de l'espèce"); 
-		
-		System.out.println("Liste de toutes les espèces :"+servMes.getSpeciesList());
-
-		
+		*/
+		/*		
 		SpeciesStats tmp = servMes.getSpecies("Poule");
 		System.out.println("Age :"+tmp.getInitAge());
-		/*
+		
 		poule.setInitAge(22d);
 		if (servMes.updateSpecies(poule)) System.out.println("Espèce mise à jour");
 		else System.out.println("Erreur lors de la mise à jour de l'espèce");
 		tmp = servMes.getSpecies("Poule");
 		System.out.println("Age :"+tmp.getInitAge());*/
+		
+		//Suppression d'un espèce :
+		if (servMes.deleteSpecies("Loup")) System.out.println("Espèce supprimée");
+		else System.out.println("Erreur lors de la suppression de l'espèce"); 
 		
 	}
 		
