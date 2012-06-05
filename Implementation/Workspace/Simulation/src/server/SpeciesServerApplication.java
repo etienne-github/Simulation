@@ -38,7 +38,7 @@ public class SpeciesServerApplication extends Application{
 		lievre.setNom("Lièvre");
 		lievre.setDescriptif("gentil petit");
 		lievre.setIsHerbivorious(true);
-		lievre.setType("Lepus");
+		lievre.setType("Lepus Europaeus");
 		lievre.setSmellPoint(100.0);
 		lievre.setVisionPoint(30.0);
 		lievre.setMovePoint(18.5*3600*24);
