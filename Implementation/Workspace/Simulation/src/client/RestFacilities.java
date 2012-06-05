@@ -11,6 +11,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -33,8 +34,8 @@ public class RestFacilities {
 	public RestFacilities()
 	{
 		client = new DefaultHttpClient();
-		//HttpHost proxy = new HttpHost("proxyweb.utc.fr", 3128);
-		//client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+		HttpHost proxy = new HttpHost("proxyweb.utc.fr", 3128);
+		client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 	}
 
 	public String getSpeciesDescription(String species) {
@@ -156,6 +157,57 @@ public class RestFacilities {
 			else if (res.getStatusLine().getStatusCode() == HttpStatus.SC_CONFLICT)
 			{
 				System.err.println("La ressource existe déjà sur le serveur\n");
+				try {
+					//On consomme la ressource pour libérer la connexion
+					EntityUtils.consume(res.getEntity());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return false;
+			}
+			else 
+				{
+				try {
+					//On consomme la ressource pour libérer la connexion
+					EntityUtils.consume(res.getEntity());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return false;
+				}
+		
+
+	}
+	
+	public boolean deleteSpecies(String speciesName)
+	{
+		HttpResponse res=null;
+		try {
+			uri = new URI("http://species-ia04.appspot.com/species/"+speciesName);
+			HttpDelete httpdelete = new HttpDelete(uri);
+			httpdelete.addHeader("Accept", "application/delete");
+			 
+			//envoi de la requête
+			res = client.execute(httpdelete);
+		}
+		catch (Exception e) {
+			System.err.println(e.getMessage());
+			}
+			if (res.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
+				try {
+					EntityUtils.consume(res.getEntity());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return true;
+			}
+			
+			else if (res.getStatusLine().getStatusCode() == HttpStatus.SC_BAD_REQUEST)
+			{
+				System.err.println("La ressource n'existe pas sur le serveur\n");
 				try {
 					//On consomme la ressource pour libérer la connexion
 					EntityUtils.consume(res.getEntity());
