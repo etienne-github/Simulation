@@ -13,6 +13,7 @@ import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.InputRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
+import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.Put;
@@ -72,6 +73,33 @@ public class SpeciesServiceResource extends BaseResource {
 		}
 
 	}
+	
+	@Delete
+    public void deleteItem() throws IOException{  
+		
+    	// Récupérer l’attribut "id"
+    			Map<String,Object> attributes = getRequest().getAttributes();
+    			String speciesId = (String) attributes.get("id");
+    			// Récupérer l’attribut header "Accept"
+    			Series<Header> serie= (Series<Header>) attributes.get("org.restlet.http.headers");
+    			String s = serie.getValues("Accept");
+    			
+				//on teste si l'espèce envoyée existe sur le serveur
+    			if (!getStats().containsKey(speciesId)) {
+    				error(speciesId);
+    			return;
+    			}
+    			
+    			// si Accept = application/delete
+    			if (s.equals("application/delete")){
+    				//suppression de l'espèce
+   					getStats().remove(speciesId);
+   					getResponse().setStatus(Status.SUCCESS_OK);
+    			}
+		
+	}
+	
+
 
     @Put  
     public void storeItem(Representation entity) throws IOException{  
