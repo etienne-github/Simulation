@@ -1,8 +1,5 @@
 package com.ia04.species.server;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-
 import org.restlet.Application;
 import org.restlet.Restlet;
 import org.restlet.routing.Router;
@@ -10,10 +7,7 @@ import org.restlet.routing.Router;
 
 public class SpeciesServerApplication extends Application{
 
-    // Liste des espèces persistente en mémoire
-	private final ConcurrentMap<String, SpeciesStats> speciesMap = new ConcurrentHashMap<String, SpeciesStats>(); 
-    
-	public SpeciesServerApplication(){		
+	public SpeciesServerApplication(){
 			SpeciesStats loup = new SpeciesStats();
 			loup.setNom("Loup");
 			loup.setDescriptif("Carnivore méchant");
@@ -33,13 +27,13 @@ public class SpeciesServerApplication extends Application{
 			loup.setInitAge(22.0 * 30.5);
 			loup.setBirthRateByDay(6.0/365.25);
 			loup.getEatableFoodList().add("Lepus Europaeus");
-			getStats().put("Loup", loup);
+			DBManager.save(loup);
 				
 			SpeciesStats lievre =  new SpeciesStats();
-			lievre.setNom("Lièvre");
+			lievre.setNom("Lievre");
 			lievre.setDescriptif("gentil petit");
 			lievre.setIsHerbivorious(true);
-			lievre.setType("Canis Rufus");
+			lievre.setType("Lepus Europaeus");
 			lievre.setSmellPoint(100.0);
 			lievre.setVisionPoint(30.0);
 			lievre.setMovePoint(18.5*3600*24);
@@ -53,7 +47,7 @@ public class SpeciesServerApplication extends Application{
 			lievre.setInitWeight(4.0);
 			lievre.setInitAge(3.5 * 30.5);
 			lievre.setBirthRateByDay(4.0*9.0*0.75/365.25);
-			getStats().put("Lievre", lievre);	
+			DBManager.save(lievre);	
 		}
 	
 	@Override
@@ -68,11 +62,6 @@ public class SpeciesServerApplication extends Application{
 			SpeciesListServiceResource.class);
 		return router;
 	}
-	
-	//retourne la table
-    public ConcurrentMap<String, SpeciesStats> getStats() {  
-        return speciesMap;
-    }
-    
+	    
 }
 
