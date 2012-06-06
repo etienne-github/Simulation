@@ -5,6 +5,7 @@ import sim.engine.SimState;
 import sim.engine.Steppable;
 import simulation.SimulationModel;
 
+@SuppressWarnings("serial")
 public class Grass extends Entity implements Steppable {
 
 	public Grass(SimulationModel simModel) {

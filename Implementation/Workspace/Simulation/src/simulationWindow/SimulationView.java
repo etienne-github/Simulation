@@ -10,12 +10,12 @@ import sim.display.Controller;
 import sim.display.Display2D;
 import sim.display.GUIState;
 import sim.engine.SimState;
+import sim.engine.Steppable;
 import sim.portrayal.grid.SparseGridPortrayal2D;
 import sim.portrayal.simple.RectanglePortrayal2D;
 import sim.util.gui.SimpleColorMap;
 import simulation.SimulationModel;
 import simulation.StatsManager;
-import sim.engine.Steppable;
 import simulation.entity.Grass;
 import utils.Constants;
 

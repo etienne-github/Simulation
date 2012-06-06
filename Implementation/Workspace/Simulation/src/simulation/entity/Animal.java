@@ -3,7 +3,6 @@ package simulation.entity;
 import java.beans.PropertyChangeSupport;
 
 import sim.engine.SimState;
-import sim.engine.Steppable;
 import sim.engine.Stoppable;
 import simulation.SimulationModel;
 
