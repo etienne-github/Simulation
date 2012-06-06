@@ -36,11 +36,21 @@ public class Carnivorious extends Animal {
 				System.out.println(this.getType()+" #"+this.hashCode()+" and is on food");
 			} else if (nearbyFood != null) {
 				// Move to food
-				System.out.println(this.getType()+" #"+this.hashCode()+" is sees food");
+				System.out.println(this.getType()+" #"+this.hashCode()+" and sees food");
 				Integer[] coor = new Integer[2];
 				coor[0]=(int) nearbyFood.getX();
-				coor[1]=(int) nearbyFood.getY();				
-				moveTo(yard, coor);
+				coor[1]=(int) nearbyFood.getY();
+				
+				//if close move and attack
+				if(getShortestDistanceToPoint(coor[0], coor[1])<(MeterToCase(ValueByDayToValueByStep(movePoint))*0.5)){
+					System.out.println(this.getType()+" #"+this.hashCode()+" food is close enough to attack");
+					moveTo(yard, coor);
+					attack(nearbyFood);
+				}else{
+					//just move
+					moveTo(yard, coor);
+				}
+				
 			} else {
 			//	System.out.println("myY  :" +getY());
 				System.out.println(this.getType()+" #"+this.hashCode()+" and doesn't see food");
@@ -60,6 +70,9 @@ public class Carnivorious extends Animal {
 	private void detectFood(SparseGrid2D yard) {
 		Double perceptionPoint = Math.max(smellPoint, visionPoint);
 
+		detectedFoodList.clear();
+		
+		/*
 		// Remove old detected Food
 		Iterator<Animal> detectedFoodIterator = detectedFoodList.iterator();
 		while (detectedFoodIterator.hasNext()) {
@@ -67,7 +80,7 @@ public class Carnivorious extends Animal {
 			if (this.getShortestDistanceToEntity(food) < perceptionPoint) {
 				detectedFoodIterator.remove();
 			}
-		}
+		}*/
 
 		// Add new detected Food
 		Bag result = new Bag();
@@ -173,12 +186,18 @@ public class Carnivorious extends Animal {
 
 	private void eat(Animal food) {
 		System.out.println(this.getType()+" #"+this.hashCode()+" eats "+food.getType()+" #"+food.hashCode());
+		this.getSupport().firePropertyChange("ate",this.getType(), food.getEatingEnergy());
 		weight += food.getEatingEnergy();
+		this.detectedFoodList.remove(food);
 		food.eaten();
 	}
 
 	protected boolean canEat(Animal animal) {
 		return (eatableFoodList.contains(animal.type) && animal.canBeEaten());
+	}
+
+	public void setEatableFoodList(ArrayList<String> eatableFoodList) {
+		this.eatableFoodList=eatableFoodList;
 	}
 
 }

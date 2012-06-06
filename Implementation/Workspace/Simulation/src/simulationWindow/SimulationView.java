@@ -9,10 +9,13 @@ import javax.swing.JFrame;
 import sim.display.Controller;
 import sim.display.Display2D;
 import sim.display.GUIState;
+import sim.engine.SimState;
 import sim.portrayal.grid.SparseGridPortrayal2D;
 import sim.portrayal.simple.RectanglePortrayal2D;
 import sim.util.gui.SimpleColorMap;
 import simulation.SimulationModel;
+import simulation.StatsManager;
+import sim.engine.Steppable;
 import simulation.entity.Grass;
 import utils.Constants;
 
@@ -26,12 +29,13 @@ public class SimulationView extends GUIState implements PropertyChangeListener{
 	private SparseGridPortrayal2D yard;
 	private JFrame mainWindow;
 	private SimpleColorMap colorMap = new SimpleColorMap(0,Constants.VEGETATION_MAX_WEIGHT_PER_CELL,new Color(240,227,181),new Color(78,214,30));
-
-	public SimulationView(SimulationModel model) {
+	private StatsManager stats;
+	
+	public SimulationView(SimulationModel model, StatsManager myManager) {
 		super(model);
 		this.model = model;
 		model.getPropertyChangeSupport().addPropertyChangeListener(this);
-		
+		stats=myManager;
 	}
 
 	public void init(Controller c) {
@@ -44,6 +48,11 @@ public class SimulationView extends GUIState implements PropertyChangeListener{
 		mainWindow.setVisible(true);
 		yard = new SparseGridPortrayal2D();
 		display.attach(yard, "Yard");
+	}
+	
+
+	public SparseGridPortrayal2D getYard() {
+		return yard;
 	}
 
 	public void start() {
@@ -81,8 +90,33 @@ public class SimulationView extends GUIState implements PropertyChangeListener{
 			}
 		}else if(arg0.getPropertyName().compareTo("model_initialized")==0){
 			model.getVegetationManager().getPropertyChangeSupport().addPropertyChangeListener(this);
+		}else if(arg0.getPropertyName().compareTo("species_initialized")==0){
+			
+			System.out.println("species_initialized propertychange received !");
+			
+			scheduleImmediateRepeat(true, new Steppable()
+			{
+			int mySteps=0;;	
+			public void step(SimState state)
+			   {
+
+				 double x = model.schedule.time(); 
+			   
+			 
+			   
+			   // now add the data
+			   if (x >= state.schedule.EPOCH && x < state.schedule.AFTER_SIMULATION){
+				   mySteps++;
+				   mySteps=(int) (mySteps%model.getStepByDay());
+				   if(mySteps==0){
+					   stats.updateCharts(model.StepToDay(x));
+				   }		       
+			   }
+			   }
+			});
+			
+			stats.createFrames(controller);
 		}
-		
 	}
 
 }

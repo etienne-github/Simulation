@@ -3,33 +3,70 @@ package com.ia04.species.server;
 
 import java.util.ArrayList;
 
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+@PersistenceCapable
 public class SpeciesStats {
 
+   @PrimaryKey
+   @Persistent
 	private String nom;
+   
+   @Persistent
 	private String descriptif;
+   
+   @Persistent
 	private Boolean isHerbivorious;
 	
 	// Animal
+   @Persistent
 	private String type;
+   
+   @Persistent
 	private Double smellPoint; // by meter
+   
+   @Persistent
 	private Double visionPoint; // by meter
+   
+   @Persistent
 	private Double movePoint; // by meter per day
+   
+   @Persistent
 	private Double maxLifetime;
+   
+   @Persistent
 	private Double minimumWeightToDeath;
+   
+   @Persistent
 	private Double weightConsumeByDay;
+   
+   @Persistent
 	private Double maxNbDaySafe;
+   
+   @Persistent
 	private Double attackPoint;
+   
+   @Persistent
 	private Double defendPoint;
+   
+   @Persistent
 	private Boolean isUseHiddenDefense;
 
 	// Init animal
+   @Persistent
 	private Double initWeight;
+   
+   @Persistent
 	private Double initAge;
 
 	// Carnivorious
+   @Persistent
 	private ArrayList<String> eatableFoodList;
 	
 	// Reproduction
+   @Persistent
 	private Double birthRateByDay;
 
 	
