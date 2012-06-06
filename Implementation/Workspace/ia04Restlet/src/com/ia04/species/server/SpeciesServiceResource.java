@@ -17,10 +17,11 @@ import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.Put;
+import org.restlet.resource.ServerResource;
 import org.restlet.util.Series;
 import com.ia04.species.server.SpeciesStats;
 
-public class SpeciesServiceResource extends BaseResource {
+public class SpeciesServiceResource extends ServerResource {
 	
 
 	@Get
@@ -32,19 +33,19 @@ public class SpeciesServiceResource extends BaseResource {
 		Series<Header> serie= (Series<Header>) attributes.get("org.restlet.http.headers");
 		String s = serie.getValues("Accept");
 		
+
 		// si l’attribut id n’existe pas erreur
-		if (!getStats().containsKey(speciesId)) {
+		if ((DBManager.getSpecies(speciesId).size()) == 0) {
 			error(speciesId);
 		return;
 		}
 		
-		SpeciesStats speciesDoc = getStats().get(speciesId);
-		
+		SpeciesStats species = DBManager.getSpecies(speciesId).get(0);
 		// si Accept = species/text
 		if (s.equals("species/text")) {
 			
 		//retourner une StringRepresentation
-		StringRepresentation entity =	new StringRepresentation(speciesDoc.getDescriptif(),MediaType.TEXT_PLAIN);
+		StringRepresentation entity =	new StringRepresentation(species.getDescriptif(),MediaType.TEXT_PLAIN);
 				getResponse().setEntity(entity);
 				System.out.println("Entity :"+entity);
 				//mettre le Status à SUCCESS_OK
@@ -58,7 +59,7 @@ public class SpeciesServiceResource extends BaseResource {
 			ObjectMapper om = new ObjectMapper();
 			StringWriter sw = new StringWriter();
 			try {
-			om.writeValue(sw,speciesDoc);
+			om.writeValue(sw,species);
 			} 
 			catch (Exception e) {
 				System.err.println("Erreur écriture Json");
@@ -85,15 +86,16 @@ public class SpeciesServiceResource extends BaseResource {
     			String s = serie.getValues("Accept");
     			
 				//on teste si l'espèce envoyée existe sur le serveur
-    			if (!getStats().containsKey(speciesId)) {
+    			if (DBManager.getSpecies(speciesId).size() == 0) {
     				error(speciesId);
     			return;
     			}
     			
+    			SpeciesStats species = DBManager.getSpecies(speciesId).get(0);
     			// si Accept = application/delete
     			if (s.equals("application/delete")){
     				//suppression de l'espèce
-   					getStats().remove(speciesId);
+   					DBManager.delete(speciesId);
    					getResponse().setStatus(Status.SUCCESS_OK);
     			}
 		
@@ -112,9 +114,9 @@ public class SpeciesServiceResource extends BaseResource {
     			String s = serie.getValues("Accept");
     			
 				//on teste si l'espèce envoyée n'existe pas déjà sur le serveur
-    			if (getStats().containsKey(speciesId)) {
-    				error_create(speciesId);
-    			return;
+    			if ((DBManager.getSpecies(speciesId).size()) == 1){
+	    			error_create(speciesId);
+	    			return;
     			}
     			
     			// si Accept = application/json
@@ -126,7 +128,7 @@ public class SpeciesServiceResource extends BaseResource {
     						new JacksonRepresentation<SpeciesStats>(repr,SpeciesStats.class);
     				SpeciesStats recieved = new SpeciesStats();
     				recieved=jrepr.getObject();
-   					getStats().put(speciesId, recieved);
+   					DBManager.save(recieved);
     			}
 		
 	}
@@ -141,14 +143,15 @@ public class SpeciesServiceResource extends BaseResource {
     			Series<Header> serie= (Series<Header>) attributes.get("org.restlet.http.headers");
     			String s = serie.getValues("Accept");
     			
+    			SpeciesStats species = null;
 				//on teste si l'espèce envoyée existe déjà sur le serveur
-    			if (getStats().containsKey(speciesId)) 
+    			if ((species = DBManager.getSpecies(speciesId).get(0)) != null) 
     			{
    			
 	    			// si Accept = application/json
 	    			if (s.equals("application/json")){
 	    				//on supprime l'espèce côté serveur
-	        			getStats().remove(speciesId);
+	        			DBManager.delete(speciesId);
 	    				InputStream data;
 	    				data = entity.getStream();
 	    				InputRepresentation repr = new InputRepresentation(data);
@@ -156,7 +159,7 @@ public class SpeciesServiceResource extends BaseResource {
 	    						new JacksonRepresentation<SpeciesStats>(repr,SpeciesStats.class);
 	    				SpeciesStats recieved = new SpeciesStats();
 	    				recieved=jrepr.getObject();
-	   					getStats().put(speciesId, recieved);
+	   					DBManager.save(recieved);
 	    				}
     			}
     			
