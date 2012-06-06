@@ -240,6 +240,8 @@ public class Herbivorious extends Animal {
 		//System.out.println(this.getType()+" #"+this.hashCode()+" tries to eat "+(toStep(weightConsumeByDay)*1000)+"g of  grass !");
 
 		//System.out.println(this.getType()+" #"+this.hashCode()+" eats "+(consumes*1000)+"g of  grass !");
+		
+		this.getSupport().firePropertyChange("ate",this.getType(), consumes);
 		weight+=consumes;
 
 	}

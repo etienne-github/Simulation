@@ -1,5 +1,7 @@
 package simulation.entity;
 
+import java.beans.PropertyChangeSupport;
+
 import sim.engine.SimState;
 import sim.engine.Steppable;
 import sim.engine.Stoppable;
@@ -32,7 +34,14 @@ public abstract class Animal extends Entity implements Eatable {
 	protected Double weight;
 	protected Boolean isHidden;
 	protected Stoppable stoppable;
+	protected PropertyChangeSupport support = new PropertyChangeSupport(this);
 	
+	
+	
+	public PropertyChangeSupport getSupport() {
+		return support;
+	}
+
 	public Animal(String type, SimulationModel simModel) {
 		super(simModel);
 		this.type = type;
@@ -152,6 +161,7 @@ public abstract class Animal extends Entity implements Eatable {
 	}
 	
 	protected void die() {
+		this.getSupport().firePropertyChange("died",this.getType(), null);
 		System.out.println(this.getType()+" #"+this.hashCode()+" dies !");
 		simModel.getYard().remove(this);
 		stoppable.stop();

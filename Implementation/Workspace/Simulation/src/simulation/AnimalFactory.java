@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import server.SpeciesStats;
+import server.StatsManager;
 import sim.util.Bag;
 import sim.util.Int2D;
 import simulation.entity.Animal;
@@ -18,10 +19,12 @@ public class AnimalFactory {
 	private SimulationModel simModel;
 	Random myRandomGen = new Random();
 	private SimulationView myView;
+	private StatsManager myManager;
 	
-	public AnimalFactory(SimulationModel simModel, SimulationView gui) {
+	public AnimalFactory(SimulationModel simModel, SimulationView gui, StatsManager myManager) {
 		this.simModel = simModel;
 		myView = gui;
+		this.myManager=myManager;
 
 	}
 	
@@ -68,6 +71,7 @@ public class AnimalFactory {
 		System.out.println("ANIMAL FACTORY : Starts treating batch #"+speciesList);
 		while(it.hasNext()){
 			SpeciesPop sP = it.next();
+			myManager.addStatForSpecies(sP.getStats().getType());
 			System.out.println("ANIMAL FACTORY : Starts creating "+sP.getPopulation()+" "+sP.getStats().getNom()+".");
 			for(int i=0;i<sP.getPopulation();i++){
 				animalSet=false;
@@ -78,9 +82,11 @@ public class AnimalFactory {
 					if(!checkIfAnimalAtPosition(sP.getStats().getType(), location.x, location.y)){
 						//set animal there
 						Animal a = this.createAnimal(sP.getStats());
+						a.getSupport().addPropertyChangeListener(myManager);
 						simModel.getYard().setObjectLocation(a, location);
 						myView.getYard().setPortrayalForObject(a, sP.portrayal);						
 						a.setStoppable(simModel.schedule.scheduleRepeating(a));
+						a.getSupport().firePropertyChange("was_born", a.getType(), null);
 						System.out.println("ANIMAL FACTORY : "+sP.getStats().getNom()+" #"+sP.hashCode()+" created at position "+location.toString());
 						animalSet=true;
 						

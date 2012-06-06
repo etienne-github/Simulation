@@ -173,6 +173,7 @@ public class Carnivorious extends Animal {
 
 	private void eat(Animal food) {
 		System.out.println(this.getType()+" #"+this.hashCode()+" eats "+food.getType()+" #"+food.hashCode());
+		this.getSupport().firePropertyChange("ate",this.getType(), food.getEatingEnergy());
 		weight += food.getEatingEnergy();
 		food.eaten();
 	}

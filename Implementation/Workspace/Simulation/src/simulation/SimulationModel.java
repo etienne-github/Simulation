@@ -2,6 +2,7 @@ package simulation;
 
 import java.beans.PropertyChangeSupport;
 
+import server.StatsManager;
 import sim.display.Console;
 import sim.engine.SimState;
 import sim.field.grid.SparseGrid2D;
@@ -25,11 +26,13 @@ public class SimulationModel extends SimState {
 	private Grass[][] Grasses;
 	private VegetationManager myVegetationManager;
 	private AnimalFactory myFactory;
+	private StatsManager myManager;
 
 	public SimulationModel(long seed) {
 		super(seed);
 		stepByDay = DEFAULT_STEP_BY_DAY;
 		caseByMeter = DEFAULT_METER_BY_CASE;
+		myManager = new StatsManager();
 	}
 
 	public PropertyChangeSupport getPropertyChangeSupport() {
@@ -74,10 +77,11 @@ public class SimulationModel extends SimState {
 	}
 
 	public void launchView() {
-		SimulationView gui = new SimulationView(this);
+		SimulationView gui = new SimulationView(this,myManager);
 		Console console = new Console(gui);
 		console.setVisible(true);
-		myFactory = new AnimalFactory(this,gui);
+		myFactory = new AnimalFactory(this,gui,myManager);
+		
 	}
 
 	public void start() {
@@ -93,6 +97,7 @@ public class SimulationModel extends SimState {
 		schedule.scheduleRepeating(myVegetationManager);
 		support.firePropertyChange("model_initialized", null, null);
 		myFactory.createAnimalsFromBatch(simProperties.getSpeciesList());	
+		support.firePropertyChange("species_initialized", null, null);	
 	}
 	
 }
