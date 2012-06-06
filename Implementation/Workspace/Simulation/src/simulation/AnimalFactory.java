@@ -244,8 +244,10 @@ public class AnimalFactory {
 			
 			speciesRenewBuffer.put(s.getType(),buffered);
 			
+			if(intPart>0){
+				sPL.add(new SpeciesPop(s, intPart));
+			}
 			
-			sPL.add(new SpeciesPop(s, intPart));
 		}
 		this.RenewFromBatch(sPL);
 	}
