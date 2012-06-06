@@ -4,6 +4,7 @@ import java.beans.PropertyChangeSupport;
 
 import sim.display.Console;
 import sim.engine.SimState;
+import sim.engine.Steppable;
 import sim.field.grid.SparseGrid2D;
 import simulation.entity.Entity;
 import simulation.entity.Grass;
@@ -41,6 +42,7 @@ public class SimulationModel extends SimState {
 	public VegetationManager getVegetationManager() {
 		return this.myVegetationManager;
 	}
+
 	
 	public Double getStepByDay() {
 		return stepByDay;
@@ -97,6 +99,55 @@ public class SimulationModel extends SimState {
 		support.firePropertyChange("model_initialized", null, null);
 		myFactory.createAnimalsFromBatch(simProperties.getSpeciesList());	
 		support.firePropertyChange("species_initialized", null, null);	
+		
+		
+		//manage species renew in accordance with birthrate
+		schedule.scheduleRepeating(new Steppable() {
+			
+			@Override
+			public void step(SimState arg0) {
+				myFactory.renewSpecies();
+				
+			}
+		});
+
+	}
+	
+	public Double DayToStep(Double days){
+		
+		//1 Day = 4 steps
+		//2 days => 2*4 steps
+		
+		return days*stepByDay;
+	}
+	
+	public Double StepToDay(Double steps){
+		
+		//1 Day = 4 steps
+		//8 steps => 8/4 2 days
+		
+		return steps/stepByDay;
+	}
+	
+	public Double ValueByStepToValueByDay(Double valueByStep){
+		
+		//1 Day = 4 steps
+		//100gr eaten by step => 100*4 gr eaten by day
+		
+		return valueByStep*stepByDay;
+	}
+	
+	public Double ValueByDayToValueByStep(Double valueByDay){
+		
+		//1 Day = 4 steps
+		//400gr eaten by Days => 400/4gr eaten by step
+		
+		return valueByDay/stepByDay;
+	}
+	
+	
+	public int toCase(Double value) {
+		return (int) Math.round(value / caseByMeter);
 	}
 	
 }

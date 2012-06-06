@@ -96,6 +96,7 @@ public class SimulationView extends GUIState implements PropertyChangeListener{
 			
 			scheduleImmediateRepeat(true, new Steppable()
 			{
+			int mySteps=0;;	
 			public void step(SimState state)
 			   {
 
@@ -105,7 +106,11 @@ public class SimulationView extends GUIState implements PropertyChangeListener{
 			   
 			   // now add the data
 			   if (x >= state.schedule.EPOCH && x < state.schedule.AFTER_SIMULATION){
-			       stats.updateCharts(x);
+				   mySteps++;
+				   mySteps=(int) (mySteps%model.getStepByDay());
+				   if(mySteps==0){
+					   stats.updateCharts(model.StepToDay(x));
+				   }		       
 			   }
 			   }
 			});

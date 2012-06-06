@@ -235,7 +235,7 @@ public class Herbivorious extends Animal {
 	private void eat(int VegetationX, int VegetationY, Float[][] floats, SimulationModel SimModel) {
 		//consume vegetationand update weight
 
-		float consumes=SimModel.consumeVegetationAt(VegetationX, VegetationY, toStep(weightConsumeByDay));
+		float consumes=SimModel.consumeVegetationAt(VegetationX, VegetationY, ValueByDayToValueByStep(weightConsumeByDay));
 		
 		//System.out.println(this.getType()+" #"+this.hashCode()+" tries to eat "+(toStep(weightConsumeByDay)*1000)+"g of  grass !");
 

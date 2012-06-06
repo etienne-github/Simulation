@@ -47,19 +47,19 @@ public class StatsManager implements PropertyChangeListener {
 		weightEatenThisStepSeries=new HashMap<String,XYSeries>();
 		chartPop.setTitle("Species populations");
 		chartPop.setRangeAxisLabel("Individuals");
-		chartPop.setDomainAxisLabel("Steps");
+		chartPop.setDomainAxisLabel("Days");
 		
 		chartBorn.setTitle("Species birthrates");
 		chartBorn.setRangeAxisLabel("Individuals/Individuals");
-		chartBorn.setDomainAxisLabel("Steps");
+		chartBorn.setDomainAxisLabel("Days");
 		
 		chartDied.setTitle("Species deathrates");
 		chartDied.setRangeAxisLabel("Individuals/Individuals");
-		chartDied.setDomainAxisLabel("Steps");
+		chartDied.setDomainAxisLabel("Days");
 		
 		chartAte.setTitle("Species feeding rates");
 		chartAte.setRangeAxisLabel("Kg/Individuals");
-		chartAte.setDomainAxisLabel("Steps");
+		chartAte.setDomainAxisLabel("Days");
 		
 	}
 	
@@ -185,6 +185,10 @@ public class StatsManager implements PropertyChangeListener {
 		currentFrame.pack();
 		controller.registerFrame(currentFrame);
 		
+	}
+
+	public Double getPopulationOfSpecies(String type) {
+		return populations.get(type);
 	}
 
 	

@@ -124,8 +124,37 @@ public abstract class Animal extends Entity implements Eatable {
 		this.type = type;
 	}
 
-	public Double toStep(Double value) {
-		return value / stepByDay;
+	
+	public Double DayToStep(Double days){
+		
+		//1 Day = 4 steps
+		//2 days => 2*4 steps
+		
+		return days*stepByDay;
+	}
+	
+	public Double StepToDay(Double steps){
+		
+		//1 Day = 4 steps
+		//8 steps => 8/4 2 days
+		
+		return steps/stepByDay;
+	}
+	
+	public Double ValueByStepToValueByDay(Double valueByStep){
+		
+		//1 Day = 4 steps
+		//100gr eaten by step => 100*4 gr eaten by day
+		
+		return valueByStep*stepByDay;
+	}
+	
+	public Double ValueByDayToValueByStep(Double valueByDay){
+		
+		//1 Day = 4 steps
+		//400gr eaten by Days => 400/4gr eaten by step
+		
+		return valueByDay/stepByDay;
 	}
 	
 	public int toCase(Double value) {
@@ -144,8 +173,8 @@ public abstract class Animal extends Entity implements Eatable {
 		
 		action();
 		
-		weight -= toStep(weightConsumeByDay);
-		age += toStep(1.0);
+		weight -= ValueByDayToValueByStep(weightConsumeByDay);
+		age += DayToStep(1.0);
 		checkAlive();
 	}
 	
@@ -189,7 +218,7 @@ public abstract class Animal extends Entity implements Eatable {
 		setY((int) Math.round(destinationY));
 		simModel.getYard().setObjectLocation(this, (int)this.x, (int)this.y);
 		
-		weight -= toStep(weightConsumeByDay);
+		weight -= ValueByDayToValueByStep(weightConsumeByDay);
 	}
 	
 	public Double getEatingEnergy() {
