@@ -10,6 +10,7 @@ public class Herbivorious extends Animal {
 
 	private static final long serialVersionUID = 1L;
 	private PerceptionTableCell[][] perception;
+	int perceptionCases;
 
 	public Herbivorious(String type, SimulationModel simModel) {
 		super(type, simModel);
@@ -20,13 +21,13 @@ public class Herbivorious extends Animal {
 	public void  initializePerception(){
 		//System.out.println(this.getType()+" #"+this.hashCode()+" perception initialized !");
 
-		int perceptionPoint = (int) Math.max(smellPoint, visionPoint);
-		
+
+		perceptionCases=MeterToCase(Math.max(smellPoint, visionPoint));
 		
 		//Initialize perception table
-		perception = new PerceptionTableCell[2*perceptionPoint][2*perceptionPoint];
-		for(int i = 0; i<2*perceptionPoint;i++){
-			for(int j = 0; j<2*perceptionPoint;j++){
+		perception = new PerceptionTableCell[2*perceptionCases][2*perceptionCases];
+		for(int i = 0; i<2*perceptionCases;i++){
+			for(int j = 0; j<2*perceptionCases;j++){
 				perception[i][j]=new PerceptionTableCell();
 			}
 		}
@@ -70,12 +71,12 @@ public class Herbivorious extends Animal {
 	private void detectFood(SparseGrid2D yard,Float[][] Vegetation, SimulationModel simModel) {
 		
 		//Parse surrounding to get vegetation
-		int perceptionPoint = (int) Math.max(smellPoint, visionPoint);
+		
 		
 
 		
-		for(int dx=perceptionPoint*-1;dx<perceptionPoint;dx++){
-			for(int dy=perceptionPoint*-1;dy<perceptionPoint;dy++){
+		for(int dx=perceptionCases*-1;dx<perceptionCases;dx++){
+			for(int dy=perceptionCases*-1;dy<perceptionCases;dy++){
 				
 
 				int x = yard.stx((int)getX()+dx);
@@ -95,9 +96,9 @@ public class Herbivorious extends Animal {
 				
 				
 				//update perception matrix
-				perception[dx+perceptionPoint][dy+perceptionPoint].setX(x);
-				perception[dx+perceptionPoint][dy+perceptionPoint].setY(y);
-				perception[dx+perceptionPoint][dy+perceptionPoint].setAmount(simModel.getVegetationAt(x, y));				
+				perception[dx+perceptionCases][dy+perceptionCases].setX(x);
+				perception[dx+perceptionCases][dy+perceptionCases].setY(y);
+				perception[dx+perceptionCases][dy+perceptionCases].setAmount(simModel.getVegetationAt(x, y));				
 			}
 		}
 		//printPerception();
@@ -112,7 +113,7 @@ public class Herbivorious extends Animal {
 		double currentDistance;
 		for(PerceptionTableCell[] i:perception){
 			for(PerceptionTableCell j:i){
-				if(j.getAmount()>0){
+				if(j.getAmount()>ValueByDayToValueByStep(weightConsumeByDay)){
 					currentDistance = getShortestDistanceToPoint(j.getX(), j.getY());
 					if(currentDistance<minDistance){ //if nearer food found
 						cases.clear();
@@ -235,7 +236,7 @@ public class Herbivorious extends Animal {
 	private void eat(int VegetationX, int VegetationY, Float[][] floats, SimulationModel SimModel) {
 		//consume vegetationand update weight
 
-		float consumes=SimModel.consumeVegetationAt(VegetationX, VegetationY, ValueByDayToValueByStep(weightConsumeByDay));
+		double consumes=SimModel.consumeVegetationAt(VegetationX, VegetationY, ValueByDayToValueByStep(weightConsumeByDay)*2);
 		
 		//System.out.println(this.getType()+" #"+this.hashCode()+" tries to eat "+(toStep(weightConsumeByDay)*1000)+"g of  grass !");
 
@@ -247,7 +248,7 @@ public class Herbivorious extends Animal {
 	}
 	
 	public boolean isOnFood(){
-		if(simModel.getVegetationAt((int)getX(), (int)getY())>0){
+		if(simModel.getVegetationAt((int)getX(), (int)getY())>ValueByDayToValueByStep(weightConsumeByDay)){
 			return true;
 		}else{
 			return false;
@@ -255,11 +256,11 @@ public class Herbivorious extends Animal {
 	}
 	
 	public void printPerception(){
-		int perceptionPoint = (int) Math.max(smellPoint, visionPoint);
 
-		for(int i=0;i<perceptionPoint*2;i++){
-			for(int j=0;j<perceptionPoint*2;j++){
-				if((i==perceptionPoint)&&(j==perceptionPoint)){
+
+		for(int i=0;i<perceptionCases*2;i++){
+			for(int j=0;j<perceptionCases*2;j++){
+				if((i==perceptionCases)&&(j==perceptionCases)){
 					System.out.print("X ");
 				}else{
 					System.out.print(perception[i][j].getAmount()+" ");	

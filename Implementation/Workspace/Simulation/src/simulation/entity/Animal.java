@@ -17,7 +17,7 @@ public abstract class Animal extends Entity implements Eatable {
 	
 	protected String type;
 	protected Double stepByDay;
-	protected Double caseByMeter;	
+	protected Double meterByCase;	
 	
 	protected Double smellPoint;
 	protected Double visionPoint;
@@ -52,8 +52,8 @@ public abstract class Animal extends Entity implements Eatable {
 		this.stepByDay = stepByDay;
 	}
 
-	public void setCaseByMeter(Double caseByMeter) {
-		this.caseByMeter = caseByMeter;
+	public void setMeterByCase(Double meterByCase) {
+		this.meterByCase = meterByCase;
 	}
 
 	public void setSmellPoint(Double smellPoint) {
@@ -157,8 +157,35 @@ public abstract class Animal extends Entity implements Eatable {
 		return valueByDay/stepByDay;
 	}
 	
-	public int toCase(Double value) {
-		return (int) Math.round(value / caseByMeter);
+public Double CaseToMeters(Double cases){
+		
+		//1 case = 20 meters
+		//2 cases => 2*20 meters
+		
+		return cases*meterByCase;
+	}
+	
+	public int MeterToCase(Double meters){
+		
+		//1 case = 20 meters
+		//40 meters => 2 cases
+		
+		return (int) (meters/meterByCase);
+	}
+	
+	public Double ValueByMetersToValueByCase(Double valueByMeters){
+		
+		//1 case = 20 meters
+		//2 s/meters = 40 s/case 
+		
+		return valueByMeters*stepByDay;
+	}
+	
+	public Double ValueByCaseToValueByMeters(Double valueByCase){
+		
+		//1 case = 20 meters
+		//40 s/case = 2 s/meters   		
+		return valueByCase/stepByDay;
 	}
 	
 	// Main action
@@ -211,8 +238,11 @@ public abstract class Animal extends Entity implements Eatable {
 	private void flee() {
 		System.out.println(this.getType()+" #"+this.hashCode()+" flees aways !");
 		double random = Math.random() * 1000;
-		double destinationX = this.x * (Math.cos(random) * toCase(movePoint) * FLEE_MOVE_COEF);
-		double destinationY = this.x * (Math.sin(random) * toCase(movePoint) * FLEE_MOVE_COEF);
+		
+		//movePoint in m/day -> m/step -> c/step
+		
+		double destinationX = this.x * (Math.cos(random) * MeterToCase(ValueByDayToValueByStep(movePoint)) * FLEE_MOVE_COEF);
+		double destinationY = this.x * (Math.sin(random) * MeterToCase(ValueByDayToValueByStep(movePoint)) * FLEE_MOVE_COEF);
 		
 		setX((int) Math.round(destinationX));
 		setY((int) Math.round(destinationY));

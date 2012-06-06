@@ -42,10 +42,11 @@ public class AnimalFactory {
 			animal = new Herbivorious(speciesStats.getType(), simModel);
 		} else {
 			animal = new Carnivorious(speciesStats.getType(), simModel);
+			((Carnivorious) animal).setEatableFoodList(speciesStats.getEatableFoodList());
 		}
 		
 		animal.setStepByDay(simModel.getStepByDay());
-		animal.setCaseByMeter(simModel.getCaseByMeter());
+		animal.setMeterByCase(simModel.getMeterByCase());
 
 		animal.setSmellPoint(speciesStats.getSmellPoint());
 		animal.setVisionPoint(speciesStats.getVisionPoint());

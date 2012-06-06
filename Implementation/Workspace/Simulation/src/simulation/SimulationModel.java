@@ -21,7 +21,7 @@ public class SimulationModel extends SimState {
 	private SparseGrid2D yard;
 	private SimProperties simProperties;
 	private Double stepByDay;
-	private Double caseByMeter;
+	private Double meterByCase;
 	private Float[][] Vegetation;
 	private Grass[][] Grasses;
 	private VegetationManager myVegetationManager;
@@ -31,7 +31,7 @@ public class SimulationModel extends SimState {
 	public SimulationModel(long seed) {
 		super(seed);
 		stepByDay = DEFAULT_STEP_BY_DAY;
-		caseByMeter = DEFAULT_METER_BY_CASE;
+		meterByCase = DEFAULT_METER_BY_CASE;
 		myManager = new StatsManager();
 	}
 
@@ -48,8 +48,8 @@ public class SimulationModel extends SimState {
 		return stepByDay;
 	}
 
-	public Double getCaseByMeter() {
-		return caseByMeter;
+	public Double getMeterByCase() {
+		return meterByCase;
 	}
 
 	public Float[][] getVegetation() {
@@ -62,10 +62,10 @@ public class SimulationModel extends SimState {
 	}
 
 	public float consumeVegetationAt(int x, int y, Double weightToBeConsumed) {
-		System.out.println("Vegetation is "+(Vegetation[x][y]*1000)+ "g and an anima wants to eat "+(weightToBeConsumed*1000)+"g.");
+		//System.out.println("Vegetation is "+(Vegetation[x][y]*1000)+ "g and an anima wants to eat "+(weightToBeConsumed*1000)+"g.");
 		float canConsume = (float) Math.min(Vegetation[x][y], weightToBeConsumed);
 		Vegetation[x][y] -= canConsume;
-		System.out.println("Vegetation is eaten off of "+(canConsume*1000)+"g and is now of "+(Vegetation[x][y]*1000)+ "g");
+		//System.out.println("Vegetation is eaten off of "+(canConsume*1000)+"g and is now of "+(Vegetation[x][y]*1000)+ "g");
 		return canConsume;
 	}
 
@@ -146,8 +146,38 @@ public class SimulationModel extends SimState {
 	}
 	
 	
-	public int toCase(Double value) {
-		return (int) Math.round(value / caseByMeter);
+	//-----------------------
+public Double CaseToMeters(Double cases){
+		
+		//1 case = 20 meters
+		//2 cases => 2*20 meters
+		
+		return cases*meterByCase;
 	}
+	
+	public Double MeterToCase(Double meters){
+		
+		//1 case = 20 meters
+		//40 meters => 2 cases
+		
+		return meters/meterByCase;
+	}
+	
+	public Double ValueByMetersToValueByCase(Double valueByMeters){
+		
+		//1 case = 20 meters
+		//2 s/meters = 40 s/case 
+		
+		return valueByMeters*stepByDay;
+	}
+	
+	public Double ValueByCaseToValueByMeters(Double valueByCase){
+		
+		//1 case = 20 meters
+		//40 s/case = 2 s/meters   		
+		return valueByCase/stepByDay;
+	}
+	
+
 	
 }

@@ -18,7 +18,7 @@ public class StatsManager implements PropertyChangeListener {
 	HashMap<String,Double> populations;
 	HashMap<String,Integer>	bornThisStep;
 	HashMap<String,Integer> diedThisStep;
-	HashMap<String,Float> weightEatenThisStep;
+	HashMap<String,Double> weightEatenThisStep;
 	
 	HashMap<String,XYSeries> populationsSeries;
 	HashMap<String,XYSeries> bornThisStepSeries;
@@ -40,7 +40,7 @@ public class StatsManager implements PropertyChangeListener {
 		populations=new HashMap<String,Double>();
 		bornThisStep=new HashMap<String,Integer>();
 		diedThisStep=new HashMap<String,Integer>();
-		weightEatenThisStep=new HashMap<String,Float>();
+		weightEatenThisStep=new HashMap<String,Double>();
 		populationsSeries=new HashMap<String,XYSeries>();
 		bornThisStepSeries=new HashMap<String,XYSeries>();
 		diedThisStepSeries=new HashMap<String,XYSeries>();
@@ -71,7 +71,7 @@ public class StatsManager implements PropertyChangeListener {
 		populations.put(speciesType, (double)0);
 		bornThisStep.put(speciesType, 0);
 		diedThisStep.put(speciesType, 0);
-		weightEatenThisStep.put(speciesType, 0f);	
+		weightEatenThisStep.put(speciesType, (double)0f);	
 		
 		//kep series
 		populationsSeries.put(speciesType, new XYSeries((speciesType+" population"),false));
@@ -129,7 +129,7 @@ public class StatsManager implements PropertyChangeListener {
 			//ate
 			currentSerie = weightEatenThisStepSeries.get(sp);
 			if(currentPop!=0){
-				newVal = weightEatenThisStep.get(sp)/((float)currentPop);
+				newVal = (float) (weightEatenThisStep.get(sp)/((double)currentPop));
 				System.out.println("new ate "+newVal);
 			}else{
 				newVal=0;
@@ -137,15 +137,15 @@ public class StatsManager implements PropertyChangeListener {
 			
 			currentSerie.add(x, newVal, true);
 			weightEatenThisStepSeries.put(sp, currentSerie);
-			weightEatenThisStep.put(sp, 0f);		
+			weightEatenThisStep.put(sp, (double)0f);		
 		}
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		if(arg0.getPropertyName().equals("was_born")){
-			System.out.println("bornthisStep is :"+bornThisStep);
-			System.out.println("type is : "+arg0.getOldValue());
+			//System.out.println("bornthisStep is :"+bornThisStep);
+		//	System.out.println("type is : "+arg0.getOldValue());
 			
 			bornThisStep.put((String) arg0.getOldValue(),bornThisStep.get(arg0.getOldValue())+1);
 			populations.put((String) arg0.getOldValue(),populations.get(arg0.getOldValue())+1);
@@ -153,8 +153,8 @@ public class StatsManager implements PropertyChangeListener {
 			diedThisStep.put((String) arg0.getOldValue(),diedThisStep.get(arg0.getOldValue())+1);
 			populations.put((String) arg0.getOldValue(),populations.get(arg0.getOldValue())-1);
 		} else if(arg0.getPropertyName().equals("ate")){
-			System.out.println("ate "+((Float)arg0.getNewValue())+" received !");
-			weightEatenThisStep.put((String) arg0.getOldValue(),weightEatenThisStep.get(arg0.getOldValue())+((Float)arg0.getNewValue()));
+		//	System.out.println("ate "+((Float)arg0.getNewValue())+" received !");
+			weightEatenThisStep.put((String) arg0.getOldValue(),weightEatenThisStep.get(arg0.getOldValue())+((Double)arg0.getNewValue()));
 		}
 		
 	}
