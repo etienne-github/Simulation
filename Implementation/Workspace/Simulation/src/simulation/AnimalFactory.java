@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Random;
 
 import server.SpeciesStats;
-import server.StatsManager;
 import sim.util.Bag;
 import sim.util.Int2D;
 import simulation.entity.Animal;
