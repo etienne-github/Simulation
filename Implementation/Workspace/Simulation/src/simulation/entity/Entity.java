@@ -6,6 +6,8 @@ import simulation.SimulationModel;
 
 public class Entity implements Steppable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private static int GRID_SIZE_X;
 	private static int GRID_SIZE_Y;
 	

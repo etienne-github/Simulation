@@ -46,12 +46,16 @@ public class AnimalFactory {
 		animal.setIsUseHiddenDefense(speciesStats.getIsUseHiddenDefense());
 		
 		animal.setAge(speciesStats.getInitAge());
-		animal.setWeight(speciesStats.getInitWeight());
 		animal.setIsHidden(false);
 		
+		double minWeight = speciesStats.getWeightConsumeByDay() * speciesStats.getMaxNbDaySafe();
+		double maxWeight = speciesStats.getInitWeight();
+		animal.setWeight((Math.random()*(maxWeight-minWeight))+minWeight);
 		
 		if(speciesStats.getIsHerbivorious()){
 			((Herbivorious)animal).initializePerception();
+		} else {
+			((Carnivorious) animal).setEatableFoodList(speciesStats.getEatableFoodList());
 		}
 		
 		return animal;

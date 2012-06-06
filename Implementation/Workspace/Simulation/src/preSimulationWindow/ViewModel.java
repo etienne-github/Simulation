@@ -1,12 +1,10 @@
 package preSimulationWindow;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 import server.SpeciesStats;
 import simulation.SimProperties;
 import simulation.SimulationModel;
-import simulation.SpeciesPop;
 import utils.Constants;
 import client.RestFacilities;
 

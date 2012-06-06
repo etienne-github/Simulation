@@ -93,9 +93,6 @@ public class SimulationModel extends SimState {
 		schedule.scheduleRepeating(myVegetationManager);
 		support.firePropertyChange("model_initialized", null, null);
 		myFactory.createAnimalsFromBatch(simProperties.getSpeciesList());
-		
-		
-		
 	}
 	
 }

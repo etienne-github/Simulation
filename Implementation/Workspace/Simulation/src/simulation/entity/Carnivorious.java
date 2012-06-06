@@ -21,6 +21,10 @@ public class Carnivorious extends Animal {
 		detectedFoodList = new ArrayList<Animal>();
 	}
 
+	public void setEatableFoodList(ArrayList<String> eatableFoodList) {
+		this.eatableFoodList = eatableFoodList;
+	}
+	
 	// Main action
 
 	public void action() {
@@ -58,13 +62,13 @@ public class Carnivorious extends Animal {
 
 	@SuppressWarnings("rawtypes")
 	private void detectFood(SparseGrid2D yard) {
-		Double perceptionPoint = Math.max(smellPoint, visionPoint);
+		Double perceptionPointCase = toCase(Math.max(smellPoint, visionPoint));
 
 		// Remove old detected Food
 		Iterator<Animal> detectedFoodIterator = detectedFoodList.iterator();
 		while (detectedFoodIterator.hasNext()) {
 			Entity food = detectedFoodIterator.next();
-			if (this.getShortestDistanceToEntity(food) < perceptionPoint) {
+			if (this.getShortestDistanceToEntity(food) < perceptionPointCase) {
 				detectedFoodIterator.remove();
 			}
 		}
@@ -73,7 +77,7 @@ public class Carnivorious extends Animal {
 		Bag result = new Bag();
 		// TODO vérifier le fonctionnement de la méthode NeighborsMaxDistance
 		yard.getNeighborsMaxDistance((int)getX(), (int)getY(),
-				(int) Math.round(perceptionPoint), true, result, null, null);
+				(int) Math.round(perceptionPointCase), true, result, null, null);
 		Iterator resultIterator = result.iterator();
 		while (resultIterator.hasNext()) {
 			Object objectResult = resultIterator.next();
@@ -104,48 +108,6 @@ public class Carnivorious extends Animal {
 	}
 
 	// Move
-
-	private Double moveTo(SparseGrid2D yard, Integer[] coordinates) {
-		Double move = movePoint;
-		
-		System.out.println(this.getType()+" #"+this.hashCode()+" trying to move to ("+coordinates[0]+","+coordinates[1]+") and movePoint ("+movePoint+")");
-
-		
-		
-		
-		
-		if((coordinates[0]!=-1)&&(coordinates[1]!=-1)){//if valid coordinates
-		
-			while (move > 0 && !isSameLocation(coordinates[0],coordinates[1])) {
-				int dX = getXShortestDirection(coordinates[0]);
-				if (dX > 0){
-					setX(simModel.getYard().stx((int) (this.getX() + 1)));
-					//System.out.println("x+1 -> "+this.getX());
-					
-				}else if (dX < 0){
-					setX(simModel.getYard().stx((int) (this.getX() - 1)));
-					//System.out.println("x-1 -> "+this.getX());
-				}
-
-				int dY = getYShortestDirection(coordinates[1]);
-				if (dY > 0){
-					setY(simModel.getYard().sty((int)getY() + 1));
-					//System.out.println("y+1 -> "+this.getY());
-					
-				}else if (dY < 0){
-					setY(simModel.getYard().sty((int)getY() - 1));
-					//System.out.println("y-1 -> "+this.getY());
-				}
-
-				move--;
-			}
-			return (movePoint - move);
-		}else{
-			return movePoint;
-		}
-		
-
-	}
 
 	private Double moveRandom(SparseGrid2D yard) {
 		System.out.println(this.getType()+" #"+this.hashCode()+" moves randomly");
