@@ -17,18 +17,18 @@ public class MainClass {
 		/*
 		//Récupération d'une description d'espèce
 		String s =servMes.getSpeciesDescription("Loup");
-		System.out.println(s);
+		System.out.println(s);*/
 		
 		//Récupération d'un objet espèce
-		SpeciesStats loup = servMes.getSpecies("Poule");
+		SpeciesStats loup = servMes.getSpecies("Loup");
 		System.out.println("Age max du loup :"+loup.getMaxLifetime());
 		System.out.println("Le loup mange:"+loup.getEatableFoodList());
 		SpeciesStats lapin = servMes.getSpecies("Lievre");
-		System.out.println("Attaque du lièvre :"+lapin.getAttackPoint());*/
-	
+		System.out.println("Attaque du lièvre :"+lapin.getAttackPoint());
+		System.out.println("Type du lapin :"+lapin.getType());
 		//Récupération de la liste des toutes les espèces
 		System.out.println("Liste de toutes les espèces :"+servMes.getSpeciesList());
-		/*
+		
 		SpeciesStats poule = new SpeciesStats();
 		poule.setNom("Poule");
 		poule.setDescriptif("Carnivore méchant");
@@ -50,9 +50,8 @@ public class MainClass {
 		poule.getEatableFoodList().add("Lepus Europaeus");
 		
 		if (servMes.createSpecies(poule)) System.out.println("Espèce créée");
-		else System.out.println("Erreur lors de la création de l'espèce"); 
-		*/
-		/*		
+		else System.out.println("Erreur lors de la création de l'espèce");
+		
 		SpeciesStats tmp = servMes.getSpecies("Poule");
 		System.out.println("Age :"+tmp.getInitAge());
 		
@@ -60,10 +59,10 @@ public class MainClass {
 		if (servMes.updateSpecies(poule)) System.out.println("Espèce mise à jour");
 		else System.out.println("Erreur lors de la mise à jour de l'espèce");
 		tmp = servMes.getSpecies("Poule");
-		System.out.println("Age :"+tmp.getInitAge());*/
+		System.out.println("Age :"+tmp.getInitAge());
 		
 		//Suppression d'un espèce :
-		if (servMes.deleteSpecies("Loup")) System.out.println("Espèce supprimée");
+		if (servMes.deleteSpecies("bla")) System.out.println("Espèce supprimée");
 		else System.out.println("Erreur lors de la suppression de l'espèce"); 
 		
 	}
