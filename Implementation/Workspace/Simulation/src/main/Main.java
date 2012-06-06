@@ -3,6 +3,7 @@ package main;
 import client.RestFacilities;
 import preSimulationWindow.View;
 import preSimulationWindow.ViewModel;
+import simulation.AnimalFactory;
 import simulation.SimulationModel;
 
 public class Main {

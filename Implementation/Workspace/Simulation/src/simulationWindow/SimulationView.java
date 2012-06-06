@@ -45,6 +45,11 @@ public class SimulationView extends GUIState implements PropertyChangeListener{
 		yard = new SparseGridPortrayal2D();
 		display.attach(yard, "Yard");
 	}
+	
+
+	public SparseGridPortrayal2D getYard() {
+		return yard;
+	}
 
 	public void start() {
 		super.start();

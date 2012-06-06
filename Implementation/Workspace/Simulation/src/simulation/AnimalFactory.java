@@ -10,14 +10,18 @@ import sim.util.Int2D;
 import simulation.entity.Animal;
 import simulation.entity.Carnivorious;
 import simulation.entity.Herbivorious;
+import simulationWindow.SimulationView;
 
 public class AnimalFactory {
+	
 
 	private SimulationModel simModel;
 	Random myRandomGen = new Random();
+	private SimulationView myView;
 	
-	public AnimalFactory(SimulationModel simModel) {
+	public AnimalFactory(SimulationModel simModel, SimulationView gui) {
 		this.simModel = simModel;
+		myView = gui;
 
 	}
 	
@@ -75,6 +79,7 @@ public class AnimalFactory {
 						//set animal there
 						Animal a = this.createAnimal(sP.getStats());
 						simModel.getYard().setObjectLocation(a, location);
+						myView.getYard().setPortrayalForObject(a, sP.portrayal);						
 						a.setStoppable(simModel.schedule.scheduleRepeating(a));
 						System.out.println("ANIMAL FACTORY : "+sP.getStats().getNom()+" #"+sP.hashCode()+" created at position "+location.toString());
 						animalSet=true;

@@ -30,7 +30,6 @@ public class SimulationModel extends SimState {
 		super(seed);
 		stepByDay = DEFAULT_STEP_BY_DAY;
 		caseByMeter = DEFAULT_METER_BY_CASE;
-		myFactory = new AnimalFactory(this);
 	}
 
 	public PropertyChangeSupport getPropertyChangeSupport() {
@@ -78,6 +77,7 @@ public class SimulationModel extends SimState {
 		SimulationView gui = new SimulationView(this);
 		Console console = new Console(gui);
 		console.setVisible(true);
+		myFactory = new AnimalFactory(this,gui);
 	}
 
 	public void start() {
@@ -92,10 +92,7 @@ public class SimulationModel extends SimState {
 		Entity.setGRID_SIZE_Y(simProperties.getGridHeight());
 		schedule.scheduleRepeating(myVegetationManager);
 		support.firePropertyChange("model_initialized", null, null);
-		myFactory.createAnimalsFromBatch(simProperties.getSpeciesList());
-		
-		
-		
+		myFactory.createAnimalsFromBatch(simProperties.getSpeciesList());	
 	}
 	
 }
