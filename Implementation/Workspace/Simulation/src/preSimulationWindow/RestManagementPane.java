@@ -1,5 +1,6 @@
 package preSimulationWindow;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,6 +15,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -70,6 +72,7 @@ public class RestManagementPane extends JPanel {
 
 	// TODO faire une fenetre a part pour gerer le regime alimentaire
 	private JLabel edibleFoodList;
+	private JButton edibleFoodButton;
 
 	private JLabel nomLabel;
 	private JLabel descriptifLabel;
@@ -90,13 +93,8 @@ public class RestManagementPane extends JPanel {
 	private JLabel isUseHiddenDefenseLabel;
 	private JLabel edibleFoodListLabel;
 
-	/** Validation **/
-
-	private JButton okButton;
-
 	/** Structuration des champs **/
 	private JPanel actionsPanel;
-	private JPanel okPanel;
 	private JPanel statsPanel;
 	private JScrollPane statsScrollPane;
 
@@ -124,7 +122,6 @@ public class RestManagementPane extends JPanel {
 
 		actionsPanel = new JPanel(new GridBagLayout());
 		statsPanel = new JPanel(new GridBagLayout());
-		okPanel = new JPanel();
 		statsScrollPane = new JScrollPane();
 
 		nom = new JTextField();
@@ -164,8 +161,7 @@ public class RestManagementPane extends JPanel {
 		defensePanel.add(defenseFlee);
 
 		edibleFoodList = new JLabel();
-
-		okButton = new JButton("OK");
+		edibleFoodButton = new JButton("+");
 
 		nomLabel = new JLabel("Nom commun : ");
 		descriptifLabel = new JLabel("Description de l'espèce :");
@@ -204,32 +200,62 @@ public class RestManagementPane extends JPanel {
 					enablePanel = true;
 					show = false;
 					break;
+				case 2:
+					enablePanel = false;
+					show = true;
+					break;
 				default:
 					enablePanel = true;
 					show = true;
+					break;
 				}
-				enableStatsPanel(statsPanel, enablePanel);
+				enablePanel(statsPanel, enablePanel);
 				showSpeciesList(show);
 
 			}
 		});
 
-		okButton.addActionListener(new ActionListener() {
+		actionChoiceButton.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Check data pour envoi de la requete au service Rest
-				System.out.println("Envoi de la requete au service Rest");
-				switch (checkData()) {
-				case 0: // ajouter une espece
+				switch (actionsList.getSelectedIndex()) {
+				case 1: // Ajout
+					int r_new = checkData();
+					if (r_new == 0 && !(nom.getText().isEmpty()) && !(type.getText().isEmpty())) {
+						setSpecies();
+						addSpeciesOnRest();
+					}
 					break;
-				case 1: // supprimer une espece
+				case 2: // Suppression
+					if (speciesChoice.getSelectedIndex() > 0) {
+					String msg = "Êtes-vous sûr de vouloir supprimer l'espèce " + 
+								speciesChoice.getSelectedItem() + 
+								" du service Rest ? \n" +
+								"Cette action est irréversible.";
+					int action = JOptionPane.showConfirmDialog(null, msg, "Warning",
+							JOptionPane.OK_CANCEL_OPTION);
+					if (action == JOptionPane.OK_OPTION) {
+						String species = (String) speciesChoice.getSelectedItem();
+						deleteSpeciesFromRest(species);
+					}
+						
+					}
+					else
+						JOptionPane.showMessageDialog(null, "No species selected !",
+								"Warning", JOptionPane.WARNING_MESSAGE);
 					break;
-				case 2: // MAJ une espece
+				case 3: // Mise a jour
+					int r_maj = checkData();
+					if (r_maj == 0) {
+						setSpecies();
+						updateSpeciesOnRest();
+					}
 					break;
-				default: // en cas d'erreur dans la verification des donnees,
-							// checkData() renvoie -1
+				default:
 					break;
 				}
+				
 			}
 		});
 
@@ -253,6 +279,15 @@ public class RestManagementPane extends JPanel {
 			}
 		});
 
+		edibleFoodButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				foodManagement();
+				
+			}
+		});
+		
 		/** Structuration & affichage **/
 
 		c.gridx = 0;
@@ -322,8 +357,11 @@ public class RestManagementPane extends JPanel {
 		statsPanel.add(edibleFoodListLabel, c);
 
 		c.gridx = 1;
-		statsPanel.add(edibleFoodList);
-
+		statsPanel.add(edibleFoodList, c);
+		
+		c.gridx = 2;
+		statsPanel.add(edibleFoodButton, c);
+		
 		c.gridx = 0;
 		c.gridy = 7;
 		statsPanel.add(smellPointLabel, c);
@@ -415,31 +453,14 @@ public class RestManagementPane extends JPanel {
 		c.gridx = 1;
 		statsPanel.add(birthRateByDay, c);
 
-		// TODO ici : repere
-
-		c.weightx = 0.2;
-		okPanel.add(okButton, c);
-
 		actionsPanel.setBorder(BorderFactory.createTitledBorder("Action"));
 		statsScrollPane.setBorder(BorderFactory
 				.createTitledBorder("Caractéristiques de l'espèce"));
 		statsScrollPane.setViewportView(statsPanel);
+		enablePanel(statsPanel, false);
 
 		this.add(actionsPanel);
 		this.add(statsScrollPane);
-		this.add(okPanel);
-	}
-
-	private void enableStatsPanel(Container container, boolean enablePanel) {
-		// TODO activer ou desactiver l'ensemble des contenus dans statsPanel
-		// /!\ Si le composant est lui aussi un conteneur, il faut le faire
-		// recursivement
-
-	}
-
-	private int checkData() {
-		// TODO verifier si les donnees entrees sont correctes
-		return 0;
 	}
 
 	/** Methodes **/
@@ -470,26 +491,39 @@ public class RestManagementPane extends JPanel {
 		edibleFoodList.setText(list.substring(0, list.lastIndexOf(",")));
 	}
 
+	/** Ouverture d'une nouvelle fenetre pour la gestion de la nourriture **/
+	private void foodManagement() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void enablePanel(Container container, boolean enablePanel) {
+		for (Component comp : container.getComponents()) {
+			comp.setEnabled(enablePanel);
+		}
+	}
+
+	private int checkData() {
+		// TODO verifier si les donnees entrees sont correctes
+		return 0; // si c'est bon, sinon retourne -1
+	}
+	
 	// TODO setSpecies suivant les donnees entrees dans la vue
 	/** Recuperation des donnees entrees par l'utilisateur **/
-	@SuppressWarnings("unused")
 	private void setSpecies() {
 
 	}
 
 	/** Modification des donnees sur le service Rest **/
 
-	@SuppressWarnings("unused")
 	private void updateSpeciesOnRest() {
 		viewModel.getRestServer().updateSpecies(speciesStats);
 	}
 
-	@SuppressWarnings("unused")
 	private void deleteSpeciesFromRest(String species) {
 		viewModel.getRestServer().deleteSpecies(species);
 	}
 
-	@SuppressWarnings("unused")
 	private void addSpeciesOnRest() {
 		viewModel.getRestServer().createSpecies(speciesStats);
 	}
