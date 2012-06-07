@@ -18,7 +18,7 @@ public class View extends JFrame {
 
 		setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		setSize(Constants.PRE_SIM_WDW_WIDTH, Constants.PRE_SIM_WDW_HEIGHT);
-		setTitle("Parametrage de la simulation");
+		setTitle("Paramétrage de la simulation");
 
 		restTab = new RestManagementPane(model);
 		simTab = new SimulationWindowPane(model);

@@ -1,10 +1,9 @@
 package main;
 
-import client.RestFacilities;
 import preSimulationWindow.View;
 import preSimulationWindow.ViewModel;
-import simulation.AnimalFactory;
 import simulation.SimulationModel;
+import client.RestFacilities;
 
 public class Main {
 

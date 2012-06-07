@@ -114,11 +114,11 @@ public class SimulationWindowPane extends JPanel {
 
 		gridHLabel = new JLabel("Hauteur : ");
 		gridWLabel = new JLabel("Largeur : ");
-		gridComboLabel = new JLabel("Tailles predefinies : ");
+		gridComboLabel = new JLabel("Tailles prédéfinies : ");
 
 		/******** Population ********/
 
-		randomNumber = new JButton("Population aleatoire");
+		randomNumber = new JButton("Population aléatoire");
 		randomNumber.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -204,12 +204,12 @@ public class SimulationWindowPane extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Map<String, Integer> species = checkData();
 				if (species != null && species.size() > 0) {
-					System.out.println("Parametrage de la simulation termine");
+					System.out.println("Paramétrage de la simulation terminé");
 					sendToModel(species);
 				}
 			}
 		});
-		advancedParamsButton = new JButton("Vue detaillee");
+		advancedParamsButton = new JButton("Vue détaillée");
 		advancedParamsButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -370,18 +370,18 @@ public class SimulationWindowPane extends JPanel {
 			return speciesSim;
 		else {
 			if (!speciesDuplicate.isEmpty()) {
-				msg += "Attention, les especes suivantes sont definies plusieurs fois : \n";
+				msg += "Attention, les espèces suivantes sont définies plusieurs fois : \n";
 				for (String str : speciesDuplicate) {
 					msg += "- " + str + " ;\n";
 				}
 			}
 			if (!speciesBadPop.isEmpty()) {
-				msg += "Attention, les populations des especes suivantes sont mal definies : \n";
+				msg += "Attention, les populations des espèces suivantes sont mal définies : \n";
 				for (String str : speciesBadPop) {
 					msg += "- " + str + " ;\n";
 				}
 			}
-			msg += "Veuillez corriger les donnees de la simulation";
+			msg += "Veuillez corriger les données de la simulation";
 			JOptionPane.showMessageDialog(null, msg, "Warning",
 					JOptionPane.WARNING_MESSAGE);
 		}
@@ -408,7 +408,7 @@ public class SimulationWindowPane extends JPanel {
 			String description = viewModel.getRestServer()
 					.getSpeciesDescription(species);
 			JOptionPane.showMessageDialog(null, description,
-					"Informations sur l'espece " + species,
+					"Informations sur l'espèce " + species,
 					JOptionPane.INFORMATION_MESSAGE);
 		} else {
 			JOptionPane.showMessageDialog(null, "No species selected !",
