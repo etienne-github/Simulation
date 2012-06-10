@@ -15,7 +15,7 @@ import simulationWindow.SimulationView;
 public class SimulationModel extends SimState {
 
 	private static final double DEFAULT_STEP_BY_DAY = 4;
-	private static final double DEFAULT_METER_BY_CASE = 20;
+	private static final double DEFAULT_METER_BY_CASE = 40;
 	
 	private PropertyChangeSupport support = new PropertyChangeSupport(this);
 	private SparseGrid2D yard;

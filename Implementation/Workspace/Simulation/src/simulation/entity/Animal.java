@@ -201,8 +201,14 @@ public Double CaseToMeters(Double cases){
 		action();
 		
 		weight -= ValueByDayToValueByStep(weightConsumeByDay);
-		age += DayToStep(1.0);
+		age += StepToDay(1.0);
+		
+		System.out.println(getType()+" #"+hashCode()+" my Age : "+age+" my Weight :"+weight);
+		support.firePropertyChange("age", this.getType(), StepToDay(age)/365f);
+		support.firePropertyChange("weight", this.getType(), weight);
+		
 		checkAlive();
+
 	}
 	
 	

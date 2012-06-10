@@ -35,6 +35,8 @@ public class AnimalFactory {
 
 	}
 	
+
+		
 	public Animal createAnimal(SpeciesStats speciesStats) {
 		Animal animal;
 		if (speciesStats.getIsHerbivorious()) {
@@ -59,7 +61,6 @@ public class AnimalFactory {
 		animal.setAttackPoint(speciesStats.getAttackPoint());
 		animal.setDefendPoint(speciesStats.getDefendPoint());
 		animal.setIsUseHiddenDefense(speciesStats.getIsUseHiddenDefense());
-		
 		animal.setAge(speciesStats.getInitAge());
 		animal.setWeight(speciesStats.getInitWeight());
 		animal.setIsHidden(false);
@@ -220,13 +221,15 @@ public class AnimalFactory {
 			s = it.next();
 			p = myManager.getPopulationOfSpecies(s.getType());
 			bR = (float) (simModel.ValueByDayToValueByStep(s.getBirthRateByDay())*p);
-			
+			//System.out.println(s.getType()+"birth rate is "+bR);
 			intPart = (int) Math.floor(bR);
 			
 			decPart = bR-intPart;
 			buffered = speciesRenewBuffer.get(s.getType());
 			
-			System.out.println("pop is "+ p +"bR "+bR+" intP "+intPart+" decPart "+decPart+" buffered "+buffered);
+			
+			
+			System.out.println(s.getType()+ "pop is "+ p +"bRate/day is "+s.getBirthRateByDay()+"bR/step is "+simModel.ValueByDayToValueByStep(s.getBirthRateByDay())+" bR/step*p"+bR+" intP "+intPart+" decPart "+decPart+" buffered "+buffered);
 			
 			buffered+=decPart;
 			
@@ -240,6 +243,7 @@ public class AnimalFactory {
 
 			}
 			
+
 			
 			
 			speciesRenewBuffer.put(s.getType(),buffered);
