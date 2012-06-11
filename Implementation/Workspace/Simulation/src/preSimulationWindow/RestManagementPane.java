@@ -102,17 +102,15 @@ public class RestManagementPane extends JPanel {
 	private JPanel statsPanel;
 	private JScrollPane statsScrollPane;
 
-	/** Bordures en cas d'erreur **/
-	Border errorBorder;
-	Border okBorder;
-
+	private Border initBorder;
+	
 	/** Constructeur **/
 	public RestManagementPane(ViewModel model) {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		/** Initialisation **/
 		GridBagConstraints c = new GridBagConstraints();
-
+		
 		viewModel = model;
 		showSpeciesFlag = false;
 		speciesList = new ArrayList<String>();
@@ -196,11 +194,8 @@ public class RestManagementPane extends JPanel {
 		 * edibleFoodPanel.add(edibleFoodButton);
 		 */
 
-		@SuppressWarnings("unused")
-		Border errorBorder = BorderFactory.createLineBorder(Color.red);
-		@SuppressWarnings("unused")
-		Border okBorder = nom.getBorder();
-
+		initBorder = nom.getBorder();
+		
 		/** Lien entre les champs & les statistiques **/
 
 		actionsList.addActionListener(new ActionListener() {
@@ -630,26 +625,26 @@ public class RestManagementPane extends JPanel {
 
 		if (nom.getText().isEmpty()) {
 			emptyFields += "- nom commun de l'espèce \n";
-			nom.setBorder(errorBorder);
+			nom.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 		}
 
 		if (type.getText().isEmpty()) {
 			emptyFields += "- nom scientifique de l'espèce \n";
-			type.setBorder(errorBorder);
+			type.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 		}
 
 		try {
 			if (smellPoint.getText().isEmpty()) {
 				emptyFields += "- portée olfactive \n";
-				smellPoint.setBorder(errorBorder);
+				smellPoint.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(smellPoint.getText());
 		} catch (Exception e) {
 			wrongFields += "- portée olfactive \n";
-			smellPoint.setBorder(errorBorder);
+			smellPoint.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 			wrongF = false;
 		}
@@ -657,13 +652,13 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (visionPoint.getText().isEmpty()) {
 				emptyFields += "- portée visuelle \n";
-				visionPoint.setBorder(errorBorder);
+				visionPoint.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(visionPoint.getText());
 		} catch (Exception e) {
 			wrongFields += "- portée visuelle \n";
-			visionPoint.setBorder(errorBorder);
+			visionPoint.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 			wrongF = false;
 		}
@@ -671,13 +666,13 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (movePoint.getText().isEmpty()) {
 				emptyFields += "- distance journalière parcourue \n";
-				movePoint.setBorder(errorBorder);
+				movePoint.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(movePoint.getText());
 		} catch (Exception e) {
 			wrongFields += "- distance journalière parcourue \n";
-			movePoint.setBorder(errorBorder);
+			movePoint.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 			wrongF = false;
 		}
@@ -685,13 +680,13 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (maxLifetime.getText().isEmpty()) {
 				emptyFields += "- durée de vie maximale \n";
-				maxLifetime.setBorder(errorBorder);
+				maxLifetime.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(maxLifetime.getText());
 		} catch (Exception e) {
 			wrongFields += "- durée de vie maximale \n";
-			maxLifetime.setBorder(errorBorder);
+			maxLifetime.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 			wrongF = false;
 		}
@@ -699,15 +694,13 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (minimumWeightToDeath.getText().isEmpty()) {
 				emptyFields += "- poids minimum avant famine \n";
-				minimumWeightToDeath.setBorder(BorderFactory
-						.createLineBorder(Color.RED));
+				minimumWeightToDeath.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(minimumWeightToDeath.getText());
 		} catch (Exception e) {
 			wrongFields += "- poids minimum avant famine \n";
-			minimumWeightToDeath.setBorder(BorderFactory
-					.createLineBorder(Color.RED));
+			minimumWeightToDeath.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 			wrongF = false;
 		}
@@ -715,8 +708,7 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (weightConsumeByDay.getText().isEmpty()) {
 				emptyFields += "- poids minimum de nourriture mangée quotidiennement \n";
-				weightConsumeByDay.setBorder(BorderFactory
-						.createLineBorder(Color.RED));
+				weightConsumeByDay.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(weightConsumeByDay.getText());
@@ -731,14 +723,13 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (maxNbDaySafe.getText().isEmpty()) {
 				emptyFields += "- durée de vie à jeûn \n";
-				maxNbDaySafe.setBorder(BorderFactory
-						.createLineBorder(Color.RED));
+				maxNbDaySafe.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(maxNbDaySafe.getText());
 		} catch (Exception e) {
 			wrongFields += "- durée de vie à jeûn \n";
-			maxNbDaySafe.setBorder(errorBorder);
+			maxNbDaySafe.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 			wrongF = false;
 		}
@@ -746,13 +737,13 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (attackPoint.getText().isEmpty()) {
 				emptyFields += "- points d'attaque \n";
-				attackPoint.setBorder(errorBorder);
+				attackPoint.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(attackPoint.getText());
 		} catch (Exception e) {
 			wrongFields += "- points d'attaque \n";
-			attackPoint.setBorder(errorBorder);
+			attackPoint.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 			wrongF = false;
 		}
@@ -760,13 +751,13 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (defendPoint.getText().isEmpty()) {
 				emptyFields += "- points de défense \n";
-				defendPoint.setBorder(errorBorder);
+				defendPoint.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(defendPoint.getText());
 		} catch (Exception e) {
 			wrongFields += "- points de défense \n";
-			defendPoint.setBorder(errorBorder);
+			defendPoint.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 			wrongF = false;
 		}
@@ -774,13 +765,13 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (initWeight.getText().isEmpty()) {
 				emptyFields += "- poids initial \n";
-				initWeight.setBorder(errorBorder);
+				initWeight.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(initWeight.getText());
 		} catch (Exception e) {
 			wrongFields += "- poids initial \n";
-			initWeight.setBorder(errorBorder);
+			initWeight.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 			wrongF = false;
 		}
@@ -788,13 +779,13 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (initAge.getText().isEmpty()) {
 				emptyFields += "- âge initial \n";
-				initAge.setBorder(errorBorder);
+				initAge.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(initAge.getText());
 		} catch (Exception e) {
 			wrongFields += "- âge initial \n";
-			initAge.setBorder(errorBorder);
+			initAge.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 			wrongF = false;
 		}
@@ -802,35 +793,34 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (birthRateByDay.getText().isEmpty()) {
 				emptyFields += "- taux de reproduction journalier\n";
-				birthRateByDay.setBorder(BorderFactory
-						.createLineBorder(Color.RED));
+				birthRateByDay.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(birthRateByDay.getText());
 		} catch (Exception e) {
 			wrongFields += "- taux de reproduction journalier \n";
-			birthRateByDay.setBorder(errorBorder);
+			birthRateByDay.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 			wrongF = false;
 		}
 
 		if (dietButtons.getSelection() == null) {
 			emptyFields += "- type de régime alimentaire \n";
-			dietPanel.setBorder(errorBorder);
+			dietPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
 
 			ok = false;
 		}
 
 		if (isCarnivorous.isSelected() && edibleFoodList.getText().isEmpty()) {
 			emptyFields += "- régime alimentaire \n";
-			dietPanel.setBorder(errorBorder);
+			dietPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
 
 			ok = false;
 		}
 
 		if (defenseButtons.getSelection() == null) {
 			emptyFields += "- comportement en cas de repli \n";
-			defensePanel.setBorder(errorBorder);
+			defensePanel.setBorder(BorderFactory.createLineBorder(Color.RED));
 			ok = false;
 		}
 
@@ -883,9 +873,8 @@ public class RestManagementPane extends JPanel {
 			speciesStats.setIsUseHiddenDefense(false);
 
 		for (Component c : statsPanel.getComponents()) {
-			if (c instanceof JComponent) {
-				((JComponent) c).setBorder(okBorder);
-			}
+			if (c instanceof JTextArea || c instanceof JTextField)
+				((JComponent) c).setBorder(initBorder);
 		}
 	}
 
