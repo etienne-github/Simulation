@@ -1,5 +1,6 @@
 package preSimulationWindow;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
@@ -14,6 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,6 +23,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.text.JTextComponent;
 
 import server.SpeciesStats;
 import utils.Constants;
@@ -31,7 +35,6 @@ public class RestManagementPane extends JPanel {
 	private ViewModel viewModel;
 	private SpeciesStats speciesStats;
 	private ArrayList<String> speciesList;
-	private ArrayList<String> eatableFoodList;
 	private boolean showSpeciesFlag;
 
 	/** Choix d'actions a effectuer **/
@@ -73,6 +76,7 @@ public class RestManagementPane extends JPanel {
 	// TODO faire une fenetre a part pour gerer le regime alimentaire
 	private JLabel edibleFoodList;
 	private JButton edibleFoodButton;
+	// private JPanel edibleFoodPanel;
 
 	private JLabel nomLabel;
 	private JLabel descriptifLabel;
@@ -98,6 +102,10 @@ public class RestManagementPane extends JPanel {
 	private JPanel statsPanel;
 	private JScrollPane statsScrollPane;
 
+	/** Bordures en cas d'erreur **/
+	Border errorBorder;
+	Border okBorder;
+
 	/** Constructeur **/
 	public RestManagementPane(ViewModel model) {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -107,14 +115,11 @@ public class RestManagementPane extends JPanel {
 
 		viewModel = model;
 		showSpeciesFlag = false;
-		eatableFoodList = new ArrayList<String>();
 		speciesList = new ArrayList<String>();
-		speciesList.add("Espèce");
-		for (String species : getAllSpecies()) {
-			speciesList.add(species);
-		}
+		speciesStats = new SpeciesStats();
 
-		speciesChoice = new JComboBox(speciesList.toArray());
+		speciesChoice = new JComboBox();
+		fetchSpeciesList();
 		speciesChoice.setVisible(false);
 		actionsList = new JComboBox(Constants.REST_MANAGEMENT_ACTIONS);
 		actionsLabel = new JLabel("Action : ");
@@ -162,6 +167,7 @@ public class RestManagementPane extends JPanel {
 
 		edibleFoodList = new JLabel();
 		edibleFoodButton = new JButton("+");
+		edibleFoodButton.setMaximumSize(edibleFoodButton.getSize());
 
 		nomLabel = new JLabel("Nom commun : ");
 		descriptifLabel = new JLabel("Description de l'espèce :");
@@ -183,6 +189,17 @@ public class RestManagementPane extends JPanel {
 		isUseHiddenDefenseLabel = new JLabel("Comportement en cas de repli : ");
 		isHerbivoriousLabel = new JLabel("Type de régime alimentaire : ");
 		edibleFoodListLabel = new JLabel("Régime alimentaire");
+		/*
+		 * edibleFoodPanel = new JPanel();
+		 * edibleFoodPanel.add(edibleFoodListLabel);
+		 * edibleFoodPanel.add(edibleFoodList);
+		 * edibleFoodPanel.add(edibleFoodButton);
+		 */
+
+		@SuppressWarnings("unused")
+		Border errorBorder = BorderFactory.createLineBorder(Color.red);
+		@SuppressWarnings("unused")
+		Border okBorder = nom.getBorder();
 
 		/** Lien entre les champs & les statistiques **/
 
@@ -199,6 +216,8 @@ public class RestManagementPane extends JPanel {
 				case 1:
 					enablePanel = true;
 					show = false;
+					clearPanel(statsPanel);
+					edibleFoodList.setText("");
 					break;
 				case 2:
 					enablePanel = false;
@@ -216,46 +235,81 @@ public class RestManagementPane extends JPanel {
 		});
 
 		actionChoiceButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switch (actionsList.getSelectedIndex()) {
 				case 1: // Ajout
 					int r_new = checkData();
-					if (r_new == 0 && !(nom.getText().isEmpty()) && !(type.getText().isEmpty())) {
+					if (r_new == 0) {
 						setSpecies();
 						addSpeciesOnRest();
+						System.out.println("L'espèce " + nom.getText()
+								+ " a bien été ajoutée au service Rest.");
 					}
 					break;
 				case 2: // Suppression
 					if (speciesChoice.getSelectedIndex() > 0) {
-					String msg = "Êtes-vous sûr de vouloir supprimer l'espèce " + 
-								speciesChoice.getSelectedItem() + 
-								" du service Rest ? \n" +
-								"Cette action est irréversible.";
-					int action = JOptionPane.showConfirmDialog(null, msg, "Warning",
-							JOptionPane.OK_CANCEL_OPTION);
-					if (action == JOptionPane.OK_OPTION) {
-						String species = (String) speciesChoice.getSelectedItem();
-						deleteSpeciesFromRest(species);
-					}
-						
-					}
-					else
-						JOptionPane.showMessageDialog(null, "No species selected !",
-								"Warning", JOptionPane.WARNING_MESSAGE);
+						String msg = "Êtes-vous sûr de vouloir supprimer l'espèce "
+								+ speciesChoice.getSelectedItem()
+								+ " du service Rest ? \n"
+								+ "Cette action est irréversible.";
+						int action = JOptionPane.showConfirmDialog(null, msg,
+								"Warning", JOptionPane.OK_CANCEL_OPTION);
+						if (action == JOptionPane.OK_OPTION) {
+							String species = (String) speciesChoice
+									.getSelectedItem();
+							deleteSpeciesFromRest(species);
+							System.out.println("L'espèce " + nom.getText()
+									+ " a bien été supprimée du service Rest.");
+						}
+
+					} else
+						JOptionPane.showMessageDialog(null,
+								"No species selected !", "Warning",
+								JOptionPane.WARNING_MESSAGE);
 					break;
-				case 3: // Mise a jour
-					int r_maj = checkData();
-					if (r_maj == 0) {
-						setSpecies();
-						updateSpeciesOnRest();
+				case 3: // Mise a jour en 3 temps
+					/**
+					 * Si la case contenant le nom est vide, alors il faut aller
+					 * recuperer les stats sur le serveur Si la case nom n'est
+					 * pas vide mais ne correpsond pas a l'espece choisie, c'est
+					 * que l'utilisateur veut faire une misque a jour d'une
+					 * autre espece Sinon si la case contenant le nom n'est pas
+					 * vide et qu'elle correspond au nom de l'espece choisie,
+					 * c'est-à-dire que l'utilisateur a fait sa mise à jour Donc
+					 * il faut la mettre sur le serveur Sinon s
+					 **/
+					String spec = nom.getText();
+					String choice = (String) speciesChoice.getSelectedItem();
+					if (spec.isEmpty() && speciesChoice.getSelectedIndex() > 0) {
+						getSpeciesFromRest();
+						enablePanel(statsPanel, true);
+						setView();
+
+					} else if (!(spec.isEmpty()) && !(choice.equals(spec))) {
+						getSpeciesFromRest();
+						enablePanel(statsPanel, true);
+						setView();
+					} else if (speciesChoice.getSelectedIndex() == 0) {
+						JOptionPane.showMessageDialog(null,
+								"No species selected !", "Warning",
+								JOptionPane.WARNING_MESSAGE);
+					} else {
+						int r_maj = checkData();
+						if (r_maj == 0) {
+							setSpecies();
+							updateSpeciesOnRest();
+							System.out.println("L'espèce "
+									+ nom.getText()
+									+ " a bien été mise à jour dans le service Rest.");
+						}
 					}
 					break;
 				default:
 					break;
 				}
-				
+
 			}
 		});
 
@@ -280,14 +334,14 @@ public class RestManagementPane extends JPanel {
 		});
 
 		edibleFoodButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				foodManagement();
-				
+
 			}
 		});
-		
+
 		/** Structuration & affichage **/
 
 		c.gridx = 0;
@@ -354,16 +408,19 @@ public class RestManagementPane extends JPanel {
 
 		c.gridx = 0;
 		c.gridy = 6;
+		c.gridwidth = 3;
+		// statsPanel.add(edibleFoodPanel, c);
 		statsPanel.add(edibleFoodListLabel, c);
 
 		c.gridx = 1;
 		statsPanel.add(edibleFoodList, c);
-		
+
 		c.gridx = 2;
 		statsPanel.add(edibleFoodButton, c);
-		
+
 		c.gridx = 0;
 		c.gridy = 7;
+		c.gridwidth = 1;
 		statsPanel.add(smellPointLabel, c);
 
 		c.gridx = 1;
@@ -465,15 +522,23 @@ public class RestManagementPane extends JPanel {
 
 	/** Methodes **/
 
-	private String[] getAllSpecies() {
+	private void fetchSpeciesList() {
 		String str = viewModel.getRestServer().getSpeciesList();
-		return str.substring(1, str.length() - 1).split(", ");
+		String[] list = str.substring(1, str.length() - 1).split(", ");
+
+		speciesChoice.removeAllItems();
+		speciesChoice.addItem("Espèce");
+
+		for (String species : list) {
+			speciesList.add(species);
+			speciesChoice.addItem(species);
+		}
+
 	}
 
-	@SuppressWarnings("unused")
 	/** Recuperation des donnees a partir du service Rest **/
 	private void getSpeciesFromRest() {
-		String species = nom.getText();
+		String species = (String) speciesChoice.getSelectedItem();
 		speciesStats = viewModel.getRestServer().getSpecies(species);
 	}
 
@@ -482,10 +547,49 @@ public class RestManagementPane extends JPanel {
 		speciesChoice.setVisible(showSpeciesFlag);
 	}
 
-	@SuppressWarnings("unused")
+	/** Affichage des donnees **/
+	private void setView() {
+
+		nom.setText(speciesStats.getNom());
+		type.setText(speciesStats.getType());
+		descriptif.setText(speciesStats.getDescriptif());
+		smellPoint.setText(speciesStats.getSmellPoint().toString());
+		visionPoint.setText(speciesStats.getVisionPoint().toString());
+		movePoint.setText(speciesStats.getMovePoint().toString());
+		maxLifetime.setText(speciesStats.getMaxLifetime().toString());
+		minimumWeightToDeath.setText(speciesStats.getMinimumWeightToDeath()
+				.toString());
+		weightConsumeByDay.setText(speciesStats.getWeightConsumeByDay()
+				.toString());
+		maxNbDaySafe.setText(speciesStats.getMaxNbDaySafe().toString());
+		attackPoint.setText(speciesStats.getAttackPoint().toString());
+		defendPoint.setText(speciesStats.getDefendPoint().toString());
+		initWeight.setText(speciesStats.getInitWeight().toString());
+		initAge.setText(speciesStats.getInitAge().toString());
+		birthRateByDay.setText(speciesStats.getBirthRateByDay().toString());
+
+		if (speciesStats.getIsHerbivorious()) {
+			isHerbivorious.setSelected(true);
+		} else {
+			isCarnivorous.setSelected(true);
+			setEdibleFoodList();
+		}
+
+		if (speciesStats.getIsUseHiddenDefense())
+			defenseHidden.setSelected(true);
+		else
+			defenseFlee.setSelected(true);
+
+		nom.setEnabled(false);
+		type.setEnabled(false);
+	}
+
+	/** Affichage de la liste des especes comestibles **/
 	private void setEdibleFoodList() {
 		String list = "";
-		for (String s : eatableFoodList) {
+
+		for (String s : speciesStats.getEatableFoodList()) {
+			System.out.println("miam " + s);
 			list += s + ",";
 		}
 		edibleFoodList.setText(list.substring(0, list.lastIndexOf(",")));
@@ -494,24 +598,295 @@ public class RestManagementPane extends JPanel {
 	/** Ouverture d'une nouvelle fenetre pour la gestion de la nourriture **/
 	private void foodManagement() {
 		// TODO Auto-generated method stub
-		
+		System.out
+				.println("Ouverture d'une fenetre pour la gestion des especes mangees");
+
 	}
 
 	private void enablePanel(Container container, boolean enablePanel) {
 		for (Component comp : container.getComponents()) {
+			if (comp instanceof Container)
+				enablePanel((Container) comp, enablePanel);
 			comp.setEnabled(enablePanel);
 		}
 	}
 
-	private int checkData() {
-		// TODO verifier si les donnees entrees sont correctes
-		return 0; // si c'est bon, sinon retourne -1
+	private void clearPanel(Container container) {
+		for (Component comp : container.getComponents()) {
+			if (comp instanceof JTextComponent) {
+				JTextComponent field = (JTextComponent) comp;
+				field.setText("");
+			}
+
+		}
 	}
-	
-	// TODO setSpecies suivant les donnees entrees dans la vue
+
+	private int checkData() {
+		String emptyFields = "Attention, les valeurs suivantes doivent etre renseignées : \n";
+		String wrongFields = "Attention, les valeurs suivantes sont erronées : \n";
+		boolean ok = true; // vrai si tous les champs sont remplis
+		boolean wrongF = true; // vrai si tous les champs sont remplis
+								// correctement
+
+		if (nom.getText().isEmpty()) {
+			emptyFields += "- nom commun de l'espèce \n";
+			nom.setBorder(errorBorder);
+			ok = false;
+		}
+
+		if (type.getText().isEmpty()) {
+			emptyFields += "- nom scientifique de l'espèce \n";
+			type.setBorder(errorBorder);
+			ok = false;
+		}
+
+		try {
+			if (smellPoint.getText().isEmpty()) {
+				emptyFields += "- portée olfactive \n";
+				smellPoint.setBorder(errorBorder);
+				ok = false;
+			} else
+				Double.parseDouble(smellPoint.getText());
+		} catch (Exception e) {
+			wrongFields += "- portée olfactive \n";
+			smellPoint.setBorder(errorBorder);
+			ok = false;
+			wrongF = false;
+		}
+
+		try {
+			if (visionPoint.getText().isEmpty()) {
+				emptyFields += "- portée visuelle \n";
+				visionPoint.setBorder(errorBorder);
+				ok = false;
+			} else
+				Double.parseDouble(visionPoint.getText());
+		} catch (Exception e) {
+			wrongFields += "- portée visuelle \n";
+			visionPoint.setBorder(errorBorder);
+			ok = false;
+			wrongF = false;
+		}
+
+		try {
+			if (movePoint.getText().isEmpty()) {
+				emptyFields += "- distance journalière parcourue \n";
+				movePoint.setBorder(errorBorder);
+				ok = false;
+			} else
+				Double.parseDouble(movePoint.getText());
+		} catch (Exception e) {
+			wrongFields += "- distance journalière parcourue \n";
+			movePoint.setBorder(errorBorder);
+			ok = false;
+			wrongF = false;
+		}
+
+		try {
+			if (maxLifetime.getText().isEmpty()) {
+				emptyFields += "- durée de vie maximale \n";
+				maxLifetime.setBorder(errorBorder);
+				ok = false;
+			} else
+				Double.parseDouble(maxLifetime.getText());
+		} catch (Exception e) {
+			wrongFields += "- durée de vie maximale \n";
+			maxLifetime.setBorder(errorBorder);
+			ok = false;
+			wrongF = false;
+		}
+
+		try {
+			if (minimumWeightToDeath.getText().isEmpty()) {
+				emptyFields += "- poids minimum avant famine \n";
+				minimumWeightToDeath.setBorder(BorderFactory
+						.createLineBorder(Color.RED));
+				ok = false;
+			} else
+				Double.parseDouble(minimumWeightToDeath.getText());
+		} catch (Exception e) {
+			wrongFields += "- poids minimum avant famine \n";
+			minimumWeightToDeath.setBorder(BorderFactory
+					.createLineBorder(Color.RED));
+			ok = false;
+			wrongF = false;
+		}
+
+		try {
+			if (weightConsumeByDay.getText().isEmpty()) {
+				emptyFields += "- poids minimum de nourriture mangée quotidiennement \n";
+				weightConsumeByDay.setBorder(BorderFactory
+						.createLineBorder(Color.RED));
+				ok = false;
+			} else
+				Double.parseDouble(weightConsumeByDay.getText());
+		} catch (Exception e) {
+			wrongFields += "- poids minimum de nourriture mangée quotidiennement \n";
+			weightConsumeByDay.setBorder(BorderFactory
+					.createLineBorder(Color.RED));
+			ok = false;
+			wrongF = false;
+		}
+
+		try {
+			if (maxNbDaySafe.getText().isEmpty()) {
+				emptyFields += "- durée de vie à jeûn \n";
+				maxNbDaySafe.setBorder(BorderFactory
+						.createLineBorder(Color.RED));
+				ok = false;
+			} else
+				Double.parseDouble(maxNbDaySafe.getText());
+		} catch (Exception e) {
+			wrongFields += "- durée de vie à jeûn \n";
+			maxNbDaySafe.setBorder(errorBorder);
+			ok = false;
+			wrongF = false;
+		}
+
+		try {
+			if (attackPoint.getText().isEmpty()) {
+				emptyFields += "- points d'attaque \n";
+				attackPoint.setBorder(errorBorder);
+				ok = false;
+			} else
+				Double.parseDouble(attackPoint.getText());
+		} catch (Exception e) {
+			wrongFields += "- points d'attaque \n";
+			attackPoint.setBorder(errorBorder);
+			ok = false;
+			wrongF = false;
+		}
+
+		try {
+			if (defendPoint.getText().isEmpty()) {
+				emptyFields += "- points de défense \n";
+				defendPoint.setBorder(errorBorder);
+				ok = false;
+			} else
+				Double.parseDouble(defendPoint.getText());
+		} catch (Exception e) {
+			wrongFields += "- points de défense \n";
+			defendPoint.setBorder(errorBorder);
+			ok = false;
+			wrongF = false;
+		}
+
+		try {
+			if (initWeight.getText().isEmpty()) {
+				emptyFields += "- poids initial \n";
+				initWeight.setBorder(errorBorder);
+				ok = false;
+			} else
+				Double.parseDouble(initWeight.getText());
+		} catch (Exception e) {
+			wrongFields += "- poids initial \n";
+			initWeight.setBorder(errorBorder);
+			ok = false;
+			wrongF = false;
+		}
+
+		try {
+			if (initAge.getText().isEmpty()) {
+				emptyFields += "- âge initial \n";
+				initAge.setBorder(errorBorder);
+				ok = false;
+			} else
+				Double.parseDouble(initAge.getText());
+		} catch (Exception e) {
+			wrongFields += "- âge initial \n";
+			initAge.setBorder(errorBorder);
+			ok = false;
+			wrongF = false;
+		}
+
+		try {
+			if (birthRateByDay.getText().isEmpty()) {
+				emptyFields += "- taux de reproduction journalier\n";
+				birthRateByDay.setBorder(BorderFactory
+						.createLineBorder(Color.RED));
+				ok = false;
+			} else
+				Double.parseDouble(birthRateByDay.getText());
+		} catch (Exception e) {
+			wrongFields += "- taux de reproduction journalier \n";
+			birthRateByDay.setBorder(errorBorder);
+			ok = false;
+			wrongF = false;
+		}
+
+		if (dietButtons.getSelection() == null) {
+			emptyFields += "- type de régime alimentaire \n";
+			dietPanel.setBorder(errorBorder);
+
+			ok = false;
+		}
+
+		if (isCarnivorous.isSelected() && edibleFoodList.getText().isEmpty()) {
+			emptyFields += "- régime alimentaire \n";
+			dietPanel.setBorder(errorBorder);
+
+			ok = false;
+		}
+
+		if (defenseButtons.getSelection() == null) {
+			emptyFields += "- comportement en cas de repli \n";
+			defensePanel.setBorder(errorBorder);
+			ok = false;
+		}
+
+		String message = "";
+		if (!wrongF)
+			message += wrongFields;
+		else if (!ok)
+			message += emptyFields;
+
+		if (!message.isEmpty())
+			JOptionPane.showMessageDialog(null, message, "Warning",
+					JOptionPane.WARNING_MESSAGE);
+
+		if (ok)
+			return 0;
+
+		return -1; // 0 si c'est bon, sinon retourne -1
+	}
+
 	/** Recuperation des donnees entrees par l'utilisateur **/
 	private void setSpecies() {
+		speciesStats.setNom(nom.getText());
+		speciesStats.setType(type.getText());
 
+		speciesStats.setSmellPoint(Double.parseDouble(smellPoint.getText()));
+		speciesStats.setVisionPoint(Double.parseDouble(visionPoint.getText()));
+		speciesStats.setMovePoint(Double.parseDouble(movePoint.getText()));
+		speciesStats.setMaxLifetime(Double.parseDouble(maxLifetime.getText()));
+		speciesStats.setMinimumWeightToDeath(Double
+				.parseDouble(minimumWeightToDeath.getText()));
+		speciesStats.setWeightConsumeByDay(Double
+				.parseDouble(weightConsumeByDay.getText()));
+		speciesStats
+				.setMaxNbDaySafe(Double.parseDouble(maxNbDaySafe.getText()));
+		speciesStats.setAttackPoint(Double.parseDouble(attackPoint.getText()));
+		speciesStats.setDefendPoint(Double.parseDouble(defendPoint.getText()));
+		speciesStats.setInitWeight(Double.parseDouble(initWeight.getText()));
+		speciesStats.setInitAge(Double.parseDouble(initAge.getText()));
+		speciesStats.setBirthRateByDay(Double.parseDouble(birthRateByDay
+				.getText()));
+
+		if (isHerbivorious.isSelected())
+			speciesStats.setIsHerbivorious(true);
+		else
+			speciesStats.setIsHerbivorious(false);
+
+		if (defenseHidden.isSelected())
+			speciesStats.setIsUseHiddenDefense(true);
+		else
+			speciesStats.setIsUseHiddenDefense(false);
+
+		for (Component c : statsPanel.getComponents()) {
+			if (c instanceof JComponent) {
+				((JComponent) c).setBorder(okBorder);
+			}
+		}
 	}
 
 	/** Modification des donnees sur le service Rest **/
@@ -522,10 +897,15 @@ public class RestManagementPane extends JPanel {
 
 	private void deleteSpeciesFromRest(String species) {
 		viewModel.getRestServer().deleteSpecies(species);
+		fetchSpeciesList();
+		speciesChoice.setSelectedIndex(0);
+
 	}
 
 	private void addSpeciesOnRest() {
 		viewModel.getRestServer().createSpecies(speciesStats);
+		fetchSpeciesList();
+		speciesChoice.setSelectedIndex(0);
 	}
 
 }
