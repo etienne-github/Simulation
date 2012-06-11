@@ -6,7 +6,7 @@ import sim.field.grid.SparseGrid2D;
 import sim.util.Int2D;
 import simulation.SimulationModel;
 
-public class extends Animal {
+public class Herbivorious extends Animal {
 
 	private static final long serialVersionUID = 1L;
 	private PerceptionTableCell[][] perception;
