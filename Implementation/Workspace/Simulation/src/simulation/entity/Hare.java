@@ -1,7 +1,6 @@
 package simulation.entity;
 
 
-@SuppressWarnings("serial")
 public class Hare {
 
 	public static final double MAX_ENERGY = 80;

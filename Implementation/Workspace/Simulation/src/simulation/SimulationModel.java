@@ -23,6 +23,7 @@ public class SimulationModel extends SimState {
 	private Double stepByDay;
 	private Double meterByCase;
 	private Float[][] Vegetation;
+	@SuppressWarnings("unused")
 	private Grass[][] Grasses;
 	private VegetationManager myVegetationManager;
 	private AnimalFactory myFactory;
