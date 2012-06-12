@@ -1,11 +1,7 @@
 package client;
 
 
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.net.URLDecoder;
-
-import org.restlet.data.Status;
 
 import server.SpeciesStats;
 

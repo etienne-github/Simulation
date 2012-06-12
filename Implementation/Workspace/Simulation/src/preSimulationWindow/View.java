@@ -1,30 +1,12 @@
 package preSimulationWindow;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultCellEditor;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
 
-import simulation.SimProperties;
 import utils.Constants;
 
 @SuppressWarnings("serial")
@@ -39,15 +21,27 @@ public class View extends JFrame {
 
 		setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		setSize(Constants.PRE_SIM_WDW_WIDTH, Constants.PRE_SIM_WDW_HEIGHT);
-		setTitle("Parametrage de la simulation");
+		setTitle("Paramétrage de la simulation");
 
-		restTab = new RestManagementPane();
+		restTab = new RestManagementPane(model);
+		
 		simTab = new SimulationWindowPane(model);
+		simTab.addPropertyChangeListener(new PropertyChangeListener() {
+			
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				if (evt.getPropertyName().equals("launchSimulation"))
+					if (evt.getNewValue().equals(true))
+						dispose();
+				
+			}
+		});
+		
 		tabbedPane = new JTabbedPane();
-
 		tabbedPane.add("Simulation", simTab);
 		tabbedPane.add("Service REST", restTab);
-		this.add(tabbedPane);
+		
+		add(tabbedPane);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}

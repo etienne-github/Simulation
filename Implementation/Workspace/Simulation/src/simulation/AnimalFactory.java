@@ -127,6 +127,7 @@ public class AnimalFactory {
 		Bag b = simModel.getYard().getObjectsAtLocation(x,y);
 		
 		//parse them an search for the sought species
+		@SuppressWarnings("rawtypes")
 		Iterator it = b.iterator();
 		while(it.hasNext()&&(!found)){
 			Object o = it.next();

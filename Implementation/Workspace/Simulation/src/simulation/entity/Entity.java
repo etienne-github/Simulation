@@ -4,6 +4,7 @@ import sim.engine.SimState;
 import sim.engine.Steppable;
 import simulation.SimulationModel;
 
+@SuppressWarnings("serial")
 public class Entity implements Steppable {
 
 	private static int GRID_SIZE_X;

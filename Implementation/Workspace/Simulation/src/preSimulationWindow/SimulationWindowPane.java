@@ -71,7 +71,7 @@ public class SimulationWindowPane extends JPanel {
 		tableModel = new SpeciesTableModel();
 		speciesList = new ArrayList<String>();
 		speciesList.add("");
-		for (String species : getAllSpecies()) {
+		for (String species : viewModel.getSpeciesList()) {
 			speciesList.add(species);
 		}
 		speciesChoice = new JComboBox(speciesList.toArray());
@@ -114,11 +114,11 @@ public class SimulationWindowPane extends JPanel {
 
 		gridHLabel = new JLabel("Hauteur : ");
 		gridWLabel = new JLabel("Largeur : ");
-		gridComboLabel = new JLabel("Tailles predefinies : ");
+		gridComboLabel = new JLabel("Tailles prédéfinies : ");
 
 		/******** Population ********/
 
-		randomNumber = new JButton("Population aleatoire");
+		randomNumber = new JButton("Population aléatoire");
 		randomNumber.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -204,12 +204,12 @@ public class SimulationWindowPane extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Map<String, Integer> species = checkData();
 				if (species != null && species.size() > 0) {
-					System.out.println("Parametrage de la simulation termine");
+					System.out.println("Paramétrage de la simulation terminé");
 					sendToModel(species);
 				}
 			}
 		});
-		advancedParamsButton = new JButton("Vue detaillee");
+		advancedParamsButton = new JButton("Vue détaillée");
 		advancedParamsButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -331,6 +331,7 @@ public class SimulationWindowPane extends JPanel {
 		viewModel.sendToModel(speciesList, properties);
 
 		/** Detruire la fenetre **/
+		firePropertyChange("launchSimulation", false, true);
 		// TODO faire en sorte que la fenetre se ferme : fire event
 		// dispose();
 	}
@@ -338,8 +339,10 @@ public class SimulationWindowPane extends JPanel {
 	private Map<String, Integer> checkData() {
 		HashMap<String, Integer> speciesSim = new HashMap<String, Integer>();
 		String msg = "";
+		
 		/** especes en doublons dans la simulation : affichage d'un message **/
 		ArrayList<String> speciesDuplicate = new ArrayList<String>();
+		
 		/** especes avec une population erronee : affichage d'un message **/
 		ArrayList<String> speciesBadPop = new ArrayList<String>();
 
@@ -360,9 +363,9 @@ public class SimulationWindowPane extends JPanel {
 				}
 			}
 			else {  /** S'il y a un probleme dans la population rentree par l'utilisateur **/
-				if (pop == -1)
+				if (!species.isEmpty() &&  pop == -1)
 					speciesBadPop.add(species);
-				else
+				else if (!species.isEmpty() )
 					speciesSim.put(species, pop);
 			}
 		}
@@ -370,18 +373,18 @@ public class SimulationWindowPane extends JPanel {
 			return speciesSim;
 		else {
 			if (!speciesDuplicate.isEmpty()) {
-				msg += "Attention, les especes suivantes sont definies plusieurs fois : \n";
+				msg += "Attention, les espèces suivantes sont définies plusieurs fois : \n";
 				for (String str : speciesDuplicate) {
 					msg += "- " + str + " ;\n";
 				}
 			}
 			if (!speciesBadPop.isEmpty()) {
-				msg += "Attention, les populations des especes suivantes sont mal definies : \n";
+				msg += "Attention, les populations des espèces suivantes sont mal définies : \n";
 				for (String str : speciesBadPop) {
 					msg += "- " + str + " ;\n";
 				}
 			}
-			msg += "Veuillez corriger les donnees de la simulation";
+			msg += "Veuillez corriger les données de la simulation";
 			JOptionPane.showMessageDialog(null, msg, "Warning",
 					JOptionPane.WARNING_MESSAGE);
 		}
@@ -408,7 +411,7 @@ public class SimulationWindowPane extends JPanel {
 			String description = viewModel.getRestServer()
 					.getSpeciesDescription(species);
 			JOptionPane.showMessageDialog(null, description,
-					"Informations sur l'espece " + species,
+					"Informations sur l'espèce " + species,
 					JOptionPane.INFORMATION_MESSAGE);
 		} else {
 			JOptionPane.showMessageDialog(null, "No species selected !",
@@ -457,10 +460,6 @@ public class SimulationWindowPane extends JPanel {
 		return speciesTable.getValueAt(row, 0).toString();
 	}
 
-	private String[] getAllSpecies() {
-		String str = viewModel.getRestServer().getSpeciesList();
-		return str.substring(1, str.length() - 1).split(", ");
-	}
 
 	private int getPop(int row) {
 		try {
