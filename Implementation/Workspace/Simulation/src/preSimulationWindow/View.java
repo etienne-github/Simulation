@@ -1,5 +1,8 @@
 package preSimulationWindow;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
@@ -21,12 +24,24 @@ public class View extends JFrame {
 		setTitle("Paramétrage de la simulation");
 
 		restTab = new RestManagementPane(model);
+		
 		simTab = new SimulationWindowPane(model);
+		simTab.addPropertyChangeListener(new PropertyChangeListener() {
+			
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				if (evt.getPropertyName().equals("launchSimulation"))
+					if (evt.getNewValue().equals(true))
+						dispose();
+				
+			}
+		});
+		
 		tabbedPane = new JTabbedPane();
-
 		tabbedPane.add("Simulation", simTab);
 		tabbedPane.add("Service REST", restTab);
-		this.add(tabbedPane);
+		
+		add(tabbedPane);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}

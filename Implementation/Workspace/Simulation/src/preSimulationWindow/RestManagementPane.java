@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -73,10 +75,8 @@ public class RestManagementPane extends JPanel {
 	private ButtonGroup defenseButtons;
 	private JPanel defensePanel;
 
-	// TODO faire une fenetre a part pour gerer le regime alimentaire
 	private JLabel edibleFoodList;
 	private JButton edibleFoodButton;
-	// private JPanel edibleFoodPanel;
 
 	private JLabel nomLabel;
 	private JLabel descriptifLabel;
@@ -187,12 +187,6 @@ public class RestManagementPane extends JPanel {
 		isUseHiddenDefenseLabel = new JLabel("Comportement en cas de repli : ");
 		isHerbivoriousLabel = new JLabel("Type de régime alimentaire : ");
 		edibleFoodListLabel = new JLabel("Régime alimentaire");
-		/*
-		 * edibleFoodPanel = new JPanel();
-		 * edibleFoodPanel.add(edibleFoodListLabel);
-		 * edibleFoodPanel.add(edibleFoodList);
-		 * edibleFoodPanel.add(edibleFoodButton);
-		 */
 
 		initBorder = nom.getBorder();
 		
@@ -592,10 +586,18 @@ public class RestManagementPane extends JPanel {
 
 	/** Ouverture d'une nouvelle fenetre pour la gestion de la nourriture **/
 	private void foodManagement() {
-		// TODO Auto-generated method stub
 		System.out
 				.println("Ouverture d'une fenetre pour la gestion des especes mangees");
 
+		FoodManagementDialog dialog = new FoodManagementDialog(speciesList, viewModel.getRestServer(), speciesStats.getEatableFoodList());
+		dialog.addPropertyChangeListener(new PropertyChangeListener() {
+			
+			@Override
+			public void propertyChange(PropertyChangeEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 	private void enablePanel(Container container, boolean enablePanel) {

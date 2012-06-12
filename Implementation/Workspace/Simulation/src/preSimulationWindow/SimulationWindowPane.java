@@ -331,6 +331,7 @@ public class SimulationWindowPane extends JPanel {
 		viewModel.sendToModel(speciesList, properties);
 
 		/** Detruire la fenetre **/
+		firePropertyChange("launchSimulation", false, true);
 		// TODO faire en sorte que la fenetre se ferme : fire event
 		// dispose();
 	}
@@ -338,8 +339,10 @@ public class SimulationWindowPane extends JPanel {
 	private Map<String, Integer> checkData() {
 		HashMap<String, Integer> speciesSim = new HashMap<String, Integer>();
 		String msg = "";
+		
 		/** especes en doublons dans la simulation : affichage d'un message **/
 		ArrayList<String> speciesDuplicate = new ArrayList<String>();
+		
 		/** especes avec une population erronee : affichage d'un message **/
 		ArrayList<String> speciesBadPop = new ArrayList<String>();
 
@@ -360,9 +363,9 @@ public class SimulationWindowPane extends JPanel {
 				}
 			}
 			else {  /** S'il y a un probleme dans la population rentree par l'utilisateur **/
-				if (pop == -1)
+				if (!species.isEmpty() &&  pop == -1)
 					speciesBadPop.add(species);
-				else
+				else if (!species.isEmpty() )
 					speciesSim.put(species, pop);
 			}
 		}
