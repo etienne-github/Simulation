@@ -2,6 +2,8 @@ package preSimulationWindow;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import server.SpeciesStats;
 import simulation.SimProperties;
@@ -45,6 +47,27 @@ public class ViewModel {
 		return servRes;
 	}
 	
+	/** Liste des noms communs/URIs des especes **/
+	public String[] getSpeciesList() {
+		String str = servRes.getSpeciesList();
+		return str.substring(1, str.length() - 1).split(", ");	
+	}
+
+	public String getName(String type) {
+		// On le compare aux valeurs contenues dans la map
+		Set<Entry<String, String>> set = nameList.entrySet();
+
+		for (Entry<String, String> e : set) {
+
+			if (e.getValue().equals(type)) {
+				// On recupere la cle associee a la valeur
+				return e.getKey();
+			}
+		}	
+		return "";
+	}
+	
+	/** Liste des types associes aux especes **/
 	public void setNameList() {
 		for (String s : getSpeciesList()) {
 			String type = servRes.getSpecies(s).getType();
@@ -56,9 +79,8 @@ public class ViewModel {
 		return nameList;
 	}
 
-	public String[] getSpeciesList() {
-		String str = servRes.getSpeciesList();
-		return str.substring(1, str.length() - 1).split(", ");
-		
+	public String getType(String name) {
+		return nameList.get(name);
 	}
+
 }

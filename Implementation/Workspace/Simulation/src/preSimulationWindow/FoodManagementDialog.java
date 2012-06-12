@@ -3,11 +3,9 @@ package preSimulationWindow;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultCellEditor;
@@ -16,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -24,7 +21,6 @@ import javax.swing.JTextField;
 public class FoodManagementDialog extends JDialog {
 
 	private ArrayList<String> speciesList;
-	private HashMap<String, String> speciesTypeList;
 	private JComboBox speciesChoice;
 
 	private ViewModel viewModel;
@@ -38,20 +34,17 @@ public class FoodManagementDialog extends JDialog {
 								// l'espece
 	private JButton okButton;
 
-	private JPanel panel;
-
 	public FoodManagementDialog(ArrayList<String> sList, ViewModel model,
-			ArrayList<String> foodList) {
+			ArrayList<String> foodList, PropertyChangeListener pcl) {
 		this.setSize(300, 300);
 		this.setModal(true);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.addPropertyChangeListener(pcl);
 
 		speciesList = sList;
 		viewModel = model;
-		speciesTypeList = viewModel.getNameList();
 
-		panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 
 		addIcon = new ImageIcon("img/add.png");
 		removeIcon = new ImageIcon("img/remove.png");
@@ -138,19 +131,7 @@ public class FoodManagementDialog extends JDialog {
 		if (foodList != null) {
 			// On recupere le type de l'espece
 			for (String f : foodList) {
-				String key = "";
-				// On le compare aux valeurs contenues dans la map
-				Set<Entry<String, String>> set = speciesTypeList.entrySet();
-
-				for (Entry<String, String> e : set) {
-
-					if (e.getValue().equals(f)) {
-						// On recupere la cle associee a la valeur
-						key = e.getKey();
-						break;
-					}
-				}
-
+				String key = viewModel.getName(f);
 				tableModel.addRow(0);
 				tableModel.setValueAt(key, 0, 0);
 			}
@@ -169,30 +150,24 @@ public class FoodManagementDialog extends JDialog {
 
 		/** Ajout dans la fenetre **/
 
-		panel.add(foodTable);
-		panel.add(okButton, BorderLayout.PAGE_END);
-
-		this.add(panel);
+		this.add(foodTable);
+		this.add(okButton, BorderLayout.PAGE_END);
 		this.setVisible(true);
 	}
 
 	protected void sendEdibleFoodList() {
 		HashSet<String> edibleFoodList = new HashSet<String>();
-		String s = "Regime alimentaire : ";
-		String l = "";
-
 		for (int i = 0; i < tableModel.getRowCount(); i++) {
-			if (!(getSpecies(i).isEmpty()))
-				edibleFoodList.add(getSpecies(i));
+			if (!(getSpecies(i).isEmpty())) {
+				String species = getSpecies(i);
+				String type = viewModel.getType(species);
+				edibleFoodList.add(type);
+			}
+
 		}
 
-		for (String e : edibleFoodList) {
-			l += e + ", ";
-		}
-
-		s += (l.substring(0, l.lastIndexOf(",")));
-		System.out.println(s);
-
+		firePropertyChange("foodList", null,
+				edibleFoodList.toArray(new String[edibleFoodList.size()]));
 	}
 
 	private void addRow(int idx) {

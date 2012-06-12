@@ -37,6 +37,7 @@ public class RestManagementPane extends JPanel {
 	private ViewModel viewModel;
 	private SpeciesStats speciesStats;
 	private ArrayList<String> speciesList;
+	private ArrayList<String> foodList; // liste des especes comestibles
 	private boolean showSpeciesFlag;
 
 	/** Choix d'actions a effectuer **/
@@ -103,18 +104,19 @@ public class RestManagementPane extends JPanel {
 	private JScrollPane statsScrollPane;
 
 	private Border initBorder;
-	
+
 	/** Constructeur **/
 	public RestManagementPane(ViewModel model) {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		/** Initialisation **/
 		GridBagConstraints c = new GridBagConstraints();
-		
+
 		viewModel = model;
 		showSpeciesFlag = false;
 		speciesList = new ArrayList<String>();
 		speciesStats = new SpeciesStats();
+		foodList = new ArrayList<String>();
 
 		speciesChoice = new JComboBox();
 		fetchSpeciesList();
@@ -189,7 +191,7 @@ public class RestManagementPane extends JPanel {
 		edibleFoodListLabel = new JLabel("Régime alimentaire");
 
 		initBorder = nom.getBorder();
-		
+
 		/** Lien entre les champs & les statistiques **/
 
 		actionsList.addActionListener(new ActionListener() {
@@ -276,18 +278,21 @@ public class RestManagementPane extends JPanel {
 						getSpeciesFromRest();
 						enablePanel(statsPanel, true);
 						setView();
+						setEdibleFoodList();
 
 					} else if (!(spec.isEmpty()) && !(choice.equals(spec))) {
 						/** L'utilisateur veut modifier une autre espece **/
 						getSpeciesFromRest();
 						enablePanel(statsPanel, true);
 						setView();
+						setEdibleFoodList();
 					} else if (speciesChoice.getSelectedIndex() == 0) {
 						/** L'utilisateur n'a selectionne aucune espece **/
 						JOptionPane.showMessageDialog(null,
 								"No species selected !", "Warning",
 								JOptionPane.WARNING_MESSAGE);
-					} else { /** Mise a jour **/
+					} else {
+						/** Mise a jour **/
 						int r_maj = checkData();
 						if (r_maj == 0) {
 							setSpecies();
@@ -311,6 +316,7 @@ public class RestManagementPane extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				edibleFoodList.setVisible(false);
 				edibleFoodListLabel.setVisible(false);
+				edibleFoodButton.setVisible(false);
 
 			}
 		});
@@ -321,7 +327,7 @@ public class RestManagementPane extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				edibleFoodList.setVisible(true);
 				edibleFoodListLabel.setVisible(true);
-				edibleFoodButton.setVisible(false);
+				edibleFoodButton.setVisible(true);
 			}
 		});
 
@@ -566,7 +572,9 @@ public class RestManagementPane extends JPanel {
 			edibleFoodButton.setVisible(false);
 		} else {
 			isCarnivorous.setSelected(true);
-			setEdibleFoodList();
+			edibleFoodList.setVisible(true);
+			edibleFoodListLabel.setVisible(true);
+			edibleFoodButton.setVisible(true);
 		}
 
 		if (speciesStats.getIsUseHiddenDefense())
@@ -579,14 +587,25 @@ public class RestManagementPane extends JPanel {
 	}
 
 	/** Affichage de la liste des especes comestibles **/
-	private void setEdibleFoodList() {
-		String list = "";
-
-		for (String s : speciesStats.getEatableFoodList()) {
-			System.out.println("miam " + s);
-			list += s + ",";
+	private void setEdibleFoodListView() {
+		if (isCarnivorous.isSelected()) {
+			String list = "";
+			for (String s : foodList) {
+				
+				list += s + ",";
+			}
+			edibleFoodList.setText(list.substring(0, list.lastIndexOf(",")));
 		}
-		edibleFoodList.setText(list.substring(0, list.lastIndexOf(",")));
+	}
+
+	/** Recuperation de la liste des especes comestibles depuis le service Rest **/
+	private void setEdibleFoodList() {
+		System.out.println("food list size : " + speciesStats.getEatableFoodList().size());
+		for (String s : speciesStats.getEatableFoodList()) {
+			foodList.add(s);
+			System.out.println("food : " + s);
+		}
+		setEdibleFoodListView();
 	}
 
 	/** Ouverture d'une nouvelle fenetre pour la gestion de la nourriture **/
@@ -594,16 +613,26 @@ public class RestManagementPane extends JPanel {
 		System.out
 				.println("Ouverture d'une fenetre pour la gestion des especes mangees");
 		if (viewModel.getNameList().size() == 0)
-				viewModel.setNameList();
-		FoodManagementDialog dialog = new FoodManagementDialog(speciesList, viewModel, speciesStats.getEatableFoodList());
-		dialog.addPropertyChangeListener(new PropertyChangeListener() {
-			
+			viewModel.setNameList();
+		PropertyChangeListener lst = new PropertyChangeListener() {
+
 			@Override
-			public void propertyChange(PropertyChangeEvent arg0) {
-				// TODO Auto-generated method stub
-				
+			public void propertyChange(PropertyChangeEvent e) {
+				if (e.getPropertyName().equals("foodList")) {
+					String[] fList = (String[]) e.getNewValue();
+					foodList.clear();
+					for (String f : fList) {
+						foodList.add(f);
+					}
+					setEdibleFoodListView();
+				}
 			}
-		});
+		};
+
+		@SuppressWarnings("unused")
+		FoodManagementDialog dialog = new FoodManagementDialog(speciesList,
+				viewModel, foodList, lst);
+
 	}
 
 	private void enablePanel(Container container, boolean enablePanel) {
@@ -660,7 +689,8 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (visionPoint.getText().isEmpty()) {
 				emptyFields += "- portée visuelle \n";
-				visionPoint.setBorder(BorderFactory.createLineBorder(Color.RED));
+				visionPoint
+						.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(visionPoint.getText());
@@ -688,7 +718,8 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (maxLifetime.getText().isEmpty()) {
 				emptyFields += "- durée de vie maximale \n";
-				maxLifetime.setBorder(BorderFactory.createLineBorder(Color.RED));
+				maxLifetime
+						.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(maxLifetime.getText());
@@ -702,13 +733,15 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (minimumWeightToDeath.getText().isEmpty()) {
 				emptyFields += "- poids minimum avant famine \n";
-				minimumWeightToDeath.setBorder(BorderFactory.createLineBorder(Color.RED));
+				minimumWeightToDeath.setBorder(BorderFactory
+						.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(minimumWeightToDeath.getText());
 		} catch (Exception e) {
 			wrongFields += "- poids minimum avant famine \n";
-			minimumWeightToDeath.setBorder(BorderFactory.createLineBorder(Color.RED));
+			minimumWeightToDeath.setBorder(BorderFactory
+					.createLineBorder(Color.RED));
 			ok = false;
 			wrongF = false;
 		}
@@ -716,7 +749,8 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (weightConsumeByDay.getText().isEmpty()) {
 				emptyFields += "- poids minimum de nourriture mangée quotidiennement \n";
-				weightConsumeByDay.setBorder(BorderFactory.createLineBorder(Color.RED));
+				weightConsumeByDay.setBorder(BorderFactory
+						.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(weightConsumeByDay.getText());
@@ -731,7 +765,8 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (maxNbDaySafe.getText().isEmpty()) {
 				emptyFields += "- durée de vie à jeûn \n";
-				maxNbDaySafe.setBorder(BorderFactory.createLineBorder(Color.RED));
+				maxNbDaySafe.setBorder(BorderFactory
+						.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(maxNbDaySafe.getText());
@@ -745,7 +780,8 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (attackPoint.getText().isEmpty()) {
 				emptyFields += "- points d'attaque \n";
-				attackPoint.setBorder(BorderFactory.createLineBorder(Color.RED));
+				attackPoint
+						.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(attackPoint.getText());
@@ -759,7 +795,8 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (defendPoint.getText().isEmpty()) {
 				emptyFields += "- points de défense \n";
-				defendPoint.setBorder(BorderFactory.createLineBorder(Color.RED));
+				defendPoint
+						.setBorder(BorderFactory.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(defendPoint.getText());
@@ -801,7 +838,8 @@ public class RestManagementPane extends JPanel {
 		try {
 			if (birthRateByDay.getText().isEmpty()) {
 				emptyFields += "- taux de reproduction journalier\n";
-				birthRateByDay.setBorder(BorderFactory.createLineBorder(Color.RED));
+				birthRateByDay.setBorder(BorderFactory
+						.createLineBorder(Color.RED));
 				ok = false;
 			} else
 				Double.parseDouble(birthRateByDay.getText());
@@ -872,8 +910,10 @@ public class RestManagementPane extends JPanel {
 
 		if (isHerbivorious.isSelected())
 			speciesStats.setIsHerbivorious(true);
-		else
+		else {
 			speciesStats.setIsHerbivorious(false);
+			speciesStats.setEatableFoodList(foodList);
+		}
 
 		if (defenseHidden.isSelected())
 			speciesStats.setIsUseHiddenDefense(true);
@@ -890,6 +930,7 @@ public class RestManagementPane extends JPanel {
 
 	private void updateSpeciesOnRest() {
 		viewModel.getRestServer().updateSpecies(speciesStats);
+		foodList.clear();
 	}
 
 	private void deleteSpeciesFromRest(String species) {
@@ -903,6 +944,7 @@ public class RestManagementPane extends JPanel {
 		viewModel.getRestServer().createSpecies(speciesStats);
 		fetchSpeciesList();
 		speciesChoice.setSelectedIndex(0);
+		foodList.clear();
 	}
 
 }
