@@ -600,10 +600,8 @@ public class RestManagementPane extends JPanel {
 
 	/** Recuperation de la liste des especes comestibles depuis le service Rest **/
 	private void setEdibleFoodList() {
-		System.out.println("food list size : " + speciesStats.getEatableFoodList().size());
 		for (String s : speciesStats.getEatableFoodList()) {
 			foodList.add(s);
-			System.out.println("food : " + s);
 		}
 		setEdibleFoodListView();
 	}
