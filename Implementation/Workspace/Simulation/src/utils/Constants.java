@@ -5,7 +5,7 @@ public class Constants {
 	/** Parametrage de la simulation **/
 	public static final int PRE_SIM_WDW_WIDTH = 600;
 	public static final int PRE_SIM_WDW_HEIGHT = 400;
-	public static final String[] PREDEFINED_SIZES = {"30x30", "50x50","100x100", "500x500", "500x700", "700x700", "Personnalisé..."}; // choix de tailles de grille
+	public static final String[] PREDEFINED_SIZES = {"100x100", "500x500", "500x700", "700x700", "Personnalise..."}; // choix de tailles de grille
 	public static final int MAX_POP = 500; // population maximale 
 	
 	/** Donnees de la simulation **/

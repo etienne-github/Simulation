@@ -40,7 +40,7 @@ public class Herbivorious extends Animal {
 		detectFood(yard, simModel.getVegetation(), simModel);
 		
 		Integer[] coor = getNearbyFood();
-		if (weight < weightConsumeByDay * maxNbDaySafe) {
+		if (weight < (minimumWeightToDeath + weightConsumeByDay * maxNbDaySafe)) {
 			//System.out.println(this.getType()+" #"+this.hashCode()+" is on ("+getX()+","+getY()+") and is hungry !");
 
 			if((coor[0]!=-1)&&(coor[1]!=-1)){
@@ -108,7 +108,7 @@ public class Herbivorious extends Animal {
 	private Integer[] getNearbyFood() {
 		ArrayList<Int2D> cases = new ArrayList<Int2D>();
 
-		double minDistance=movePoint;
+		double minDistance=MeterToCase(movePoint);
 		
 		double currentDistance;
 		for(PerceptionTableCell[] i:perception){
@@ -143,7 +143,7 @@ public class Herbivorious extends Animal {
 	}
 	
 	private Double moveTo(SparseGrid2D yard, Integer[] coordinates) {
-		Double move = movePoint;
+		Double move = (double) MeterToCase(movePoint);
 		
 		//System.out.println(this.getType()+" #"+this.hashCode()+" trying to move to ("+coordinates[0]+","+coordinates[1]+") and movePoint ("+movePoint+")");
 
@@ -193,8 +193,8 @@ public class Herbivorious extends Animal {
 		}
 		
 		//maximum distance toward random direction 
-		float dX = (float) (Math.cos(randomAngle)*movePoint);
-		float dY = (float) (Math.sin(randomAngle)*movePoint);
+		float dX = (float) (Math.cos(randomAngle)*MeterToCase(movePoint));
+		float dY = (float) (Math.sin(randomAngle)*MeterToCase(movePoint));
 		
 		
 		//System.out.println(this.getType()+" #"+this.hashCode()+"  ("+movePoint+") move randomly toward "+Math.toDegrees(randomAngle)+"+ degrees ("+Math.cos(randomAngle)+","+Math.sin(randomAngle)+") to ("+dX+","+dY+") from itself!");
