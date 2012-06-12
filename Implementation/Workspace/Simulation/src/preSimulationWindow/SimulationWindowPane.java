@@ -71,7 +71,7 @@ public class SimulationWindowPane extends JPanel {
 		tableModel = new SpeciesTableModel();
 		speciesList = new ArrayList<String>();
 		speciesList.add("");
-		for (String species : getAllSpecies()) {
+		for (String species : viewModel.getSpeciesList()) {
 			speciesList.add(species);
 		}
 		speciesChoice = new JComboBox(speciesList.toArray());
@@ -460,10 +460,6 @@ public class SimulationWindowPane extends JPanel {
 		return speciesTable.getValueAt(row, 0).toString();
 	}
 
-	private String[] getAllSpecies() {
-		String str = viewModel.getRestServer().getSpeciesList();
-		return str.substring(1, str.length() - 1).split(", ");
-	}
 
 	private int getPop(int row) {
 		try {

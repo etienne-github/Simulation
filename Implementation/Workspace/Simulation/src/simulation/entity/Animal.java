@@ -12,6 +12,7 @@ public abstract class Animal extends Entity implements Eatable {
 	private static final long serialVersionUID = 1L;
 	
 	private static final double FLEE_MOVE_COEF = 1.5;
+	@SuppressWarnings("unused")
 	private static final Double MAX_ATTACK_AND_DEFEND = 100.0;
 	
 	protected String type;

@@ -13,6 +13,7 @@ public class Carnivorious extends Animal {
 
 	private ArrayList<String> eatableFoodList;
 	private ArrayList<Animal> detectedFoodList;
+	@SuppressWarnings("unused")
 	private Entity randomDestination;
 
 	public Carnivorious(String type, SimulationModel simModel) {

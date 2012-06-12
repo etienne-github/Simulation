@@ -69,6 +69,7 @@ public class SimulationView extends GUIState implements PropertyChangeListener{
 		display.repaint();
 	}
 
+	@SuppressWarnings({ "deprecation", "serial" })
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		if(arg0.getPropertyName().compareTo("grown")==0){
@@ -97,6 +98,7 @@ public class SimulationView extends GUIState implements PropertyChangeListener{
 			scheduleImmediateRepeat(true, new Steppable()
 			{
 			int mySteps=0;;	
+			@SuppressWarnings("static-access")
 			public void step(SimState state)
 			   {
 

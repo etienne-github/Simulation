@@ -271,20 +271,23 @@ public class RestManagementPane extends JPanel {
 					 **/
 					String spec = nom.getText();
 					String choice = (String) speciesChoice.getSelectedItem();
+					/** Choix d'espece **/
 					if (spec.isEmpty() && speciesChoice.getSelectedIndex() > 0) {
 						getSpeciesFromRest();
 						enablePanel(statsPanel, true);
 						setView();
 
 					} else if (!(spec.isEmpty()) && !(choice.equals(spec))) {
+						/** L'utilisateur veut modifier une autre espece **/
 						getSpeciesFromRest();
 						enablePanel(statsPanel, true);
 						setView();
 					} else if (speciesChoice.getSelectedIndex() == 0) {
+						/** L'utilisateur n'a selectionne aucune espece **/
 						JOptionPane.showMessageDialog(null,
 								"No species selected !", "Warning",
 								JOptionPane.WARNING_MESSAGE);
-					} else {
+					} else { /** Mise a jour **/
 						int r_maj = checkData();
 						if (r_maj == 0) {
 							setSpecies();
@@ -318,7 +321,7 @@ public class RestManagementPane extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				edibleFoodList.setVisible(true);
 				edibleFoodListLabel.setVisible(true);
-
+				edibleFoodButton.setVisible(false);
 			}
 		});
 
@@ -512,8 +515,7 @@ public class RestManagementPane extends JPanel {
 	/** Methodes **/
 
 	private void fetchSpeciesList() {
-		String str = viewModel.getRestServer().getSpeciesList();
-		String[] list = str.substring(1, str.length() - 1).split(", ");
+		String[] list = viewModel.getSpeciesList();
 
 		speciesChoice.removeAllItems();
 		speciesChoice.addItem("Espèce");
@@ -559,6 +561,9 @@ public class RestManagementPane extends JPanel {
 
 		if (speciesStats.getIsHerbivorious()) {
 			isHerbivorious.setSelected(true);
+			edibleFoodList.setVisible(false);
+			edibleFoodListLabel.setVisible(false);
+			edibleFoodButton.setVisible(false);
 		} else {
 			isCarnivorous.setSelected(true);
 			setEdibleFoodList();
@@ -588,8 +593,9 @@ public class RestManagementPane extends JPanel {
 	private void foodManagement() {
 		System.out
 				.println("Ouverture d'une fenetre pour la gestion des especes mangees");
-
-		FoodManagementDialog dialog = new FoodManagementDialog(speciesList, viewModel.getRestServer(), speciesStats.getEatableFoodList());
+		if (viewModel.getNameList().size() == 0)
+				viewModel.setNameList();
+		FoodManagementDialog dialog = new FoodManagementDialog(speciesList, viewModel, speciesStats.getEatableFoodList());
 		dialog.addPropertyChangeListener(new PropertyChangeListener() {
 			
 			@Override

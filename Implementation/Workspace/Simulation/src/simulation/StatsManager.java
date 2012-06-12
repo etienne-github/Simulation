@@ -30,6 +30,7 @@ public class StatsManager implements PropertyChangeListener {
 	private TimeSeriesChartGenerator chartDied = new sim.util.media.chart.TimeSeriesChartGenerator();
 	private TimeSeriesChartGenerator chartAte = new sim.util.media.chart.TimeSeriesChartGenerator();
 
+	@SuppressWarnings("deprecation")
 	public StatsManager() {
 		types = new ArrayList<String>();
 		populations = new HashMap<String, Double>();
@@ -164,6 +165,7 @@ public class StatsManager implements PropertyChangeListener {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	public void createFrames(Controller controller) {
 
 		// System.out.println("createFrames called !");
