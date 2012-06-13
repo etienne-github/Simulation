@@ -132,7 +132,7 @@ public class StatsManager implements PropertyChangeListener {
 			float newVal;
 			if (currentPop != 0) {
 				newVal = bornThisStep.get(sp)/* /((float)currentPop) */;
-				System.out.println("new born " + newVal);
+				//System.out.println("new born " + newVal);
 			} else {
 				newVal = 0;
 			}
@@ -145,7 +145,7 @@ public class StatsManager implements PropertyChangeListener {
 			currentSerie = diedThisStepSeries.get(sp);
 			if (currentPop != 0) {
 				newVal = diedThisStep.get(sp)/* /((float)currentPop) */;
-				System.out.println("new died " + newVal);
+				//System.out.println("new died " + newVal);
 			} else {
 				newVal = 0;
 			}
@@ -158,7 +158,7 @@ public class StatsManager implements PropertyChangeListener {
 			currentSerie = weightEatenThisStepSeries.get(sp);
 			if (currentPop != 0) {
 				newVal = (float) (weightEatenThisStep.get(sp) / ((double) currentPop));
-				System.out.println("new ate " + newVal);
+				//System.out.println("new ate " + newVal);
 			} else {
 				newVal = 0;
 			}
@@ -171,7 +171,7 @@ public class StatsManager implements PropertyChangeListener {
 			currentSerie = ageThisStepSeries.get(sp);
 			if (currentPop != 0) {
 				newVal = (float) ((ageThisStep.get(sp) / 4f / 365f) / ((float) currentPop));
-				System.out.println("new age " + newVal);
+				//System.out.println("new age " + newVal);
 			} else {
 				newVal = 0;
 			}
@@ -184,7 +184,7 @@ public class StatsManager implements PropertyChangeListener {
 			currentSerie = weightThisStepSeries.get(sp);
 			if (currentPop != 0) {
 				newVal = (float) (weightThisStep.get(sp) / ((float) currentPop));
-				System.out.println("new weight " + newVal);
+				//System.out.println("new weight " + newVal);
 			} else {
 				newVal = 0;
 			}

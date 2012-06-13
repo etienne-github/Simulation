@@ -16,7 +16,9 @@ import sim.portrayal.simple.RectanglePortrayal2D;
 import sim.util.gui.SimpleColorMap;
 import simulation.SimulationModel;
 import simulation.StatsManager;
+import simulation.entity.Carnivorious;
 import simulation.entity.Grass;
+import simulation.entity.Herbivorious;
 import utils.Constants;
 
 public class SimulationView extends GUIState implements PropertyChangeListener{
@@ -63,7 +65,18 @@ public class SimulationView extends GUIState implements PropertyChangeListener{
 	private void setupPortrayals() {
 		yard.setField(model.getYard());
 		
-
+		RectanglePortrayal2D herbivoriousPortrayal = new RectanglePortrayal2D();
+		herbivoriousPortrayal.paint = Color.BLUE;
+		herbivoriousPortrayal.filled = true;
+		herbivoriousPortrayal.scale = 1;
+		yard.setPortrayalForClass(Herbivorious.class, herbivoriousPortrayal);
+		
+		RectanglePortrayal2D carnivoriousPortrayal = new RectanglePortrayal2D();
+		carnivoriousPortrayal.paint = Color.RED;
+		carnivoriousPortrayal.filled = true;
+		carnivoriousPortrayal.scale = 1;
+		yard.setPortrayalForClass(Carnivorious.class, carnivoriousPortrayal);
+		
 		display.reset();
 		display.setBackdrop(Color.WHITE);
 		display.repaint();
@@ -77,9 +90,6 @@ public class SimulationView extends GUIState implements PropertyChangeListener{
 			Grass[][] grasses = (Grass[][]) arg0.getNewValue();
 			for(int i=0;i<model.getYard().getWidth();i++){
 				for(int j=0;j<model.getYard().getHeight();j++){
-					
-					
-					
 					
 					RectanglePortrayal2D r = new RectanglePortrayal2D();
 					r.paint=colorMap.getColor(model.getVegetationAt(i, j));
@@ -97,23 +107,20 @@ public class SimulationView extends GUIState implements PropertyChangeListener{
 			
 			scheduleImmediateRepeat(true, new Steppable()
 			{
-			int mySteps=0;;	
-			@SuppressWarnings("static-access")
-			public void step(SimState state)
-			   {
-
-				 double x = model.schedule.time(); 
-			   
-			 
-			   
-			   // now add the data
-			   if (x >= state.schedule.EPOCH && x < state.schedule.AFTER_SIMULATION){
-				   mySteps++;
-				   mySteps=(int) (mySteps%model.getStepByDay());
-				   if(mySteps==0){
-					   stats.updateCharts(model.StepToDay(x));
-				   }		       
-			   }
+				int mySteps=0;;	
+				@SuppressWarnings("static-access")
+				public void step(SimState state) {
+	
+					double x = model.schedule.time(); 
+				   
+					// now add the data
+					if (x >= state.schedule.EPOCH && x < state.schedule.AFTER_SIMULATION) {
+						mySteps++;
+						mySteps=(int) (mySteps%model.getStepByDay());
+						if(mySteps==0) {
+							stats.updateCharts(model.StepToDay(x));
+						}		       
+				   }
 			   }
 			});
 			

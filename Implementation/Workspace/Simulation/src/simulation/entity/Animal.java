@@ -4,6 +4,7 @@ import java.beans.PropertyChangeSupport;
 
 import sim.engine.SimState;
 import sim.engine.Stoppable;
+import sim.field.grid.SparseGrid2D;
 import simulation.SimulationModel;
 
 
@@ -157,7 +158,7 @@ public abstract class Animal extends Entity implements Eatable {
 		return valueByDay/stepByDay;
 	}
 	
-public Double CaseToMeters(Double cases){
+	public Double CaseToMeters(Double cases){
 		
 		//1 case = 20 meters
 		//2 cases => 2*20 meters
@@ -194,16 +195,19 @@ public Double CaseToMeters(Double cases){
 		x = simModel.getYard().getObjectLocation(this).x;
 		y = simModel.getYard().getObjectLocation(this).y;
 		
-		isHidden = false;
+		if (weight < (minimumWeightToDeath + weightConsumeByDay * maxNbDaySafe/2)) {
+			isHidden = false;
+		}
 		
 		//System.out.println("myY  :" +getY());
-		
-		action();
+		if (!isHidden) {
+			action();
+		}
 		
 		weight -= ValueByDayToValueByStep(weightConsumeByDay);
 		age += StepToDay(1.0);
 		
-		System.out.println(getType()+" #"+hashCode()+" my Age : "+age+" my Weight :"+weight);
+		//System.out.println(getType()+" #"+hashCode()+" my Age : "+age+" my Weight :"+weight);
 		support.firePropertyChange("age", this.getType(), StepToDay(age)/365f);
 		support.firePropertyChange("weight", this.getType(), weight);
 		
@@ -211,10 +215,7 @@ public Double CaseToMeters(Double cases){
 
 	}
 	
-	
-
 	public abstract void action();
-	
 	
 	public void checkAlive() {
 		if (weight < minimumWeightToDeath || age > maxLifetime) {
@@ -229,6 +230,44 @@ public Double CaseToMeters(Double cases){
 		stoppable.stop();
 	}
 	
+	// Move
+	
+	protected Double moveTo(SparseGrid2D yard, Integer[] coordinates) {
+		Double move = (double) MeterToCase(movePoint);
+		
+	//	System.out.println(this.getType()+" #"+this.hashCode()+" trying to move to ("+coordinates[0]+","+coordinates[1]+") and movePoint ("+movePoint+")");
+		
+		if((coordinates[0]!=-1) && (coordinates[1]!=-1)) {//if valid coordinates
+		
+			while (move > 0 && !isSameLocation(coordinates[0],coordinates[1])) {
+				int dX = getXShortestDirection(coordinates[0]);
+				if (dX > 0){
+					setX(simModel.getYard().stx((int) (this.getX() + 1)));
+					//System.out.println("x+1 -> "+this.getX());
+					
+				} else if (dX < 0){
+					setX(simModel.getYard().stx((int) (this.getX() - 1)));
+					//System.out.println("x-1 -> "+this.getX());
+				}
+
+				int dY = getYShortestDirection(coordinates[1]);
+				if (dY > 0) {
+					setY(simModel.getYard().sty((int)getY() + 1));
+					//System.out.println("y+1 -> "+this.getY());
+					
+				} else if (dY < 0) {
+					setY(simModel.getYard().sty((int)getY() - 1));
+					//System.out.println("y-1 -> "+this.getY());
+				}
+
+				move--;
+			}
+			return (movePoint - move);
+		} else {
+			return movePoint;
+		}
+		
+	}
 	
 	// Eat and Attacked
 	
@@ -248,7 +287,7 @@ public Double CaseToMeters(Double cases){
 		//movePoint in m/day -> m/step -> c/step
 		
 		double destinationX = this.x * (Math.cos(random) * MeterToCase(ValueByDayToValueByStep(movePoint)) * FLEE_MOVE_COEF);
-		double destinationY = this.x * (Math.sin(random) * MeterToCase(ValueByDayToValueByStep(movePoint)) * FLEE_MOVE_COEF);
+		double destinationY = this.y * (Math.sin(random) * MeterToCase(ValueByDayToValueByStep(movePoint)) * FLEE_MOVE_COEF);
 		
 		setX((int) Math.round(destinationX));
 		setY((int) Math.round(destinationY));
@@ -267,7 +306,7 @@ public Double CaseToMeters(Double cases){
 	
 	@Override
 	public void eaten() {
-		System.out.println(this.getType()+" #"+this.hashCode()+" is eaten !");
+		//System.out.println(this.getType()+" #"+this.hashCode()+" is eaten !");
 		die();
 	}
 	

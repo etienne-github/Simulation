@@ -53,7 +53,7 @@ public class AnimalFactory {
 		animal.setSmellPoint(speciesStats.getSmellPoint());
 		animal.setVisionPoint(speciesStats.getVisionPoint());
 		animal.setMovePoint(speciesStats.getMovePoint());
-		System.out.println("MovePoint is "+speciesStats.getMovePoint());
+		//System.out.println("MovePoint is "+speciesStats.getMovePoint());
 		animal.setMaxLifetime(speciesStats.getMaxLifetime());
 		animal.setMinimumWeightToDeath(speciesStats.getMinimumWeightToDeath());
 		animal.setWeightConsumeByDay(speciesStats.getWeightConsumeByDay());
@@ -62,9 +62,12 @@ public class AnimalFactory {
 		animal.setDefendPoint(speciesStats.getDefendPoint());
 		animal.setIsUseHiddenDefense(speciesStats.getIsUseHiddenDefense());
 		animal.setAge(speciesStats.getInitAge());
-		animal.setWeight(speciesStats.getInitWeight());
 		animal.setIsHidden(false);
 		
+		double minWeight = speciesStats.getMinimumWeightToDeath() + (speciesStats.getWeightConsumeByDay() * speciesStats.getMaxNbDaySafe());
+		double maxWeight = speciesStats.getInitWeight();
+		double weight = (Math.random() * (maxWeight - minWeight)) + minWeight; 
+		animal.setWeight(weight);
 		
 		if(speciesStats.getIsHerbivorious()){
 			((Herbivorious)animal).initializePerception();
@@ -93,7 +96,7 @@ public class AnimalFactory {
 						Animal a = this.createAnimal(sP.getStats());
 						a.getSupport().addPropertyChangeListener(myManager);
 						simModel.getYard().setObjectLocation(a, location);
-						myView.getYard().setPortrayalForObject(a, sP.portrayal);						
+						//myView.getYard().setPortrayalForObject(a, sP.portrayal);						
 						a.setStoppable(simModel.schedule.scheduleRepeating(a));
 						a.getSupport().firePropertyChange("was_born", a.getType(), null);
 						System.out.println("ANIMAL FACTORY : "+sP.getStats().getNom()+" #"+sP.hashCode()+" created at position "+location.toString());
@@ -112,7 +115,7 @@ public class AnimalFactory {
 			}
 			if(!alreadyRenewed(sP.getStats().getType())){
 				scheduleRenewOf(sP.getStats());
-				speciesPortrayals.put(sP.getStats().getType(), sP.portrayal);
+				//speciesPortrayals.put(sP.getStats().getType(), sP.portrayal);
 			}
 		}
 		System.out.println("ANIMAL FACTORY : Finished treating a batch.");
@@ -243,8 +246,6 @@ public class AnimalFactory {
 				System.out.println(" adj intP "+intPart+"  buffered "+buffered);
 
 			}
-			
-
 			
 			
 			speciesRenewBuffer.put(s.getType(),buffered);
