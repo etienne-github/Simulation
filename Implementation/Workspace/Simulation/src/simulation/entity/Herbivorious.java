@@ -72,9 +72,6 @@ public class Herbivorious extends Animal {
 		
 		//Parse surrounding to get vegetation
 		
-		
-
-		
 		for(int dx=perceptionCases*-1;dx<perceptionCases;dx++){
 			for(int dy=perceptionCases*-1;dy<perceptionCases;dy++){
 				
@@ -91,9 +88,7 @@ public class Herbivorious extends Animal {
 					y=yard.stx(y);
 				}
 				
-				//System.out.println(this.getType()+" #"+this.hashCode()+" myPosition is ("+getX()+","+getY()+") my perception is "+perceptionPoint+" i'm looking at ("+dx+","+dy+") of me, so at ("+x+","+y+")");
-
-				
+				//System.out.println(this.getType()+" #"+this.hashCode()+" myPosition is ("+getX()+","+getY()+") my perception is "+perceptionPoint+" i'm looking at ("+dx+","+dy+") of me, so at ("+x+","+y+")");		
 				
 				//update perception matrix
 				perception[dx+perceptionCases][dy+perceptionCases].setX(x);
@@ -140,50 +135,7 @@ public class Herbivorious extends Animal {
 			i[1]=d.y;
 			return i;
 		}
-	}
-	
-	private Double moveTo(SparseGrid2D yard, Integer[] coordinates) {
-		Double move = (double) MeterToCase(movePoint);
-		
-		//System.out.println(this.getType()+" #"+this.hashCode()+" trying to move to ("+coordinates[0]+","+coordinates[1]+") and movePoint ("+movePoint+")");
-
-		
-		
-		
-		
-		if((coordinates[0]!=-1)&&(coordinates[1]!=-1)){//if valid coordinates
-		
-			while (move > 0 && !isSameLocation(coordinates[0],coordinates[1])) {
-				int dX = getXShortestDirection(coordinates[0]);
-				if (dX > 0){
-					setX(simModel.getYard().stx((int) (this.getX() + 1)));
-					//System.out.println("x+1 -> "+this.getX());
-					
-				}else if (dX < 0){
-					setX(simModel.getYard().stx((int) (this.getX() - 1)));
-					//System.out.println("x-1 -> "+this.getX());
-				}
-
-				int dY = getYShortestDirection(coordinates[1]);
-				if (dY > 0){
-					setY(simModel.getYard().sty((int)getY() + 1));
-					//System.out.println("y+1 -> "+this.getY());
-					
-				}else if (dY < 0){
-					setY(simModel.getYard().sty((int)getY() - 1));
-					//System.out.println("y-1 -> "+this.getY());
-				}
-
-				move--;
-			}
-			return (movePoint - move);
-		}else{
-			return movePoint;
-		}
-		
-
-	}
-	
+	}	
 	
 	private Double moveRandom(SparseGrid2D yard) {
 		float randomSign = (float) (Math.random()*2);

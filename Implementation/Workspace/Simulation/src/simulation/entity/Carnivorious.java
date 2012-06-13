@@ -30,20 +30,20 @@ public class Carnivorious extends Animal {
 		Animal nearbyFood = (Animal) getNearbyFood();
 		if (weight < (minimumWeightToDeath + weightConsumeByDay * maxNbDaySafe)) {
 			// Hungry
-			//System.out.println(this.getType()+" #"+this.hashCode()+" is hungry");
+			System.out.println(this.getType()+" #"+this.hashCode()+" is hungry");
 			if (nearbyFood != null && isSameLocation(nearbyFood)) {
 				// Eat nearby food
 				attack(nearbyFood);
-				//System.out.println(this.getType()+" #"+this.hashCode()+" and is on food");
+				System.out.println(this.getType()+" #"+this.hashCode()+" and is on food");
 			} else if (nearbyFood != null) {
 				// Move to food
-				//System.out.println(this.getType()+" #"+this.hashCode()+" and sees food");
+				System.out.println(this.getType()+" #"+this.hashCode()+" and sees food");
 				Integer[] coor = new Integer[2];
 				coor[0]=(int) nearbyFood.getX();
 				coor[1]=(int) nearbyFood.getY();
 				
 				//if close move and attack
-				if(getShortestDistanceToPoint(coor[0], coor[1])<(MeterToCase(movePoint*0.0005))){
+				if(getShortestDistanceToPoint(coor[0], coor[1])<(MeterToCase(movePoint*0.01))){
 					System.out.println(this.getType()+" #"+this.hashCode()+" food is close enough ("+MeterToCase(movePoint*0.0005)+") to attack");
 					moveTo(yard, coor);
 					attack(nearbyFood);
@@ -53,13 +53,11 @@ public class Carnivorious extends Animal {
 				}
 				
 			} else {
-			//	System.out.println("myY  :" +getY());
-				//System.out.println(this.getType()+" #"+this.hashCode()+" and doesn't see food");
+				System.out.println(this.getType()+" #"+this.hashCode()+" and doesn't see food");
 				moveRandom(yard);
 			}
 		} else {
 			// Not Hungry
-			//System.out.println("myY  :" +getY());
 			//System.out.println(this.getType()+" #"+this.hashCode()+" is not hungry");
 			moveRandom(yard);
 		}
@@ -119,48 +117,6 @@ public class Carnivorious extends Animal {
 
 	// Move
 
-	private Double moveTo(SparseGrid2D yard, Integer[] coordinates) {
-		Double move = (double) MeterToCase(movePoint);
-		
-	//	System.out.println(this.getType()+" #"+this.hashCode()+" trying to move to ("+coordinates[0]+","+coordinates[1]+") and movePoint ("+movePoint+")");
-
-		
-		
-		
-		
-		if((coordinates[0]!=-1)&&(coordinates[1]!=-1)){//if valid coordinates
-		
-			while (move > 0 && !isSameLocation(coordinates[0],coordinates[1])) {
-				int dX = getXShortestDirection(coordinates[0]);
-				if (dX > 0){
-					setX(simModel.getYard().stx((int) (this.getX() + 1)));
-					//System.out.println("x+1 -> "+this.getX());
-					
-				}else if (dX < 0){
-					setX(simModel.getYard().stx((int) (this.getX() - 1)));
-					//System.out.println("x-1 -> "+this.getX());
-				}
-
-				int dY = getYShortestDirection(coordinates[1]);
-				if (dY > 0){
-					setY(simModel.getYard().sty((int)getY() + 1));
-					//System.out.println("y+1 -> "+this.getY());
-					
-				}else if (dY < 0){
-					setY(simModel.getYard().sty((int)getY() - 1));
-					//System.out.println("y-1 -> "+this.getY());
-				}
-
-				move--;
-			}
-			return (movePoint - move);
-		}else{
-			return movePoint;
-		}
-		
-
-	}
-
 	private Double moveRandom(SparseGrid2D yard) {
 		//System.out.println(this.getType()+" #"+this.hashCode()+" moves randomly");
 		Integer[] randomDestination = new Integer[2];
@@ -176,15 +132,15 @@ public class Carnivorious extends Animal {
 	
 	private void attack(Animal food) {
 		System.out.println(this.getType()+" #"+this.hashCode()+" attacks "+food.getType()+" #"+food.hashCode());
-		Double attack = (double)35/*this.attackPoint - food.defendPoint*/;
-		Double randomAttack = Math.random() * 100;
+		Double attack = (double)60/*this.attackPoint - food.defendPoint*/;
+		Double randomAttack = simModel.random.nextDouble() * 100;
 		
-		if ( randomAttack > attack ) {
+		if ( randomAttack < attack ) {
 			eat(food);
 		} else {
-			attacked();
+			food.attacked();
 		}
-		//eat(food);
+
 	}
 
 	private void eat(Animal food) {

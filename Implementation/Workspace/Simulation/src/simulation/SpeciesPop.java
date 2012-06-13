@@ -3,14 +3,13 @@ package simulation;
 import java.awt.Color;
 
 import server.SpeciesStats;
-import sim.portrayal.simple.OvalPortrayal2D;
 
 public class SpeciesPop {
 
 	SpeciesStats stats;
 	int population;
-	OvalPortrayal2D portrayal;
-	Color myColor;
+	//OvalPortrayal2D portrayal;
+	//Color myColor;
 
 	public SpeciesPop(SpeciesStats s, int p) {
 		stats = s;
@@ -18,10 +17,10 @@ public class SpeciesPop {
 
 		// Color c = new Color(ToolsMath.getRandom(60,
 		// 255),ToolsMath.getRandom(60, 255),ToolsMath.getRandom(60, 255));
-		this.portrayal = new OvalPortrayal2D();
-		myColor = this.getNextRandomColor();
-		portrayal.paint = myColor;
-		portrayal.filled = true;
+		//this.portrayal = new OvalPortrayal2D();
+		//myColor = this.getNextRandomColor();
+		//portrayal.paint = myColor;
+		//portrayal.filled = true;
 		// portrayal.scale=0.5;
 
 	}
