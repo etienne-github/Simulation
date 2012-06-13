@@ -34,8 +34,8 @@ public class RestFacilities {
 	public RestFacilities()
 	{
 		client = new DefaultHttpClient();
-		//HttpHost proxy = new HttpHost("proxyweb.utc.fr", 3128);
-		//client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+		HttpHost proxy = new HttpHost("proxyweb.utc.fr", 3128);
+		client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 	}
 
 	public String getSpeciesDescription(String species) {

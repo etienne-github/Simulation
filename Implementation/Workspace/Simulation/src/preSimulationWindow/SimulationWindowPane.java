@@ -65,9 +65,9 @@ public class SimulationWindowPane extends JPanel {
 		viewModel = model;
 		flag = false;
 
-		addIcon = new ImageIcon("img/add.png");
-		removeIcon = new ImageIcon("img/remove.png");
-		infoIcon = new ImageIcon("img/info.png");
+		addIcon = new ImageIcon(getClass().getResource("/add.png"));
+		removeIcon = new ImageIcon(getClass().getResource("/remove.png"));
+		infoIcon = new ImageIcon(getClass().getResource("/info.png"));
 		tableModel = new SpeciesTableModel();
 		speciesList = new ArrayList<String>();
 		speciesList.add("");
