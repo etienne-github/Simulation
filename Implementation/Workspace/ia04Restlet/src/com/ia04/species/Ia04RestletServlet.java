@@ -1,6 +1,7 @@
 package com.ia04.species;
 
 import java.io.IOException;
+import javax.servlet.http.*;
 
 @SuppressWarnings("serial")
 public class Ia04RestletServlet extends HttpServlet {
