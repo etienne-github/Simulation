@@ -330,10 +330,8 @@ public class SimulationWindowPane extends JPanel {
 		properties.setGridHeight(Integer.valueOf(gridHeight.getText()));
 		viewModel.sendToModel(speciesList, properties);
 
-		/** Detruire la fenetre **/
+		/** Envoi de signal pour detruire la fenetre **/
 		firePropertyChange("launchSimulation", false, true);
-		// TODO faire en sorte que la fenetre se ferme : fire event
-		// dispose();
 	}
 
 	private Map<String, Integer> checkData() {
@@ -347,6 +345,7 @@ public class SimulationWindowPane extends JPanel {
 		ArrayList<String> speciesBadPop = new ArrayList<String>();
 
 		for (int row = 0; row < tableModel.getRowCount(); row++) {
+
 			String species = getSpecies(row);
 			int pop = getPop(row);
 			if (!species.isEmpty()) { /** Si on a deja des especes dans la simulation **/
@@ -464,7 +463,8 @@ public class SimulationWindowPane extends JPanel {
 	private int getPop(int row) {
 		try {
 			speciesTable.editingStopped(null);
-			int pop = Integer.parseInt((String) speciesTable.getValueAt(row, 1));
+			String value = speciesTable.getValueAt(row, 1).toString();
+			int pop = Integer.parseInt(value);
 			if (pop <= 0)
 				throw new Exception();
 			else
@@ -512,5 +512,16 @@ public class SimulationWindowPane extends JPanel {
 			}
 		}
 
+	}
+	
+	public void updateSpecies() {
+		speciesList.clear();
+		speciesList.add("");
+		for (String species : viewModel.getSpeciesList()) {
+			speciesList.add(species);
+		}
+		speciesChoice = new JComboBox(speciesList.toArray());
+		speciesTable.getColumnModel().getColumn(0)
+		.setCellEditor(new DefaultCellEditor(speciesChoice));
 	}
 }
